@@ -1,7 +1,7 @@
-,matchid,date
-0,Matches/MatchScorecard_ODI.asp?MatchCode=4408,2020-09-02
-1,Matches/MatchScorecard_ODI.asp?MatchCode=4405,2020-07-02
-2,Matches/MatchScorecard_ODI.asp?MatchCode=4401,2020-04-02
-3,Matches/MatchScorecard_T20.asp?MatchCode=1054,2019-10-11
-4,Matches/MatchScorecard_T20.asp?MatchCode=1051,2019-08-11
-5,Matches/MatchScorecard_T20.asp?MatchCode=1043,2019-05-11
+matchid,date
+Matches/MatchScorecard_ODI.asp?MatchCode=4408,2020-09-02
+Matches/MatchScorecard_ODI.asp?MatchCode=4405,2020-07-02
+Matches/MatchScorecard_ODI.asp?MatchCode=4401,2020-04-02
+Matches/MatchScorecard_T20.asp?MatchCode=1054,2019-10-11
+Matches/MatchScorecard_T20.asp?MatchCode=1051,2019-08-11
+Matches/MatchScorecard_T20.asp?MatchCode=1043,2019-05-11
