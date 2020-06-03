@@ -1,14 +1,1 @@
-match_id,score,how dismissed,strike rate,4s,6s
-Matches/MatchScorecard_ODI.asp?MatchCode=4394,21,cStirlingbMcBrine,62.07,1,1
-Matches/MatchScorecard_ODI.asp?MatchCode=4388,-,dnb,-,-,-
-Matches/MatchScorecard_ODI.asp?MatchCode=4387,24,cKohlibJadeja,116.67,3,0
-Matches/MatchScorecard_T20.asp?MatchCode=1067,6,csubbChahar,50.00,0,0
-Matches/MatchScorecard_T20.asp?MatchCode=1060,1,notout,50.00,0,0
-Matches/MatchScorecard_T20.asp?MatchCode=1072,-,dnb,-,-,-
-Matches/MatchScorecard_T20.asp?MatchCode=1071,0,notout,0.00,0,0
-Matches/MatchScorecard_T20.asp?MatchCode=1065,-,dnb,-,-,-
-Matches/MatchScorecard_T20.asp?MatchCode=1063,-,dnb,-,-,-
-Matches/MatchScorecard_T20.asp?MatchCode=0728,-,dnb,-,-,-
-Matches/MatchScorecard_T20.asp?MatchCode=0874,-,dnb,-,-,-
-Matches/MatchScorecard_T20.asp?MatchCode=0727,1,c&amp;bBumrah,25.00,0,0
-Matches/MatchScorecard_T20.asp?MatchCode=0725,11,notout,180.00,2,0
+match_id,score,how dismissed,strike rate,4s,6s,batting position
