@@ -20,6 +20,14 @@ h1 {
   text-align: center;
 }
 
+.line2 {  
+  margin-top: 4em;
+  margin-left: 2em;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  text-align: center;
+}
+
 p {
   color: white;
 }
@@ -27,4 +35,14 @@ p {
 figcaption {
     color: white;
     text-align: center;
+}
+
+.button {
+    position: absolute;
+    top: 600px;
+    left: 47.5%;
+    border-radius: 4px;
+    font-family: Arial;
+    line-height:30px;
+    font-size: 1em;
 }
