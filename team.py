@@ -1,6 +1,6 @@
-%cd /content
 import pandas as pd
 from tqdm import tqdm
+import numpy as np
 import os
 from sklearn.linear_model import LinearRegression
 def predict_score(player, position, date): # position: batsman, all-rounder, wk, bowler
@@ -123,9 +123,9 @@ def predict_score(player, position, date): # position: batsman, all-rounder, wk,
   return y[-1]
 def returnteam(position,files,f,counting):
   team={}
-  print(position,f.split("%")[2][:-4])
+  #print(position,f.split("%")[2][:-4])
   for i in files.name:
-    print(i)
+    #print(i)
     if i.split('-')[0] not in team:
       team[i.split('-')[0]]=None
     team[i.split('-')[0]]=predict_score(i.split('-')[0],position,f.split("%")[2][:-4])
@@ -157,16 +157,16 @@ def team(match):
     filewk=files[files['role']==i]
     if i =='wk':
       wkteam=returnteam(i,filewk,f,count[i])
-      print(wkteam)
+      #print(wkteam)
     elif i =='bat':
       batteam=returnteam(i,filewk,f,count[i])
-      print(batteam)
+      #print(batteam)
     elif i =='all':
       allteam=returnteam(i,filewk,f,count[i])
-      print(allteam)
+      #print(allteam)
     elif i =='ball':
       ballteam=returnteam(i,filewk,f,count[i])
-      print(ballteam)
+      #print(ballteam)
   count1=0
   count2=0
   for i in wkteam:
@@ -181,7 +181,7 @@ def team(match):
     #print(count1)
   elif team2 in wk:
     count2+=1
-    print(count2)  
+    #print(count2)  
   player.append(wk)
   for i in allteam:
     maxs=allteam[i]
@@ -195,7 +195,7 @@ def team(match):
     #print(count1)
   elif team2 in wk:
     count2+=1
-    print(count2)
+    #print(count2)
   elif 'Nathan' in wk:
     if team1=='Australia':
       count1+=1
@@ -301,11 +301,16 @@ def team(match):
           count2+=1
           count+=1
   return player,count1,count2
-print(team('England vs Australia SemiFinal'))
-print(team('England vs Australia'))
-print(team('Bangladesh vs India'))
-print(team('England vs India'))
-print(team('Australia vs India'))
-print(team('India vs New Zealand'))
-
+a=team('England vs Australia SemiFinal')
+b=team('England vs Australia')
+c=team('Bangladesh vs India')
+d=team('England vs India')
+e=team('Australia vs India')
+f=team('India vs New Zealand')
+print(a)
+print(b)
+print(c)
+print(d)
+print(e)
+print(f)
 
