@@ -138,7 +138,7 @@ def team(match):
   team2=match.split('vs')[1].strip().split('Semi')[0].strip()
   player=[]
   f=""
-  for i in tqdm(os.listdir('/content/cricket/6 Matches (Final)')):
+  for i in tqdm(os.listdir('cricket/6 Matches (Final)')):
     #print(i)
     if 'England vs Australia' in match:
       if 'Semi' not in match:
