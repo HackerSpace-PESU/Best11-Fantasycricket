@@ -16,20 +16,31 @@ def home():
 def result():
     Id = session["match"]
     Team = teams(Id)
+    Captain=Team[1]
+    VCaptain=Team[2]
     Team = Team[0]
+
+    print(Team)
     
     players = []
-    for i in range(11):
-        if Team[i] == "Nathan Coulter":
-            players.append("Nathan Coulter Nile")
-        elif "Eoin Morgan" in Team[i]:
-            players.append("Eoin Morgan")
-        elif "Jason Roy" in Team[i]:
-            players.append("Jason Roy")
-        elif "Liam Plunkett" in Team[i]:
-            players.append("Liam Plunkett")
+
+    for i in Team:
+        if i==Captain:
+            x="(C)"
+        elif i==VCaptain:
+            x="(VC)"
         else:
-            players.append(Team[i][:Team[i].find('\xa0')])
+            x=""    
+        if i == "Nathan Coulter":
+            players.append("Nathan Coulter Nile"+x)
+        elif "Eoin Morgan" in i:
+            players.append("Eoin Morgan"+x)
+        elif "Jason Roy" in i:
+            players.append("Jason Roy"+x)
+        elif "Liam Plunkett" in i:
+            players.append("Liam Plunkett"+x)
+        else:
+            players.append(i[:i.find('\xa0')]+x)
     
     return render_template("result.html", t1=players[0], t2=players[1], t3=players[2]
                            , t4=players[3], t5=players[4], t6=players[5], t7=players[6]

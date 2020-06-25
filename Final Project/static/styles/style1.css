@@ -1,0 +1,48 @@
+body {
+ background-image: url("../images/result4.jpg");
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    font-size: 3em;
+    margin-top: 2.5em;
+}
+
+.line1 {  
+  margin-top: 4em;
+  margin-left: 2em;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  grid-gap: 10px;
+  grid-row-gap: 40px;
+  padding: 10px;
+  text-align: center;
+}
+
+.line2 {  
+  margin-top: 4em;
+  margin-left: 2em;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  text-align: center;
+}
+
+p {
+  color: white;
+}
+
+figcaption {
+    color: white;
+    text-align: center;
+}
+
+.button {
+    position: absolute;
+    top: 600px;
+    left: 47.5%;
+    border-radius: 4px;
+    font-family: Arial;
+    line-height:30px;
+    font-size: 1em;
+}

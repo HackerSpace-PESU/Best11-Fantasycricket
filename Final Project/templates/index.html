@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+        <link rel="icon" href="../static/images/icon.jpg">
+        <title>Home Page</title>
+    </head>
+    <body>
+        <h1>Best Playing 11 Recommendation System</h1>
+        <h2>Enter match to get best playing 11</h2>
+        
+        <form action="/" method="POST">
+            <div class="custom-select">    
+                <select name="match" >
+                    <option value="e">Australia vs India</option>
+                    <option value="d">England vs India</option>
+                    <option value="f">India vs New Zealand</option>
+                    <option value="b">England vs Australia</option>
+                    <option value="c">Bangladesh vs India</option>
+                    <option value="a">England vs Australia (Semi-Final)</option>
+                </select>
+            </div>
+            
+            <div class="button"><p><input type="submit" value="Recommend Team"/></p></div>            
+        </form>
+    </body>
+</html>
