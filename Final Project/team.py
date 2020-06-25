@@ -2,9 +2,10 @@ import pandas as pd
 from tqdm import tqdm
 import numpy as np
 import os
+from collections import Counter
 from sklearn.linear_model import LinearRegression
 
-def teams(Id):
+def teams(Id,value=5):
     def predict_score(player, position, date): # position: batsman, all-rounder, wk, bowler
     #date format yyyy-mm-dd
     # When assigning position, make sure the file exists in github repo
@@ -109,14 +110,14 @@ def teams(Id):
     
     
       regr = LinearRegression(fit_intercept=True)
-      y_train = np.array(y[len(y)-5:]).reshape(-1,1)
+      y_train = np.array(y[len(y)-value:]).reshape(-1,1)
      #rint(y_train)
-      X_train = np.array(range(5)).reshape(-1,1)
+      X_train = np.array(range(value)).reshape(-1,1)
       try:
         regr.fit(X_train, y_train)           
       except:
         return -1
-      pred = regr.predict(np.array(5).reshape(1,-1))
+      pred = regr.predict(np.array(value).reshape(1,-1))
       if pred[0][0] < 0:
         y.append(5)
       else:  
@@ -138,15 +139,15 @@ def teams(Id):
     def team(match):
       team1=match.split('vs')[0].strip()
       team2=match.split('vs')[1].strip().split('Semi')[0].strip()
-      player=[]
+      player={}
       f=""
       for i in tqdm(os.listdir('cricket/6 Matches (Final)')):
         #print(i)
         if 'England vs Australia' in match:
           if 'Semi' not in match:
-            f='England vs Australia%Matches@MatchScorecard_ODI.asp_MatchCode=4336%2019-06-25.csv'
+            f="England vs Australia%Matches@MatchScorecard_ODI.asp?MatchCode=4336%2019-06-25.csv"
           else:
-            f='England vs Australia Semi%Matches@MatchScorecard_ODI.asp_MatchCode=4354%2019-07-11.csv'
+            f='England vs Australia Semi%Matches@MatchScorecard_ODI.asp?MatchCode=4354%2019-07-11.csv'
         elif match in i.split("%")[0]:
             #print(i)
             f=i
@@ -178,13 +179,16 @@ def teams(Id):
       for i in wkteam:
         if wkteam[i]>maxs:
           wk=i
+          maxs=wkteam[i]
       if team1 in wk:
         count1+=1
         #print(count1)
       elif team2 in wk:
         count2+=1
-        #print(count2)  
-      player.append(wk)
+        #print(count2)
+      if wk not in player:  
+        print("a")
+        player[wk]=maxs
       for i in allteam:
         maxs=allteam[i]
         wk=i
@@ -192,6 +196,7 @@ def teams(Id):
       for i in allteam:
         if allteam[i]>maxs:
           wk=i
+          maxs=allteam[i]
       if team1 in wk:
         count1+=1
         #print(count1)
@@ -205,16 +210,30 @@ def teams(Id):
         elif team2=='Australia':
           count2+=1
           #print(count2)
-      player.append(wk)
-      max2=[]
-      bat=[]
+      if wk not in player:  
+        print("a")
+        player[wk]=maxs
+      k = Counter(batteam) 
+      high = k.most_common(3)
+      print(len(high))
+      for i in high:
+        if i[0] not in player:
+          print("a")
+        if team1 in i[0]:
+          count1+=1
+        #print(count1)
+        elif team2 in i[0]:
+          count2+=1  
+        player[i[0]]=i[1]  
+      """
+      bat={}
       for i in batteam:
-        max2.append(batteam[i])
-        bat.append(i)
-        if len(max2)>2:
+        bat[i]=batteam[i]
+        if len(bat)>2:
           break
       for i in batteam:
-        if batteam[i]>=max2[0]:
+        for j in bat:
+          if batteam[i]>=max2[0]:
           max2[0]=batteam[i]
           bat[0]=i
         elif batteam[i]>=max2[1]:
@@ -256,26 +275,39 @@ def teams(Id):
           count2+= 1
           #print(count2)
         player.append(i)
-      
+      """
+      k = Counter(ballteam) 
+      high = k.most_common(3)
+      print(len(high))
+      for i in high:
+        print("a")
+        if team1 in i[0]:
+          count1+=1
+        #print(count1)
+        elif team2 in i[0]:
+          count2+=1  
+        player[i[0]]=i[1]    
       count=0
-    
+      rm=[]
       while(count<3):  
+        print(count,count1,count2)
         restteam={}
         for i in wkteam:
-          if i not in player:
+          if i not in player and i not in rm:
             restteam[i]=wkteam[i]
         for i in allteam:
-          if i not in player:
+          if i not in player and i not in rm:
             restteam[i]=allteam[i]
         for i in ballteam:
-          if i not in player:
+          if i not in player and i not in rm:
             restteam[i]=ballteam[i]
         for i in batteam:
-          if i not in player:
+          if i not in player and i not in rm:
             restteam[i]=batteam[i]
         lists=[float(restteam[i]) for i in restteam]
         #print(lists)
-    
+        if value==5:
+          print(player)
         maximum=max(lists)
         for i in restteam:
           if restteam[i]>=maximum:
@@ -283,26 +315,49 @@ def teams(Id):
             maximum=restteam[i]
         if team1 in new:
           if count1<7:
-            player.append(new)
+            player[new]=maximum
             count+=1
             count1+=1
+          else:
+            rm.append(new)  
         if team2 in new:
-            if count2<7:
-              player.append(new)
-              count+=1
-              count2+=1
+          if count2<7:
+            player[new]=maximum
+            count+=1
+            count2+=1
+          else:
+            rm.append(new)
         elif 'Nathan' in new:
           if team1=='Australia':
             if count1<7:
-              player.append(new)
+              player[new]=maximum
               count+=1
               count1+=1
+            else:
+              rm.append(new)
           elif team2=='Australia':
             if count2<7:
-              player.append(new)
+              player[new]=maximum
               count2+=1
               count+=1
-      return player,count1,count2
+            else:
+              rm.append(new)
+      
+      k = Counter(player) 
+  
+# Finding 3 highest values 
+      high = k.most_common(2)
+      for i in high:
+        max2=i[1]
+        captain=i[0]
+        break
+      for i in high:
+        if max2<=i[1]:
+          captain=i[0]
+          max2=i[1]
+        else:
+          vcaptain=i[0]
+      return player,captain,vcaptain,wkteam,allteam,ballteam,batteam
   
     if Id == 'a':
         a=team('England vs Australia SemiFinal')
@@ -314,7 +369,7 @@ def teams(Id):
         a=team('England vs India')
     elif Id == 'e': 
         a=team('Australia vs India')
-    else:
+    elif Id=='f':
         a=team('India vs New Zealand')
     
     '''print(a)
@@ -325,3 +380,16 @@ def teams(Id):
     print(f)'''
     
     return a
+def filename(ID):
+  if ID=='a':
+    return "England vs Australia Semi%Matches@MatchScorecard_ODI.asp?MatchCode=4354%2019-07-11.csv"
+  elif ID=='b':
+    return "England vs Australia%Matches@MatchScorecard_ODI.asp?MatchCode=4336%2019-06-25.csv"
+  elif ID=='c':
+    return "Bangladesh vs India%Matches@MatchScorecard_ODI.asp?MatchCode=4345%2019-07-02.csv"
+  elif ID=='d':
+    return "England vs India%Matches@MatchScorecard_ODI.asp?MatchCode=4342%2019-06-30.csv"
+  elif ID=='e':
+    return "Australia vs India%Matches@MatchScorecard_ODI.asp?MatchCode=4316%2019-06-09.csv"
+  elif ID=='f':
+    return "India vs New Zealand%Matches@MatchScorecard_ODI.asp?MatchCode=4353%2019-07-09.csv"
