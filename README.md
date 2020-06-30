@@ -19,4 +19,4 @@ To run our project follow these steps
 4.to check how our model worked in our test data run : python3 cricket/'Final project'/check.py 
 
 
-Thnak You
+Thank you
