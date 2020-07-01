@@ -8,7 +8,9 @@ To run our project follow these steps
 
 
 1.Clone our repo into ur system using git clone
+          
           1.1 Rename cloned directory to cricket
+
 2. Change your directory to where u have stored cricket
 
 NOTE:- do not change ur directory to cricket but where u have stored cricket 
