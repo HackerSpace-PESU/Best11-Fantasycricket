@@ -1,4 +1,4 @@
-# cricket
+# Best11-Fantasycricket
 
 project made by: Royston(lucasace),Shreyas (SRP457), Sammith(SammithSB)
 
