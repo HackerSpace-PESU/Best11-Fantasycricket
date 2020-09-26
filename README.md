@@ -39,6 +39,7 @@ To run our project follow these steps
 python3 cricket/'Final Project'/Flask.py
 
 ```
+5. Open http://127.0.0.1:5000/  and voila!! 
 
 ## How do you verify your model??
 
