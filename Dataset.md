@@ -8,7 +8,7 @@ Lets start with all the folders and all their uses in the project
 		 two columns having the match ids and the corresponding date at which the match was played
 		 Now you might be confused as to what the match ids indicate and how do we get to know what match is being spoken about here , visit.Lets take a example
 		 </br><br>
-		 ```bash
+		 ```
 		 Matches/MatchScorecard_ODI.asp?MatchCode=4114 
 		 ```
 		</br></br>
