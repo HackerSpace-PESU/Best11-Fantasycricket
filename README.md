@@ -17,7 +17,7 @@ pip3 install sklearn
 
 To run our project follow these steps
 
-1. Clone our repo into ur system using 
+1. Clone our repo into your system using 
  ```bash
   git clone https://github.com/lucasace/Best11-Fantasycricket.git
   ```
@@ -31,7 +31,7 @@ To run our project follow these steps
 2. Rename cloned directory to cricket
 
 3. Change your directory to where u have stored cricket
- * Note :do not change ur directory to cricket but where u have stored cricket 
+ * Note :do not change your directory to cricket but where you have stored cricket 
           for example if you cloned it to the downloads folder then change directory to downloads and not downloads/cricket
           
 4. Run the files : 
@@ -45,7 +45,7 @@ python3 cricket/'Final Project'/Flask.py
 We use six matches from the World Cup 2019 for our verification as of now,namely
 
 * England vs Australia League Stage
-* England vs AUstralia SemiFinal
+* England vs Australia SemiFinal
 * India vs New Zealand SemiFinal
 * India vs Australia
 * India vs Bangladesh QuarterFinal
@@ -75,11 +75,13 @@ We have created two issues for you in the Issues section namely Web Scraping and
 To contribute to this project, first fork the repo then , You can complete the problems presented in each issue and set up a Pull Request, If we think it helps the project or if you have fulfilled the requirements , we will merge it and CONGRATULATIONS, you are a contributor</br></br>
 Note: You dont need to complete all the points in the issues to become a contributor , if you complete any one point in any issue you can set up a pull request, except for the web scraping points 1 and 2 which has to be submitted together
 </br></br>
-If you have any suggestions for our project , do raise a issue and we will look into it and if we think it helps our project we will keep it open until its implemented by us or by anyone else    
+If you have any suggestions for our project , do raise a issue and we will look into it and if we think it helps our project we will keep it open until its implemented by us or by anyone else 
+</br></br>
+If you have any questions regarding our project , you can contact any of the maintainers(info on respective profile pages) or raise a issue and we'll answer you as soon as possible.  
 
 ## Thank You 
 
-We would like to thank [Howstat](howstat.com) for their amazing website with daily updates and availabilty to scrape 
+We would like to thank [Howstat](http://www.howstat.com/cricket/home.asp) for their amazing website with daily updates and availabilty to scrape 
 
 If you liked our project we would really appreciate you starring this repo.
 
