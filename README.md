@@ -39,6 +39,7 @@ To run our project follow these steps
 python3 cricket/'Final Project'/Flask.py
 
 ```
+5. Open http://127.0.0.1:5000/  and voila!! 
 
 ## How do you verify your model??
 
@@ -67,7 +68,7 @@ python3 cricket/'Final project'/check.py
 
 Confused by the dataset, Dont Worry I would be too if I were you, dont worry I'll walk you through it in detail
 
-Click on this link to understand the dataset, the scoring system and any other doubts u might have
+Click on this [link](https://github.com/lucasace/Best11-Fantasycricket/blob/master/Dataset.md) to understand the dataset, the scoring system and any other doubts u might have
 
 ## How do I contribute to this project????
 
