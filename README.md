@@ -77,6 +77,8 @@ Note: You dont need to complete all the points in the issues to become a contrib
 </br></br>
 If you have any suggestions for our project , do raise a issue and we will look into it and if we think it helps our project we will keep it open until its implemented by us or by anyone else    
 
+## Thank You 
+
 We would like to thank [Howstat](howstat.com) for their amazing website with daily updates and availabilty to scrape 
 
 If you liked our project we would really appreciate you starring this repo.
