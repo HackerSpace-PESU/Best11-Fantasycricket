@@ -32,10 +32,10 @@ As the name suggests, it contains the records of the bowlers. There are 6 column
 ## wk 
 Again as the name suggests contains wicket keeper records, There are 2 columns, match id and score , here again its the dream 11 score which will be covered later
 </br></br>
-##6 Matches (Final) - 
+## 6 Matches (Final) - 
 This contains data required for testing our model, There are 6 csv files in this and each csv file is named as follows 
 </br></br>
-**<Name of the match>%Matches@MatchScorecard_ODI.asp?MatchCode=< match code>%< date of match played in yyyy-mm-dd format >.csv**
+**< Name of the match >%Matches@MatchScorecard_ODI.asp?MatchCode=< match code>%< date of match played in yyyy-mm-dd format >.csv**
 A example would be </br></br>
 **Australia vs India%Matches@MatchScorecard_ODI.asp?MatchCode=4316%2019-06-09.csv**
 
