@@ -132,4 +132,11 @@ Points  =  1 x 25 + 0 x 4 + (-2)
 
 ## Wicket Keeping
 
+| Type | Points Assigned |
+| ---- | --------------- |
+| Catch | 8 points    |
+| Stumping   | 12 points     |
 
+</br></br>
+
+Thats the scoring table, simple isn't it!!
