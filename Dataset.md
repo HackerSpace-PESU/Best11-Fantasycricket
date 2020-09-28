@@ -57,4 +57,20 @@ This csv file is used for testing of our model</br></br>The columns in these are
 ## Winning_Points.csv
 Contains the winning score for respective matches
 
-That pretty much is our dataset , Hope you like it , if you have any suggestions to improve it do put up a issue or contact the maintainers. It will be much appreciated. As for the scoring table click on this link to understand
+That pretty much is our dataset , Hope you like it , if you have any suggestions to improve it do put up a issue or contact the maintainers. It will be much appreciated. 
+
+
+# Scoring Table
+
+Now for the scoring table
+Lets start with batting
+
+## Batting
+
+Batting is quite simple, The points distribution is as follows
+
+| Type | Points Assigned |
+| ---- | --------------- |
+| Runs scored | 1 point    |
+| 4s   | 1 point     |
+| 6s   | 2 points    |
