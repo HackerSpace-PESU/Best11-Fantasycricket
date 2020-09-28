@@ -74,3 +74,22 @@ Batting is quite simple, The points distribution is as follows
 | Runs scored | 1 point    |
 | 4s   | 1 point     |
 | 6s   | 2 points    |
+| Half century| 4 points |
+| Century | 8 points |
+</vr>
+Thats it!!
+
+Lets take a example</br></br>
+In the match   	
+2019 ICC World Cup - 14th ODI - Australia v India - London
+</br>
+Match -Id : Matches/MatchScorecard_ODI.asp?MatchCode=4316
+Lets take Virat Kohli, if we see his score he scored 82 runs with 4 fours and 2 sixes
+He also scores a half century which enables him for the half century bonus
+Lets calculate his points
+$Points  =  82 \times{1} + 4 \times{1} + 6 \times{2}  + 4$
+ Which makes 94, if you look at his csv file under zip2 in the row matching the id , we see the score as 94
+
+## Bowling
+
+
