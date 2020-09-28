@@ -36,7 +36,7 @@ Again as the name suggests contains wicket keeper records, There are 2 columns, 
 This contains data required for testing our model, There are 6 csv files in this and each csv file is named as follows 
 </br></br>
 **< Name of the match >%Matches@MatchScorecard_ODI.asp?MatchCode=< match code>%< date of match played in yyyy-mm-dd format >.csv**
-A example would be </br></br>
+</br></br>A example would be </br></br>
 **Australia vs India%Matches@MatchScorecard_ODI.asp?MatchCode=4316%2019-06-09.csv**
 
 There are multiple columns in it but for now only two columns are important the 1st column and the last column
@@ -45,7 +45,7 @@ Last column contains the role at which he plays
 Example : bat, bowl ,all, wk
 Each self explanatoryhttps://doi.org/10.1007/978-1-0716-0826-5_3
 
-</br></br></br>
+</br></br>
 I think this covers all the folders
 
 Lets go on to the csv files
