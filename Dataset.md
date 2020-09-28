@@ -43,7 +43,7 @@ There are multiple columns in it but for now only two columns are important the 
 First column contains the player name followed by country 
 Last column contains the role at which he plays 
 Example : bat, bowl ,all, wk
-Each self explanatoryhttps://doi.org/10.1007/978-1-0716-0826-5_3
+Each self explanatory
 
 </br></br>
 I think this covers all the folders
