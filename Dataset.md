@@ -25,17 +25,13 @@ It contains the csv files represented by the player name and corresponding count
 Contains records of the batsman in different matches.There are 5 columns namely match_id,score,how dismissed, strike rate,4s,6s,batting_position
 The score does not contain the runs scored by the batsmen in that match but it contains the dream 11 score achieved by batting.
 The dream 11 score table is presented further down, so dont worry 
-
 </br></br>
-
 ## bowl 
 As the name suggests, it contains the records of the bowlers. There are 6 columns namely match_id, score,overs,maidens,wickets,economy. Again here the score is the dream 11 score which will be covered later
-
 </br></br>
 ## wk 
 Again as the name suggests contains wicket keeper records, There are 2 columns, match id and score , here again its the dream 11 score which will be covered later
 </br></br>
-
 ##6 Matches (Final) - 
 This contains data required for testing our model, There are 6 csv files in this and each csv file is named as follows 
 </br></br>
