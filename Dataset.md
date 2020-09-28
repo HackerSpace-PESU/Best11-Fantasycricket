@@ -88,10 +88,48 @@ Lets take Virat Kohli, if we see his score he scored 82 runs with 4 fours and 2 
 He also scores a half century which enables him for the half century bonus
 Lets calculate his points
 
-$ Points  =  82 \times{1} + 4 \times{1} + 6 \times{2}  + 4 $
+Points  =  82 x 1 + 4 x 1  + 6 x 2  + 4 
 
  Which makes 94, if you look at his csv file under zip2 in the row matching the id , we see the score as 94
 
 ## Bowling
+
+| Type | Points Assigned |
+| ---- | --------------- |
+| Wicket | 25 points    |
+| 4 wicket haul   | 4 point     |
+| 5 wicket haul   | 8 points    |
+| Maiden Over     | 4 Points    |
+
+### Economy Points
+
+| Economy | Points Assigned |
+| ---- | --------------- |
+| below 2.5 per over | 6 points    |
+| Between 2.5 - 3.49 runs per over   | 4 point |
+| Between 3.5 - 4.49 runs per over| 2 points   |
+| Between 7 - 8 runs per over| -2 points |
+| Between 8.1 - 9 runs per over | -4 points |
+| Above 9 per over | -6 points |
+
+Note for Economy Points to be considered, the bowler must bowl atleast 5 overs
+
+
+</vr>
+Thats it!!
+
+Lets take an example
+In the match   	
+2019 ICC World Cup - 14th ODI - Australia v India - London
+</br>
+Match -Id : Matches/MatchScorecard_ODI.asp?MatchCode=4316
+Lets take Mitchell Starc , if we see his bowling stats he took 1 wicket with no maiden overs. Since he bowled 10 overs he is elligible for econmy points. His economy was 7.40
+Lets calculate his points
+
+Points  =  1 x 25 + 0 x 4 + (-2) 
+
+ Which makes 23, if you look at his csv file under zip2 in the row matching the id , we see the score as 23
+
+## Wicket Keeping
 
 
