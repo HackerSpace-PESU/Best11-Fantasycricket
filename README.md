@@ -32,16 +32,14 @@ To run our project follow these steps
  gh repo clone lucasace/Best11-Fantasycricket
  
  ```
- 
-2. Rename cloned directory to cricket
-
-3. Change your directory to where u have stored cricket
- * Note :do not change your directory to cricket but where you have stored cricket 
-          for example if you cloned it to the downloads folder then change directory to downloads and not downloads/cricket
-          
-4. Run the files : 
+2. Change your directory to 'Best11-Fantasycricket' using
 ```bash
-python3 cricket/'Final Project'/Flask.py
+cd Best11-Fantasycricket
+``` 
+
+3. Run the files : 
+```bash
+python3 'Final Project'/Flask.py
 
 ```
 5. Open http://127.0.0.1:5000/  and voila!! 
@@ -66,7 +64,7 @@ We predict the team and calculate the dream 11 score of each player for that mat
 To check how our model worked in our test data run : 
 
 ```bash
-python3 cricket/'Final project'/check.py 
+python3 'Final project'/check.py 
 
 ```
 ## Dataset
