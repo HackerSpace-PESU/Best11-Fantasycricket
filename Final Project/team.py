@@ -145,9 +145,9 @@ def teams(Id,value=5):
         #print(i)
         if 'England vs Australia' in match:
           if 'Semi' not in match:
-            f="England vs Australia%Matches@MatchScorecard_ODI.asp_MatchCode=4336%2019-06-25.csv"
+            f="EnglandvsAustralia%Matches@MatchScorecard_ODI.asp?MatchCode=4336%2019-06-25.csv"
           else:
-            f='England vs Australia Semi%Matches@MatchScorecard_ODI.asp_MatchCode=4354%2019-07-11.csv'
+            f='EnglandvsAustraliaSemi%Matches@MatchScorecard_ODI.asp?MatchCode=4354%2019-07-11.csv'
         elif match in i.split("%")[0]:
             #print(i)
             f=i
