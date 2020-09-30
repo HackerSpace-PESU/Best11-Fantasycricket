@@ -16,16 +16,16 @@ def teams(Id,value=5):
         else:
           break
       f=f.strip()
-      for i in tqdm(os.listdir('cricket/zip')):
+      for i in tqdm(os.listdir('cricket/data/zip')):
         if f in i:
           f=i
           break
       #Data Extraction
-      dates = pd.read_csv('cricket/zip/'+f)
+      dates = pd.read_csv('cricket/data/zip/'+f)
       
       if position == 'all':
-        batting_score = pd.read_csv('cricket/zip2/' +f)
-        bowling_score = pd.read_csv('cricket/bowl/' +f)
+        batting_score = pd.read_csv('cricket/data/zip2/' +f)
+        bowling_score = pd.read_csv('cricket/data/bowl/' +f)
         
         scores = batting_score.merge(bowling_score,how='left', left_on='match_id', right_on='Match_id')
         scores = dates.merge(scores,how='left', left_on='matchid', right_on='match_id')
@@ -50,7 +50,7 @@ def teams(Id,value=5):
         #print(scores[:30])
         #return 
       elif position == 'bat':
-        batting_score = pd.read_csv('cricket/zip2/' + f)
+        batting_score = pd.read_csv('cricket/data/zip2/' + f)
         scores = dates.merge(batting_score,how='left', left_on='matchid', right_on='match_id')
     
         scores = scores.sort_values(by='date',ascending=True).reset_index(drop=True)
@@ -68,8 +68,8 @@ def teams(Id,value=5):
         #print(scores[:30])
         #return
       elif position == 'wk':
-        wk_score = pd.read_csv('cricket/wk/' + f)
-        batting_score = pd.read_csv('cricket/zip2/' + f)
+        wk_score = pd.read_csv('cricket/data/wk/' + f)
+        batting_score = pd.read_csv('cricket/data/zip2/' + f)
         scores = batting_score.merge(wk_score,how='left', left_on='match_id', right_on='MATCH_ID')
         scores = dates.merge(scores,how='left', left_on='matchid', right_on='match_id')
         scores = scores.sort_values(by='date',ascending=True).reset_index(drop=True)
@@ -93,7 +93,7 @@ def teams(Id,value=5):
         y = list(scores['Total'])
         #print(y)#y = list(scores['SCORE'])
       else:
-        bowling_score = pd.read_csv('cricket/bowl/' + f)
+        bowling_score = pd.read_csv('cricket/data/bowl/' + f)
         scores = dates.merge(bowling_score,how='left', left_on='matchid', right_on='Match_id')
         scores = scores.sort_values(by='date',ascending=True).reset_index(drop=True)
         x=scores[scores['date'] == date].index.to_list()[0]
@@ -141,20 +141,20 @@ def teams(Id,value=5):
       team2=match.split('vs')[1].strip().split('Semi')[0].strip()
       player={}
       f=""
-      for i in tqdm(os.listdir('cricket/6 Matches (Final)')):
+      for i in tqdm(os.listdir('cricket/data/6 Matches (Final)')):
         #print(i)
         if 'England vs Australia' in match:
           if 'Semi' not in match:
-            f="England vs Australia%Matches@MatchScorecard_ODI.asp?MatchCode=4336%2019-06-25.csv"
+            f="England vs Australia%Matches@MatchScorecard_ODI.asp_MatchCode=4336%2019-06-25.csv"
           else:
-            f='England vs Australia Semi%Matches@MatchScorecard_ODI.asp?MatchCode=4354%2019-07-11.csv'
+            f='England vs Australia Semi%Matches@MatchScorecard_ODI.asp_MatchCode=4354%2019-07-11.csv'
         elif match in i.split("%")[0]:
             #print(i)
             f=i
             break
          
       #print(f)
-      files=pd.read_csv('cricket/6 Matches (Final)/'+f)
+      files=pd.read_csv('cricket/data/6 Matches (Final)/'+f)
       count={'wk':4,'bat':6,'ball':6,'all':4}
       for i in list(np.unique(files['role'])):
         filewk=files[files['role']==i]
