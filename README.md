@@ -1,8 +1,5 @@
 # Best11-Fantasycricket
 
-Project made by: Royston(lucasace),Shreyas (SRP457), Sammith(SammithSB)</br>
-
-
 # Description 
 
 In the past year or so fantasy cricket has been getting a lot of traction and with recent deal struck by Dream11 with IPL, more people are playing fantasy cricket than ever, but the problem is lot of people do not make right choices in choosing the team and end up thinking winning is all about luck and nothing else. With our project we want to break that myth by making a model which when given with players predicts the best 11 that will have the most points in the fantasy league. We have gathered statistics of players throughput their career and the model takes in the scores last 5 games a player has played and it tries to predict his score in the next game using a linear model. The model also makes sure that best 11 follows all the rules of selecting a team given by the fantasy league which includes given number of batsman and bowlers, maintaining spent credits within 100. A flask model has been used to create the GUI to show the predicted 11.
@@ -71,7 +68,7 @@ python3 'Final project'/check.py
 
 Confused by the dataset, Dont Worry I would be too if I were you, dont worry I'll walk you through it in detail
 
-Click on this [link](https://github.com/lucasace/Best11-Fantasycricket/blob/master/Dataset.md) to understand the dataset, the scoring system and any other doubts u might have
+Check out [Dataset.md](https://github.com/lucasace/Best11-Fantasycricket/blob/master/Dataset.md) to understand the dataset, the scoring system and any other doubts you might have
 
 ## How do I contribute to this project????
 
@@ -84,6 +81,8 @@ If you have any suggestions for our project , do raise a issue and we will look 
 If you have any questions regarding our project , you can contact any of the maintainers(info on respective profile pages) or raise a issue and we'll answer you as soon as possible.  
 
 ## Thank You 
+
+Project made by: Royston([lucasace](https://github.com/lucasace)),Shreyas ([SRP457](https://github.com/SRP457)), Sammith([SammithSB](https://github.com/SammithSB))</br>
 
 We would like to thank [Howstat](http://www.howstat.com/cricket/home.asp) for their amazing website with daily updates and availabilty to scrape 
 
