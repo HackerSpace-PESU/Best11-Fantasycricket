@@ -74,7 +74,6 @@ Check out [Dataset.md](https://github.com/lucasace/Best11-Fantasycricket/blob/ma
 
 We have created two issues for you in the Issues section namely Web Scraping and The algorithm </br></br>
 To contribute to this project, first fork the repo then , You can complete the problems presented in each issue and set up a Pull Request, If we think it helps the project or if you have fulfilled the requirements , we will merge it and CONGRATULATIONS, you are a contributor</br></br>
-Note: You dont need to complete all the points in the issues to become a contributor , if you complete any one point in any issue you can set up a pull request, except for the web scraping points 1 and 2 which has to be submitted together
 </br></br>
 If you have any suggestions for our project , do raise a issue and we will look into it and if we think it helps our project we will keep it open until its implemented by us or by anyone else 
 </br></br>
