@@ -3,7 +3,7 @@ from team import filename
 import pandas as pd
 from tqdm import tqdm
 import os
-winning_points=pd.read_csv("cricket/data/Winning points.csv")
+winning_points=pd.read_csv("data/Winning points.csv")
 #print(winning_points.head())
 #ID=input()
 values={}
@@ -35,11 +35,11 @@ for we in ID:
 				else:
 					break
 			f=f.strip()
-			for i in tqdm(os.listdir('cricket/data/zip')):
+			for i in tqdm(os.listdir('data/zip')):
 				if f in i:
 					f=i
 					break
-			bat=pd.read_csv("cricket/data/zip2/"+f)
+			bat=pd.read_csv("data/zip2/"+f)
 		#print(bat)
 			bat=bat[bat['match_id']==matchID.strip().replace("@","/")]
 			score=bat['score'].values[0]
@@ -67,7 +67,7 @@ for we in ID:
 			my11score=0
 			ball=pd.DataFrame()
 			try:
-				ball=pd.read_csv("cricket/data/bowl/"+f)
+				ball=pd.read_csv("data/bowl/"+f)
 			except:
 				print("is not a bowler")
 				ballscore=0
@@ -105,7 +105,7 @@ for we in ID:
 					ballscore=0
 			wk=pd.DataFrame()
 			try:
-				wk=pd.read_csv('cricket/data/wk/'+f)
+				wk=pd.read_csv('data/wk/'+f)
 			except:
 				print("NOt a wicket keeper")
 				wkscore=0
