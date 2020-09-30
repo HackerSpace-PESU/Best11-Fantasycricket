@@ -1,6 +1,6 @@
 # Best11-Fantasycricket
 
-# Description 
+## Description 
 
 In the past year or so fantasy cricket has been getting a lot of traction and with recent deal struck by Dream11 with IPL, more people are playing fantasy cricket than ever, but the problem is lot of people do not make right choices in choosing the team and end up thinking winning is all about luck and nothing else. With our project we want to break that myth by making a model which when given with players predicts the best 11 that will have the most points in the fantasy league. We have gathered statistics of players throughput their career and the model takes in the scores last 5 games a player has played and it tries to predict his score in the next game using a linear model. The model also makes sure that best 11 follows all the rules of selecting a team given by the fantasy league which includes given number of batsman and bowlers, maintaining spent credits within 100. A flask model has been used to create the GUI to show the predicted 11.
 
