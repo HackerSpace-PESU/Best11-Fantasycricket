@@ -19,7 +19,7 @@ pip3 install sklearn
 
 To run our project follow these steps
 
-1. Clone our repo into your system using 
+1. Clone our repo into your system  
  
 2. Change your directory to 'Best11-Fantasycricket' using
 ```bash
