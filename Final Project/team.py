@@ -9,7 +9,6 @@ from sklearn.linear_model import LinearRegression
 def teams(Id, value=5):
     def predict_score(player, position, date):
         # date format yyyy-mm-dd
-        # When assigning position, make sure the file exists in github repo
         f = ""
         for i in player:
             if i != "(":

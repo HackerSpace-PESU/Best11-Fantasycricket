@@ -1,9 +1,8 @@
-import fastai as fastai
-import spark as spark
 from team import teams
 from team import filename
 from os import system, name
 import pandas as pd
+from tqdm import tqdm
 import os
 import warnings
 
@@ -38,7 +37,7 @@ for we in ID:
                 else:
                     break
             f = f.strip()
-            for i in os.listdir("data/zip"):
+            for i in tqdm(os.listdir("data/zip")):
                 if f in i:
                     f = i
                     break

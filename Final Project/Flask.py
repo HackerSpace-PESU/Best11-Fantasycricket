@@ -1,8 +1,4 @@
 from flask import Flask, request, render_template, redirect, url_for, session
-
-# import sys
-# sys.path.insert(1, '/cricket/Final Project')
-
 from team import teams
 
 app = Flask(__name__)

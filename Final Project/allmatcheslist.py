@@ -5,8 +5,6 @@ import os
 allm = pd.read_csv("cricket/all.csv")
 allm = allm[allm['Date'] >= '2019-01-01']
 
-# print(allm['Date'].head())
-
 match = {}
 
 for i in tqdm(os.listdir('cricket/data/zip')):
