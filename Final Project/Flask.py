@@ -26,8 +26,6 @@ def result():
     VCaptain = Team[2]
     Team = Team[0]
 
-    print(Team)
-
     players = []
 
     for i in Team:
