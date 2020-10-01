@@ -1,12 +1,15 @@
 from team import teams
 from team import filename
+from os import system, name
 import pandas as pd
 from tqdm import tqdm
 import os
+import warnings
+
+# remove all the warnings that show on console
+warnings.filterwarnings("ignore")
 
 winning_points = pd.read_csv("data/Winning points.csv")
-# print(winning_points.head())
-# ID=input()
 values = {}
 ID = ["a", "b", "c", "d", "e", "f"]
 matchname = {}
@@ -22,17 +25,11 @@ for we in ID:
     matchname[we] = match
     values[match] = {}
     for k in value:
-        # values[we][k]=None
-        print(k)
         players, captain, vc, wkteam, allteam, ballteam, batteam = teams(we, k)
-        # print(players)
         values[match][k] = None
-        # print(match,matchID,date)
         teamtotal = 0
         for j in players:
             batscore, ballscore, my11score = 0, 0, 0
-            print(j)
-            # print(j)
             f = ""
             for i in j:
                 if i != "(":
@@ -45,10 +42,8 @@ for we in ID:
                     f = i
                     break
             bat = pd.read_csv("data/zip2/" + f)
-            # print(bat)
             bat = bat[bat["match_id"] == matchID.strip().replace("@", "/")]
             score = bat["score"].values[0]
-            # print(score)
             if score != "-":
                 l = float(score) - float(bat["4s"]) - (2 * float(bat["6s"]))
             elif score == "-":
@@ -60,13 +55,13 @@ for we in ID:
             bat["runs"] = l
             if score != "-":
                 my11score = (
-                    (float(l) * 0.5) + (float(bat["4s"]) * 0.5) + float(bat["6s"])
+                        (float(l) * 0.5) + (float(bat["4s"]) * 0.5) + float(bat["6s"])
                 )
             elif score == "-":
                 my11score = 0
-            if l >= 50 and l <= 99:
+            if 50 <= l <= 99:
                 my11score += 2
-            elif l >= 100 and l <= 199:
+            elif 100 <= l <= 199:
                 my11score += 4
             elif l >= 200:
                 my11score += 8
@@ -76,11 +71,11 @@ for we in ID:
             try:
                 ball = pd.read_csv("data/bowl/" + f)
             except:
-                print("is not a bowler")
                 ballscore = 0
-            if ball.empty == False:
+
+            if not ball.empty:
                 ball = ball[ball["Match_id"] == matchID.strip().replace("@", "/")]
-                if ball.empty == False:
+                if not ball.empty:
                     w = 12 * float(ball.Wicket.values[0])
                     if float(ball.Wicket.values[0]) >= 7:
                         w += 9
@@ -108,20 +103,18 @@ for we in ID:
                     ballscore = my11score
 
                 else:
-                    print("Did not ball that match")
                     ballscore = 0
             wk = pd.DataFrame()
             try:
                 wk = pd.read_csv("data/wk/" + f)
             except:
-                print("NOt a wicket keeper")
                 wkscore = 0
-            if wk.empty == False:
+
+            if not wk.empty:
                 wk = wk[wk["MATCH_ID"] == matchID.strip().replace("@", "/")]
-                if wk.empty == False:
+                if not wk.empty:
                     my11score = float(wk.SCORE.values[0]) / 2
                 else:
-                    print("did not keep that match")
                     my11score = 0
                 wkscore = my11score
             total = batscore + ballscore + wkscore
@@ -144,6 +137,7 @@ for we in ID:
             values[match][k] = teamtotal + 11
         elif we == "f":
             values[match][k] = teamtotal + 38
+
 loss = {}
 win = {}
 for i in range(len(winning_points)):
@@ -151,14 +145,10 @@ for i in range(len(winning_points)):
     l = winning_points.iloc[i, 1] - values[f][5]
     win[f] = winning_points.iloc[i, 1]
     loss[f] = l
-from os import system, name
 
-# import sleep to show output for some time period
-from time import sleep
 
 # define our clear function
 def clear():
-
     # for windows
     if name == "nt":
         _ = system("cls")
@@ -169,10 +159,11 @@ def clear():
 
 
 clear()
-x = []
 
+x = []
 for i in values:
     x.append([i, values[i][5], loss[i], win[i], str((100 * (loss[i] / win[i]))) + "%"])
+
 x = pd.DataFrame(
     x,
     columns=[
@@ -183,4 +174,5 @@ x = pd.DataFrame(
         "loss percentage",
     ],
 )
+
 print(x.head(6))
