@@ -7,9 +7,8 @@ from sklearn.linear_model import LinearRegression
 
 
 def teams(Id, value=5):
-    def predict_score(player, position, date):  # position: batsman, all-rounder, wk, bowler
+    def predict_score(player, position, date):
         # date format yyyy-mm-dd
-        # When assigning position, make sure the file exists in github repo
         f = ""
         for i in player:
             if i != "(":
@@ -62,21 +61,15 @@ def teams(Id, value=5):
             scores["Total"] = scores["score"] + scores["Score"]
             scores.dropna(inplace=True)
             scores = scores[["Total"]]
-            # print(scores[:5])
-            # print(scores)
+
             y = list(scores["Total"])
-            # print(y)
-            # print(scores[:30])
-            # return
         elif position == "bat":
             batting_score = pd.read_csv("data/zip2/" + f)
             scores = dates.merge(batting_score, how="left", left_on="matchid", right_on="match_id")
 
             scores = scores.sort_values(by="date", ascending=True).reset_index(drop=True)
             x = scores[scores["date"] == date].index.to_list()[0]
-            # print(x)
             scores = scores.iloc[0:x, :]
-            # print(scores)
             scores.drop(
                 ["strike rate", "4s", "6s", "how dismissed", "batting position", "matchid"],
                 axis=1,
@@ -85,11 +78,8 @@ def teams(Id, value=5):
 
             scores.dropna(inplace=True)
             scores = scores[scores["score"] != "-"]
-            # print(scores[:5])
             y = list(scores["score"])
-            # print(y);print(scores)
-            # print(scores[:30])
-            # return
+
         elif position == "wk":
             wk_score = pd.read_csv("data/wk/" + f)
             batting_score = pd.read_csv("data/zip2/" + f)
@@ -99,10 +89,8 @@ def teams(Id, value=5):
             scores = dates.merge(scores, how="left", left_on="matchid", right_on="match_id")
             scores = scores.sort_values(by="date", ascending=True).reset_index(drop=True)
             x = scores[scores["date"] == date].index.to_list()[0]
-            # print(x)
             scores = scores.iloc[0:x, :]
             scores.dropna(inplace=True)
-            # print(scores[:5])
             scores.drop(
                 [
                     "match_id",
@@ -126,29 +114,21 @@ def teams(Id, value=5):
             scores["Total"] = scores["score"] + scores["SCORE"]
             scores.dropna(inplace=True)
             scores = scores[["Total"]]
-            # print(scores[:5])
-            # print(scores)
             y = list(scores["Total"])
-            # print(y)#y = list(scores['SCORE'])
         else:
             bowling_score = pd.read_csv("data/bowl/" + f)
             scores = dates.merge(bowling_score, how="left", left_on="matchid", right_on="Match_id")
             scores = scores.sort_values(by="date", ascending=True).reset_index(drop=True)
             x = scores[scores["date"] == date].index.to_list()[0]
-            # print(x)
+
             scores = scores.iloc[0:x, :]
             scores.drop(["Economy", "Wicket", "Maidens"], axis=1, inplace=True)
             scores.dropna(inplace=True)
-            # print(scores[:5])
-            y = list(scores["Score"])
-            # print(y)
 
-            # print(scores[:30])
-            # return
+            y = list(scores["Score"])
 
         regr = LinearRegression(fit_intercept=True)
-        y_train = np.array(y[len(y) - value :]).reshape(-1, 1)
-        # rint(y_train)
+        y_train = np.array(y[len(y) - value:]).reshape(-1, 1)
         X_train = np.array(range(value)).reshape(-1, 1)
         try:
             regr.fit(X_train, y_train)
@@ -164,9 +144,7 @@ def teams(Id, value=5):
 
     def returnteam(position, files, f, counting):
         team = {}
-        # print(position,f.split("%")[2][:-4])
         for i in files.name:
-            # print(i)
             if i.split("-")[0] not in team:
                 team[i.split("-")[0]] = None
             team[i.split("-")[0]] = predict_score(i.split("-")[0], position, f.split("%")[2][:-4])
@@ -180,34 +158,27 @@ def teams(Id, value=5):
         player = {}
         f = ""
         for i in tqdm(os.listdir("data/6 Matches (Final)")):
-            # print(i)
             if "England vs Australia" in match:
                 if "Semi" not in match:
                     f = "EnglandvsAustralia%Matches@MatchScorecard_ODI.asp?MatchCode=4336%2019-06-25.csv"
                 else:
                     f = "EnglandvsAustraliaSemi%Matches@MatchScorecard_ODI.asp?MatchCode=4354%2019-07-11.csv"
             elif match in i.split("%")[0]:
-                # print(i)
                 f = i
                 break
 
-        # print(f)
         files = pd.read_csv("data/6 Matches (Final)/" + f)
         count = {"wk": 4, "bat": 6, "ball": 6, "all": 4}
         for i in list(np.unique(files["role"])):
             filewk = files[files["role"] == i]
             if i == "wk":
                 wkteam = returnteam(i, filewk, f, count[i])
-                # print(wkteam)
             elif i == "bat":
                 batteam = returnteam(i, filewk, f, count[i])
-                # print(batteam)
             elif i == "all":
                 allteam = returnteam(i, filewk, f, count[i])
-                # print(allteam)
             elif i == "ball":
                 ballteam = returnteam(i, filewk, f, count[i])
-                # print(ballteam)
         count1 = 0
         count2 = 0
         for i in wkteam:
@@ -220,12 +191,9 @@ def teams(Id, value=5):
                 maxs = wkteam[i]
         if team1 in wk:
             count1 += 1
-            # print(count1)
         elif team2 in wk:
             count2 += 1
-            # print(count2)
         if wk not in player:
-            print("a")
             player[wk] = maxs
         for i in allteam:
             maxs = allteam[i]
@@ -237,98 +205,35 @@ def teams(Id, value=5):
                 maxs = allteam[i]
         if team1 in wk:
             count1 += 1
-            # print(count1)
         elif team2 in wk:
             count2 += 1
-            # print(count2)
         elif "Nathan" in wk:
             if team1 == "Australia":
                 count1 += 1
-                # print(count1)
             elif team2 == "Australia":
                 count2 += 1
-                # print(count2)
         if wk not in player:
-            print("a")
             player[wk] = maxs
         k = Counter(batteam)
         high = k.most_common(3)
-        print(len(high))
         for i in high:
-            if i[0] not in player:
-                print("a")
             if team1 in i[0]:
                 count1 += 1
-            # print(count1)
             elif team2 in i[0]:
                 count2 += 1
             player[i[0]] = i[1]
-        """
-      bat={}
-      for i in batteam:
-        bat[i]=batteam[i]
-        if len(bat)>2:
-          break
-      for i in batteam:
-        for j in bat:
-          if batteam[i]>=max2[0]:
-          max2[0]=batteam[i]
-          bat[0]=i
-        elif batteam[i]>=max2[1]:
-          max2[1]=batteam[i]
-          bat[1]=i
-        elif batteam[i]>=max2[2]:
-          max2[2]=batteam[i]
-          bat[2]=i 
-      for i in bat:
-        if team1 in i:
-          count1+=1
-          #print(count1)
-        elif team2 in i:
-          count2+=1
-          #print(count2)
-        player.append(i)
-      max2=[]
-      bat=[]
-      for i in ballteam:
-        max2.append(ballteam[i])
-        bat.append(i)
-        if len(max2)>2:
-          break
-      for i in ballteam:
-        if ballteam[i]>=max2[0]:
-          max2[0]=ballteam[i]
-          bat[0]=i
-        elif ballteam[i]>=max2[1]:
-          max2[1]=ballteam[i]
-          bat[1]=i
-        elif ballteam[i]>=max2[2]:
-          max2[2]=ballteam[i]
-          bat[2]=i 
-      for i in bat:
-        if team1 in i:
-          count1+=1
-          #print(count1)
-        elif team2 in i:
-          count2+= 1
-          #print(count2)
-        player.append(i)
-      """
+
         k = Counter(ballteam)
         high = k.most_common(3)
-        print(len(high))
         for i in high:
-            print("a")
             if team1 in i[0]:
                 count1 += 1
-            # print(count1)
             elif team2 in i[0]:
                 count2 += 1
             player[i[0]] = i[1]
         count = 0
         rm = []
         while count < 3:
-            print(count, count1, count2)
             restteam = {}
             for i in wkteam:
                 if i not in player and i not in rm:
@@ -343,9 +248,7 @@ def teams(Id, value=5):
                 if i not in player and i not in rm:
                     restteam[i] = batteam[i]
             lists = [float(restteam[i]) for i in restteam]
-            # print(lists)
-            if value == 5:
-                print(player)
+
             maximum = max(lists)
             for i in restteam:
                 if restteam[i] >= maximum:
@@ -409,13 +312,6 @@ def teams(Id, value=5):
         a = team("Australia vs India")
     elif Id == "f":
         a = team("India vs New Zealand")
-
-    """print(a)
-    print(b)
-    print(c)
-    print(d)
-    print(e)
-    print(f)"""
 
     return a
 

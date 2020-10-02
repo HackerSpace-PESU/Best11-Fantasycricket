@@ -1,8 +1,4 @@
 from flask import Flask, request, render_template, redirect, url_for, session
-
-# import sys
-# sys.path.insert(1, '/cricket/Final Project')
-
 from team import teams
 
 app = Flask(__name__)
@@ -25,8 +21,6 @@ def result():
     Captain = Team[1]
     VCaptain = Team[2]
     Team = Team[0]
-
-    print(Team)
 
     players = []
 
