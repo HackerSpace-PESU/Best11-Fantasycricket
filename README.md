@@ -53,7 +53,7 @@ We predict the team and calculate the dream 11 score of each player for that mat
 To check how our model worked in our test data run : 
 
 ```bash
-python3 'Final project'/check.py 
+python3 check.py 
 
 ```
 ## Dataset
