@@ -28,7 +28,7 @@ cd Best11-Fantasycricket
 
 3. Run the files : 
 ```bash
-python3 'Final Project'/Flask.py
+python3 Flask.py
 
 ```
 5. Open http://127.0.0.1:5000/  and voila!! 
@@ -53,7 +53,7 @@ We predict the team and calculate the dream 11 score of each player for that mat
 To check how our model worked in our test data run : 
 
 ```bash
-python3 'Final project'/check.py 
+python3 check.py 
 
 ```
 ## Dataset
