@@ -46,12 +46,9 @@ class HowstatSpider(CrawlSpider):
         datestr=response.selector.xpath(datexpath).get()
         date=str(dateparse(datestr))[:10]
         lis=response.selector.xpath(playerlisxpath)
-        #print(len(lis))
         for i in lis:
             if i.xpath("@href").get().startswith("../Players/PlayerOverview"):
                 yield ZipItem(name=i.xpath("text()").get(),matchid=matchid,date=date)
                 #request=Request(response.urljoin(i.xpath("@href").get()))
                 #request.meta["playername"]=i.xpath("text()").get()
                 #yield request
-
-#http://howstat.com/Players/PlayerOverview_T20.asp?PlayerID=5197
