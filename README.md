@@ -11,8 +11,7 @@ In the past year or so fantasy cricket has been getting a lot of traction and wi
 
 Install using </br>
 ```bash
-pip3 install Flask
-pip3 install sklearn
+pip3 install -r requirements.txt
 ```
 
 ## I want to run your project
@@ -64,8 +63,7 @@ Check out [Dataset.md](https://github.com/lucasace/Best11-Fantasycricket/blob/ma
 
 ## How do I contribute to this project????
 
-We have created two issues for you in the Issues section namely Web Scraping and The algorithm </br></br>
-To contribute to this project, first fork the repo then , You can complete the problems presented in each issue and set up a Pull Request, If we think it helps the project or if you have fulfilled the requirements , we will merge it and CONGRATULATIONS, you are a contributor
+To contribute to this project, first fork the repo then , You can complete the problems presented in any issue and set up a Pull Request, If we think it helps the project or if you have fulfilled the requirements , we will merge it and CONGRATULATIONS, you are a contributor
 </br></br>
 If you have any suggestions for our project , do raise a issue and we will look into it and if we think it helps our project we will keep it open until its implemented by us or by anyone else 
 </br></br>
