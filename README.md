@@ -11,8 +11,7 @@ In the past year or so fantasy cricket has been getting a lot of traction and wi
 
 Install using </br>
 ```bash
-pip3 install Flask
-pip3 install sklearn
+pip3 install -r requirements.txt
 ```
 
 ## I want to run your project
