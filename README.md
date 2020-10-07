@@ -63,7 +63,7 @@ Check out [Dataset.md](https://github.com/lucasace/Best11-Fantasycricket/blob/ma
 
 ## How do I contribute to this project????
 
-To contribute to this project, first fork the repo then , You can complete the problems presented in any issue and set up a Pull Request, If we think it helps the project or if you have fulfilled the requirements , we will merge it and CONGRATULATIONS, you are a contributor
+Refer to the [Contributing.md](https://github.com/HackerSpace-PESU/Best11-Fantasycricket/blob/master/.github/CONTRIBUTING.md) file of our repository 
 </br></br>
 If you have any suggestions for our project , do raise a issue and we will look into it and if we think it helps our project we will keep it open until its implemented by us or by anyone else 
 </br></br>
