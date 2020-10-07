@@ -4,7 +4,7 @@ Add a description about the change
 
 **Fixes** #(Issue number)
 
-Tick the appropriate choice (Delete the rest):
+**Tick the appropriate choice (Delete the rest):**
 
 * [ ] Bug Fix (Non- Breaking)
 * [ ] Breaking Fix
