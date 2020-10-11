@@ -37,11 +37,11 @@ for we in ID:
                 else:
                     break
             f = f.strip()
-            for i in tqdm(os.listdir("data/zip")):
+            for i in tqdm(os.listdir("data/zip/ODI")):
                 if f in i:
                     f = i
                     break
-            bat = pd.read_csv("data/zip2/" + f)
+            bat = pd.read_csv("data/zip2/ODI/" + f)
             bat = bat[bat["match_id"] == matchID.strip().replace("@", "/")]
             score = bat["score"].values[0]
             if score != "-":
