@@ -6,8 +6,9 @@ In the past year or so fantasy cricket has been getting a lot of traction and wi
 
 ## Requirements
 
-1. Flask
-2. sklearn
+1. FastAPI
+2. Uvicorn
+3. sklearn
 
 Install using </br>
 ```bash
@@ -27,7 +28,7 @@ cd Best11-Fantasycricket
 
 3. Run the model : 
 
-`flask run`
+`uvicorn FastAPi:app --reload`
 
 5. Open http://127.0.0.1:5000/  and voila!! 
 
