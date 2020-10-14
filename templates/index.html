@@ -1,27 +1,152 @@
 <!DOCTYPE html>
 <html>
     <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+            
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.3.1/css/flag-icon.min.css" rel="stylesheet"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
         <link rel="icon" href="../static/images/icon.jpg">
         <title>Home Page</title>
-    </head>
-    <body>
-        <h1>Best Playing 11 Recommendation System</h1>
-        <h2>Enter match to get best playing 11</h2>
+
+        <style>
+            .button 
+            {
+                background-color: #031d2c;
+                border: none;
+                color: rgb(168, 204, 248);
+                padding: 5px 16px;
+                text-align: center;
+                font-size: 16px;
+                margin: 4px 2px;
+                opacity: 0.8;
+                transition: 0.3s;
+                display: inline-block;
+                text-decoration: none;
+                cursor: pointer;
+            }
+            .button:hover {opacity: 1}
+            .button1{border-radius: 8px;}
+
+            .responsive {
+                width: 30%;
+                max-width: 100px;
+                height: auto;
+            }
+        </style>
+
         
-        <form action="/" method="POST">
-            <div class="custom-select">    
-                <select name="match" >
-                    <option value="e">Australia vs India</option>
-                    <option value="d">England vs India</option>
-                    <option value="f">India vs New Zealand</option>
-                    <option value="b">England vs Australia</option>
-                    <option value="c">Bangladesh vs India</option>
-                    <option value="a">England vs Australia (Semi-Final)</option>
-                </select>
+    </head>
+    <body style="background-color: #1b262c;">
+        <p style="margin: 2px;color: blanchedalmond;">BestOf11.org</p>
+
+        <div class="container" style="text-align:centre;">
+            <div class="jumbotron" style="background-color: #080808;color:white; margin:5px; margin-top:0px; border-radius: 20px;">
+                <div style="text-align: center;">
+                    <h1>Best Playing 11 Recommendation System</h1> 
+                </div>          
             </div>
+
+            <div style="text-align: center;  color:black">
+                <h3 >Select match to get best playing 11</h3>
+            </div>
+
+            <form action="/" method="POST">
+                <div class="col;container" style="text-align: center; font-size: 20px;"  >
+
+
+                    <!--AUSTRALIA VS INDIA-->
+                    <div class="col-sm-4">
+                        <div style="background-color: #0f4c75; border-radius: 5px; margin-bottom:-5px; color: blanchedalmond;">
+                            
+                            <h3>Australia vs India</h3>
+                            <div class="flag-icon flag-icon-au" style="font-size: 70px; border-radius: 8px;"></div> VS
+                            <div class="flag-icon flag-icon-in" style="font-size: 70px; border-radius: 8px;"></div>
+                            <button style="margin: 10px;" class ="button button1"  type="submit" value="e">match</button>
+
+                        </div>
+                    </div>
+
+                    <!--ENGLAND VS INDIA-->
+                    <div class="col-sm-4">
+                        <div style="background-color: #0f4c75; border-radius: 5px; margin-bottom:-5px; color: blanchedalmond;">
+                           
+                            <h3>England vs India</h3>
+                            <div class="flag-icon flag-icon-gb" style="font-size: 70px; border-radius: 8px;"></div> VS
+                            <div class="flag-icon flag-icon-in" style="font-size: 70px; border-radius: 8px;"></div>
+                            <button style="margin: 10px;" class ="button button1"  type="submit" value="d">match</button>
+
+                        </div>
+                    </div>
+
+                    <!--NEW ZEALAND VS INDIA-->
+                    <div class="col-sm-4">
+                        <div style="background-color: #0f4c75; border-radius: 5px; margin-bottom:-5px; color: blanchedalmond;">
+                            
+                            <h3>India vs New Zealand</h3>
+                            <div class="flag-icon flag-icon-nz" style="font-size: 70px; border-radius: 8px;"></div> VS
+                            <div class="flag-icon flag-icon-in" style="font-size: 70px; border-radius: 8px;"></div>
+                            <button style="margin: 10px;" class ="button button1"  type="submit" value="f">match</button>
+
+                        </div>
+                    </div>
+
+                    <!--AUSTRALIA VS ENGLAND-->
+                    <div class="col-sm-4">
+                        <div style="background-color: #0f4c75; border-radius: 5px; margin-bottom:-5px; color: blanchedalmond;">
+                            
+                            <h3>England vs Australia</h3>
+                            <div class="flag-icon flag-icon-au" style="font-size: 70px; border-radius: 8px;"></div> VS
+                            <div class="flag-icon flag-icon-gb" style="font-size: 70px; border-radius: 8px;"></div>
+                            <button style="margin: 10px;" class ="button button1"  type="submit" value="b">match</button>
+
+                        </div>
+                    </div>
+
+                    <!--BANGLADESH VS INDIA-->
+                    <div class="col-sm-4">
+                        <div style="background-color: #0f4c75; border-radius: 5px; margin-bottom:-5px; color: blanchedalmond;">
+                            <h3>Bangladesh vs India</h3>
+                            
+                            <div class="flag-icon flag-icon-bd" style="font-size: 70px; border-radius: 8px;"></div> VS
+                            <div class="flag-icon flag-icon-in" style="font-size: 70px; border-radius: 8px;"></div>
+                            <button style="margin: 10px;" class ="button button1"  type="submit" value="c">match</button>
+
+                        </div>
+                    </div>
+
+                    <!--AUSTRALIA VS ENGLAND-->
+                    <div class="col-sm-4">
+                        <div style="background-color: #0f4c75; border-radius: 5px; margin-bottom:-5px; color: blanchedalmond;">
+                            <h3>England vs Australia (Semi)</h3>
+                            
+                            <div class="flag-icon flag-icon-au" style="font-size: 70px; border-radius: 8px;"></div> VS
+                            <div class="flag-icon flag-icon-gb" style="font-size: 70px; border-radius: 8px;"></div>
+                            <button style="margin: 10px;" class ="button button1"  type="submit" value="a">match</button>
+
+                        </div>
+                    </div>
+                        
+                </div>
+            </form>
+
+            </div>
+     
+        </div>
+
+
+        
             
-            <div class="button"><p><input type="submit" value="Recommend Team"/></p></div>            
+            
+                      
         </form>
     </body>
+  
 </html>
+
