@@ -26,7 +26,8 @@ async def home_post(match : str = Form(...)):
 
 @app.post("/results" , response_class = HTMLResponse)
 def result(request : Request):
-	Team = teams(Id)
+	t = teams(Id)
+	Team = t.team()
 	Captain = Team[1]
 	VCaptain = Team[2]
 	Team = Team[0]
