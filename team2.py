@@ -86,6 +86,18 @@ class teams(object):
         return wkteam
 
     def get_max_players(self,role_dict,player,role):
+        """
+        Returns max player for a particular role
+
+        :param role_dict : dict of the players mapped to the score for that role
+        :type dict( str : float)
+        :param player : dictionary of the selected players for the best11
+        :type dict( str: float)
+        :param role : role of the player
+        :type str
+
+        :rtype: dict( str: float)
+        """
         max_score = { 
                         "wk": [max(role_dict , key = role_dict.get)],
                         "all": [max(role_dict , key = role_dict.get)],
@@ -106,16 +118,54 @@ class teams(object):
             if name not in player:
                 player[name] = role_dict[name]
         return player
+    
     def get_restofteam(self,role_dict,player,reduntant,restteam):
+        """
+        Returns the rest of the players who have not yet been chosen for the 11 
+        
+        :param role_dict : dict of the players mapped to the score for that role
+        :type dict( str : float)
+        :param player : dictionary of the selected players for the best11
+        :type dict( str: float)
+        :param redundant : selected players
+        :type list(str)
+        :param restteam: dict of the players left to be selected
+        :type dict( str: float)
+
+        :rtype dict( str: float)
+        """
         for i in role_dict:
             if i not in player and i not in reduntant:
                 restteam[i] = role_dict[i]
         return restteam
+    
     def get_captain(self,player):
+        """
+        Returns Captain and Vice Captain for the selected 11
+
+        :param player: dictionary of the selected players for the best11
+        :type dict( str : float)
+
+        :rtype: tuple(str,str)
+        """
         captains = list(zip(*Counter(player).most_common(2)))
         captain ,vcaptain = captains[0][0],captains[0][1]
         return captain ,vcaptain
+    
     def team(self):
+        """
+        Returns Captain,Vicecaptain and teams for each role
+        
+        :rtype: tuple(
+                    str,
+                    str,
+                    dict( str : float),
+                    dict( str : float),
+                    dict( str : float),
+                    dict( str : float),
+                )
+        """
+
         player = {}
         name=self.filename()
         files = pd.read_csv("data/6 Matches (Final)/" + name , encoding = "utf-8")
