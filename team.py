@@ -16,16 +16,16 @@ def teams(Id, value=5):
             else:
                 break
         f = f.strip()
-        for i in tqdm(os.listdir("data/zip/ODI/")):
+        for i in tqdm(os.listdir("data/zip")):
             if f in i:
                 f = i
                 break
         # Data Extraction
-        dates = pd.read_csv("data/zip/ODI/" + f)
+        dates = pd.read_csv("data/zip/" + f)
 
         if position == "all":
-            batting_score = pd.read_csv("data/zip2/ODI/" + f)
-            bowling_score = pd.read_csv("data/bowl/ODI/" + f)
+            batting_score = pd.read_csv("data/zip2/" + f)
+            bowling_score = pd.read_csv("data/bowl/" + f)
 
             scores = batting_score.merge(
                 bowling_score, how="left", left_on="match_id", right_on="Match_id"
@@ -64,7 +64,7 @@ def teams(Id, value=5):
 
             y = list(scores["Total"])
         elif position == "bat":
-            batting_score = pd.read_csv("data/zip2/ODI/" + f)
+            batting_score = pd.read_csv("data/zip2/" + f)
             scores = dates.merge(batting_score, how="left", left_on="matchid", right_on="match_id")
 
             scores = scores.sort_values(by="date", ascending=True).reset_index(drop=True)
@@ -81,8 +81,8 @@ def teams(Id, value=5):
             y = list(scores["score"])
 
         elif position == "wk":
-            wk_score = pd.read_csv("data/wk/ODI/" + f)
-            batting_score = pd.read_csv("data/zip2/ODI/" + f)
+            wk_score = pd.read_csv("data/wk/" + f)
+            batting_score = pd.read_csv("data/zip2/" + f)
             scores = batting_score.merge(
                 wk_score, how="left", left_on="match_id", right_on="MATCH_ID"
             )
@@ -116,7 +116,7 @@ def teams(Id, value=5):
             scores = scores[["Total"]]
             y = list(scores["Total"])
         else:
-            bowling_score = pd.read_csv("data/bowl/ODI/" + f)
+            bowling_score = pd.read_csv("data/bowl/" + f)
             scores = dates.merge(bowling_score, how="left", left_on="matchid", right_on="Match_id")
             scores = scores.sort_values(by="date", ascending=True).reset_index(drop=True)
             x = scores[scores["date"] == date].index.to_list()[0]
