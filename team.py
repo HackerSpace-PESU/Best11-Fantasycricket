@@ -18,7 +18,6 @@ class teams(object):
     * **match**: Match name of the selected Id
     * **team_dict**: dictionary which maps the team name to count of the players 
                      selected from that team
-
     *param Id: Id passed to select team for a match
     """
 
@@ -43,7 +42,6 @@ class teams(object):
         """
         Returns the file name corresponding to the Id 
         Each file can be found in data/6 Matches (Final)
-
         :rtype str
         """
 
@@ -64,7 +62,6 @@ class teams(object):
         """
         Returns the player names and score corresponding to a role 
         from the files dataframe
-
         :param role : role of the players in the dataframe
         :type str
         :param role_data : dataframe of the list of players and files
@@ -89,14 +86,12 @@ class teams(object):
     def get_max_players(self,role_dict,player,role):
         """
         Returns max player for a particular role
-
         :param role_dict : dict of the players mapped to the score for that role
         :type dict( str : float)
         :param player : dictionary of the selected players for the best11
         :type dict( str: float)
         :param role : role of the player
         :type str
-
         :rtype: dict( str: float)
         """
         max_score = { 
@@ -132,7 +127,6 @@ class teams(object):
         :type list(str)
         :param restteam: dict of the players left to be selected
         :type dict( str: float)
-
         :rtype dict( str: float)
         """
         for i in role_dict:
@@ -143,10 +137,8 @@ class teams(object):
     def get_captain(self,player):
         """
         Returns Captain and Vice Captain for the selected 11
-
         :param player: dictionary of the selected players for the best11
         :type dict( str : float)
-
         :rtype: tuple(str,str)
         """
         captains = list(zip(*Counter(player).most_common(2)))
@@ -223,14 +215,12 @@ class teams(object):
 class Predict(object):
     """
     A Predict class which predicts the score of the teams
-
     * **value** : Number of matches to consider so as to predict the next match score
     * **date**  : Date the match to be predicted is going to be played
     * **dates** : Dataframe of dates of all matches played by the player 
           :type : pandas.DataFrame()
     * **result**: predicted score
     * **player_name** : file name corresponding to the player name
-
     :param : player : player name
     :type : str
     :param : role : player role
@@ -270,11 +260,9 @@ class Predict(object):
     def predict(self, scores):
         """
         Returns the predicted score 
-
         :param : scores : A numpy array with the scores of all matches the 
                           player has played
         :type : numpy.array()
-
         :rtype : float
         """
 
@@ -405,7 +393,6 @@ class Predict(object):
     def predict_ball(self):
         """
         Returns the predicted score for the corresponding match for bowlers
-
         :rtype : float
         """
 
@@ -418,5 +405,4 @@ class Predict(object):
         scores.dropna(inplace=True)
         result = self.predict(scores["Score"].values)
         return result
-
 
