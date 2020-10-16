@@ -28,9 +28,9 @@ cd Best11-Fantasycricket
 
 3. Run the model : 
 
-`uvicorn FastAPi:app --reload`
+`uvicorn main:app --reload`
 
-5. Open http://127.0.0.1:5000/  and voila!! 
+5. Open http://127.0.0.1:8000/  and voila!! 
 
 ## How do you verify your model??
 
