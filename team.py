@@ -25,17 +25,17 @@ class Teams:
 
     get_match = {
         "a": "EnglandvsAustraliaSemi%Matches@MatchScorecard_ODI.asp?"
-                    + "MatchCode=4354%2019-07-11.csv",
+        + "MatchCode=4354%2019-07-11.csv",
         "b": "EnglandvsAustralia%Matches@MatchScorecard_ODI.asp?"
-                    + "MatchCode=4336%2019-06-25.csv",
+        + "MatchCode=4336%2019-06-25.csv",
         "c": "Bangladesh vs India%Matches@MatchScorecard_ODI.asp?"
-                    + "MatchCode=4345%2019-07-02.csv",
+        + "MatchCode=4345%2019-07-02.csv",
         "d": "England vs India%Matches@MatchScorecard_ODI.asp?"
-                    + "MatchCode=4342%2019-06-30.csv",
+        + "MatchCode=4342%2019-06-30.csv",
         "e": "Australia vs India%Matches@MatchScorecard_ODI.asp?"
-                    + "MatchCode=4316%2019-06-09.csv",
+        + "MatchCode=4316%2019-06-09.csv",
         "f": "India vs New Zealand%Matches@MatchScorecard_ODI.asp?"
-                    + "MatchCode=4353%2019-07-09.csv",
+        + "MatchCode=4353%2019-07-09.csv",
     }
 
     def __init__(self, Id):
@@ -178,7 +178,7 @@ class Teams:
                     else:
                         redundant.append(new)
         captain, vcaptain = self.get_captain()
-        return captain, vcaptain, wkteam, allteam, ballteam, batteam
+        return captain, vcaptain
 
 
 class Predict:

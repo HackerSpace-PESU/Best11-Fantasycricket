@@ -6,11 +6,9 @@ from os import system, name
 import os
 import warnings
 import pandas as pd
-from team import Teams , Predict
+from team import Teams, Predict
 
 
-# Remove all the warnings that show on console
-warnings.filterwarnings("ignore")
 
 # csv file containing the winning points for all 6 matches
 winning_points = pd.read_csv("data/Winning points.csv")
@@ -63,13 +61,16 @@ def get_my11score_wk(playername, match_id):
 def get_my11score_ball(playername, match_id):
     """Returns My11 Bowling Score
 
-        Parameters:
-            playername (str): Player whose bowling score will be calculated
-            match_id (str): Match where the players score will be calculated
+    Parameters:
+        playername (str): Player whose bowling score will be calculated
+        match_id (str): Match where the players score will be calculated
 
-        Returns:
-            ballscore (int): My11 bowling score of the player of the given match
+    Returns:
+        ballscore (int): My11 bowling score of the player of the given match
     """
+    # Remove all the warnings that show on console
+    warnings.filterwarnings("ignore")
+
     ball = pd.DataFrame()
 
     try:
@@ -146,7 +147,7 @@ def get_my11score_bat(playername, match_id):
     bat["runs"] = runs
 
     if score != "-":
-        batscore = ((float(runs) * 0.5) + (float(bat["4s"]) * 0.5) + float(bat["6s"]))
+        batscore = (float(runs) * 0.5) + (float(bat["4s"]) * 0.5) + float(bat["6s"])
     elif score == "-":
         batscore = 0
 
@@ -159,18 +160,19 @@ def get_my11score_bat(playername, match_id):
 
     return batscore
 
+
 fielding_points = {
-                            "a" : 18,
-                            "b" : 30,
-                            "c" : 31,
-                            "d" : 20,
-                            "e" : 11,
-                            "f" : 38,
-                    }
+    "a": 18,
+    "b": 30,
+    "c": 31,
+    "d": 20,
+    "e": 11,
+    "f": 38,
+}
+
 
 def main():
-    """Runs the check algorithm
-    """
+    """Runs the check algorithm"""
     for ids in Teams.get_match:
 
         # Create an instance of the teams class to use its member functions
@@ -192,39 +194,46 @@ def main():
             # Name of the player
 
             for i in os.listdir("data/zip/"):
-                if player[0:player.find("(")].strip() in i:
+                if player[0 : player.find("(")].strip() in i:
                     player_name = i
                     break
 
             # Calculate total score obtained
-            total = get_my11score_bat(player_name, team_class.match.split("%")[1])\
-                    + get_my11score_ball(player_name, team_class.match.split("%")[1])\
-                    + get_my11score_wk(player_name, team_class.match.split("%")[1])
+            total = (
+                get_my11score_bat(player_name, team_class.match.split("%")[1])
+                + get_my11score_ball(player_name, team_class.match.split("%")[1])
+                + get_my11score_wk(player_name, team_class.match.split("%")[1])
+            )
 
             if player == captain:
-                total*=2
+                total *= 2
             elif player == vcaptain:
                 total *= 1.5
 
             teamtotal += total
 
-        scores[team_class.match.split("%")[0]][Predict.value] = fielding_points[ids] + teamtotal
+        scores[team_class.match.split("%")[0]][Predict.value] = (
+            fielding_points[ids] + teamtotal
+        )
 
     loss = {}
     win = {}
-    for i  in range(len(winning_points)):
-        #print(matchname)
-        win[team_class.get_match[winning_points.iloc[i, -1]]\
-                        .split("%")[0].strip()] = winning_points.iloc[i, 1]
-        loss[team_class.get_match[winning_points.iloc[i, -1]]\
-            .split("%")[0].strip()] = winning_points.iloc[i, 1] \
-                            - scores[team_class.get_match[winning_points.iloc[i, -1]]\
-                                    .split("%")[0].strip()][Predict.value]
+    for i in range(len(winning_points)):
+        win[
+            team_class.get_match[winning_points.iloc[i, -1]].split("%")[0].strip()
+        ] = winning_points.iloc[i, 1]
+        loss[team_class.get_match[winning_points.iloc[i, -1]].split("%")[0].strip()] = (
+            winning_points.iloc[i, 1]
+            - scores[
+                team_class.get_match[winning_points.iloc[i, -1]].split("%")[0].strip()
+            ][Predict.value]
+        )
 
-    clear()
     result = []
     for i in scores:
-        result.append([i, scores[i][5], loss[i], win[i], str((100 * (loss[i] / win[i]))) + "%"])
+        result.append(
+            [i, scores[i][5], loss[i], win[i], str((100 * (loss[i] / win[i]))) + "%"]
+        )
 
     result = pd.DataFrame(
         result,
@@ -237,6 +246,9 @@ def main():
         ],
     )
 
-    print(result.head(6))
+    return result
 
-main()
+if __name__=="__main__":
+    clear()
+    checks = main()
+    print(checks.head(6))
