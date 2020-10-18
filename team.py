@@ -211,7 +211,7 @@ class Predict:
             "bat": self.predict_bat,
             "ball": self.predict_ball,
         }
-        self.dates = pd.read_csv("data/zip/" + self.player_name)
+        self.dates = pd.read_csv("data/zip/ODI/" + self.player_name)
         self.result = predict_map[role]()
 
     def get_filename(self, player):
@@ -223,7 +223,7 @@ class Predict:
         """
 
         self.player_name = player.split("(")[0].strip()
-        for i in os.listdir("data/zip"):
+        for i in os.listdir("data/zip/ODI"):
             if self.player_name in i:
                 self.player_name = i
                 break
@@ -260,8 +260,8 @@ class Predict:
         :rtype : float
         """
 
-        batting_score = pd.read_csv("data/zip2/" + self.player_name)
-        bowling_score = pd.read_csv("data/bowl/" + self.player_name)
+        batting_score = pd.read_csv("data/zip2/ODI/" + self.player_name)
+        bowling_score = pd.read_csv("data/bowl/ODI/" + self.player_name)
         scores = batting_score.merge(
             bowling_score, how="left", left_on="match_id", right_on="Match_id"
         )
@@ -309,8 +309,8 @@ class Predict:
         :rtype : float
         """
 
-        wk_score = pd.read_csv("data/wk/" + self.player_name)
-        batting_score = pd.read_csv("data/zip2/" + self.player_name)
+        wk_score = pd.read_csv("data/wk/ODI/" + self.player_name)
+        batting_score = pd.read_csv("data/zip2/ODI/" + self.player_name)
         scores = batting_score.merge(
             wk_score, how="left", left_on="match_id", right_on="MATCH_ID"
         )
@@ -354,7 +354,7 @@ class Predict:
         :rtype : float
         """
 
-        batting_score = pd.read_csv("data/zip2/" + self.player_name)
+        batting_score = pd.read_csv("data/zip2/ODI/" + self.player_name)
         scores = self.dates.merge(
             batting_score, how="left", left_on="matchid", right_on="match_id"
         )
@@ -378,7 +378,7 @@ class Predict:
         :rtype : float
         """
 
-        bowling_score = pd.read_csv("data/bowl/" + self.player_name)
+        bowling_score = pd.read_csv("data/bowl/ODI/" + self.player_name)
         scores = self.dates.merge(
             bowling_score, how="left", left_on="matchid", right_on="Match_id"
         )
