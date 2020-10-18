@@ -9,11 +9,10 @@ from fastapi import FastAPI, Form
 from fastapi.staticfiles import StaticFiles
 from team import Teams
 
-#pylint: disable=missing-function-docstring
-#pylint: disable=global-variable-undefined
+# pylint: disable=missing-function-docstring
+# pylint: disable=global-variable-undefined
 
 app = FastAPI()
-
 
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -60,7 +59,7 @@ def result(request: Request):
             players.append(i[: i.find("\xa0")] + tag_c)
     captain_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     vcaptain_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    for i,_ in enumerate(players):
+    for i, _ in enumerate(players):
         if "(C)" in players[i]:
             captain_list[i] = "(C)"
             vcaptain_list[i] = ""
