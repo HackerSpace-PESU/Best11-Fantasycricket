@@ -72,11 +72,6 @@ class Teams:
                 self.team_dict[list(self.team_dict.keys())[0]] += 1
             elif list(self.team_dict.keys())[1] in name:
                 self.team_dict[list(self.team_dict.keys())[1]] += 1
-            elif "Nathan" in name:
-                if list(self.team_dict.keys())[0] == "Australia":
-                    self.team_dict[list(self.team_dict.keys())[0]] += 1
-                elif list(self.team_dict.keys())[1] == "Australia":
-                    self.team_dict[list(self.team_dict.keys())[1]] += 1
             if name not in self.player:
                 self.player[name] = role_dict[name]
 
@@ -162,21 +157,7 @@ class Teams:
                     self.team_dict[list(self.team_dict.keys())[1]] += 1
                 else:
                     redundant.append(new)
-            elif "Nathan" in new:
-                if list(self.team_dict.keys())[0] == "Australia":
-                    if self.team_dict[list(self.team_dict.keys())[0]] < 7:
-                        self.player[new] = restteam[new]
-                        count += 1
-                        self.team_dict[list(self.team_dict.keys())[0]] += 1
-                    else:
-                        redundant.append(new)
-                elif list(self.team_dict.keys())[1] == "Australia":
-                    if self.team_dict[list(self.team_dict.keys())[1]] < 7:
-                        self.player[new] = restteam[new]
-                        self.team_dict[list(self.team_dict.keys())[1]] += 1
-                        count += 1
-                    else:
-                        redundant.append(new)
+
         captain, vcaptain = self.get_captain()
         return captain, vcaptain
 
