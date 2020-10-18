@@ -42,7 +42,7 @@ def get_my11score_wk(playername, match_id):
     """
     wicket_keeper = pd.DataFrame()
     try:
-        wicket_keeper = pd.read_csv("data/wk/" + playername)
+        wicket_keeper = pd.read_csv("data/wk/ODI/" + playername)
     except FileNotFoundError:
         wkscore = 0
 
@@ -74,7 +74,7 @@ def get_my11score_ball(playername, match_id):
     ball = pd.DataFrame()
 
     try:
-        ball = pd.read_csv("data/bowl/" + playername)
+        ball = pd.read_csv("data/bowl/ODI/" + playername)
     except FileNotFoundError:
         ballscore = 0
 
@@ -125,7 +125,7 @@ def get_my11score_bat(playername, match_id):
         Returns:
             batscore (int): My11 batting score of the player of the given match
     """
-    bat = pd.read_csv("data/zip2/" + playername)
+    bat = pd.read_csv("data/zip2/ODI/" + playername)
 
     match_id = match_id.replace("@", "/")
     match_id = match_id.replace("p_", "p?")
@@ -193,7 +193,7 @@ def main():
 
             # Name of the player
 
-            for i in os.listdir("data/zip/"):
+            for i in os.listdir("data/zip/ODI/"):
                 if player[0 : player.find("(")].strip() in i:
                     player_name = i
                     break
