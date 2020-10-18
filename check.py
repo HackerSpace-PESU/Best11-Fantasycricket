@@ -6,9 +6,7 @@ from os import system, name
 import os
 import warnings
 import pandas as pd
-from tqdm import tqdm
-from team import Teams
-from team import Predict
+from team import Teams , Predict
 
 
 # Remove all the warnings that show on console
@@ -17,11 +15,7 @@ warnings.filterwarnings("ignore")
 # csv file containing the winning points for all 6 matches
 winning_points = pd.read_csv("data/Winning points.csv")
 
-values = {}
-
-# Each ID maps to a specific match later used to calculate corresponding points
-ID = ["a", "b", "c", "d", "e", "f"]
-
+scores = {}
 
 # define our clear function
 def clear():
@@ -48,21 +42,18 @@ def get_my11score_wk(playername, match_id):
         Returns:
             wkscore (int): My11 WK score of the player of the given match
     """
-    wk = pd.DataFrame()
+    wicket_keeper = pd.DataFrame()
     try:
-        wk = pd.read_csv("data/wk/" + playername)
-    except:
+        wicket_keeper = pd.read_csv("data/wk/" + playername)
+    except FileNotFoundError:
         wkscore = 0
 
-    if not wk.empty:
-        match_id = match_id.replace("@", "/")
-        match_id = match_id.replace("p_", "p?")
-        match_id = match_id.strip()
+    if not wicket_keeper.empty:
+        match_id = match_id.replace("@", "/").replace("p_", "p?").strip()
+        wicket_keeper = wicket_keeper[wicket_keeper["MATCH_ID"] == match_id]
 
-        wk = wk[wk["MATCH_ID"] == match_id]
-
-        if not wk.empty:
-            wkscore = float(wk.SCORE.values[0]) / 2
+        if not wicket_keeper.empty:
+            wkscore = float(wicket_keeper.SCORE.values[0]) / 2
         else:
             wkscore = 0
 
@@ -70,8 +61,7 @@ def get_my11score_wk(playername, match_id):
 
 
 def get_my11score_ball(playername, match_id):
-    """
-    Returns My11 Bowling Score
+    """Returns My11 Bowling Score
 
         Parameters:
             playername (str): Player whose bowling score will be calculated
@@ -84,41 +74,39 @@ def get_my11score_ball(playername, match_id):
 
     try:
         ball = pd.read_csv("data/bowl/" + playername)
-    except:
+    except FileNotFoundError:
         ballscore = 0
 
     if not ball.empty:
-        match_id = match_id.replace("@", "/")
-        match_id = match_id.replace("p_", "p?")
-        match_id = match_id.strip()
+        match_id = match_id.replace("@", "/").replace("p_", "p?").strip()
 
         ball = ball[ball["Match_id"] == match_id]
 
         if not ball.empty:
-            w = 12 * float(ball.Wicket.values[0])
+            wicket = 12 * float(ball.Wicket.values[0])
             if float(ball.Wicket.values[0]) >= 7:
-                w += 9
+                wicket += 9
             elif float(ball.Wicket.values[0]) >= 5:
-                w += 6
+                wicket += 6
             elif float(ball.Wicket.values[0]) >= 3:
-                w += 3
-            o = float(ball.Overs.values[0])
-            m = 4 * float(ball.Maidens.values[0])
-            e = 0
-            if o >= 2:
+                wicket += 3
+            over = float(ball.Overs.values[0])
+            maiden = 4 * float(ball.Maidens.values[0])
+            economy = 0
+            if over >= 2:
                 if float(ball.Economy.values[0]) < 3:
-                    e += 3
+                    economy += 3
                 elif float(ball.Economy.values[0]) <= 4.49:
-                    e += 2
+                    economy += 2
                 elif float(ball.Economy.values[0]) <= 5.99:
-                    e += 1
+                    economy += 1
                 elif float(ball.Economy.values[0]) <= 7.49:
-                    e += 0
+                    economy += 0
                 elif float(ball.Economy.values[0]) <= 8.99:
-                    e -= 1
+                    economy -= 1
                 elif float(ball.Economy.values[0]) > 9:
-                    e -= 2
-            ballscore = w + m + e
+                    economy -= 2
+            ballscore = wicket + maiden + economy
         else:
             ballscore = 0
 
@@ -171,110 +159,75 @@ def get_my11score_bat(playername, match_id):
 
     return batscore
 
+fielding_points = {
+                            "a" : 18,
+                            "b" : 30,
+                            "c" : 31,
+                            "d" : 20,
+                            "e" : 11,
+                            "f" : 38,
+                    }
 
 def main():
-    for ids in ID:
+    """Runs the check algorithm
+    """
+    for ids in Teams.get_match:
 
         # Create an instance of the teams class to use its member functions
-        t = Teams(ids)
-
-        file_name = t.match
-        """
-        Returns the file name corresponding to the ID 'we'
-        Format of file: {match}%{matchid}%{date}.csv
-        """
-
-        match, match_ID, date = (
-            file_name.split("%")[0],
-            file_name.split("%")[1],
-            file_name.split("%")[2][:-4],
-        )
-
-        # Mapping from ID to match name
-        matchname = t.get_match
-
-        # Assigning the ID to the match name in the dictionary
-        # matchname[we] = match
+        team_class = Teams(ids)
 
         # Dictionary which maps matches to the score obtained using the recommended team
-        values[match] = {}
+        scores[team_class.match.split("%")[0]] = {}
 
         # Returns the players recommended by the regression model
-        captain, vc, wkteam, allteam, ballteam, batteam = t.team()
-        players = t.player
+        captain, vcaptain = team_class.team()
 
-        values[match][Predict.value] = None
+        scores[team_class.match.split("%")[0]][Predict.value] = None
 
         # Total score obtained from the given team
         teamtotal = 0
 
-        for player in players:
-
-            # batscore, ballscore, my11score = 0, 0, 0
+        for player in team_class.player:
 
             # Name of the player
-            player_name = player[0:player.find("(")]
 
-            player_name = player_name.strip()
-
-            for i in tqdm(os.listdir("data/zip/")):
-                if player_name in i:
+            for i in os.listdir("data/zip/"):
+                if player[0:player.find("(")].strip() in i:
                     player_name = i
                     break
 
-            # Returns my11 batting score using my11 scoring scheme
-            batscore = get_my11score_bat(player_name, match_ID)
-
-            # Returns my11 bowling score using my11 scoring scheme
-            ballscore = get_my11score_ball(player_name, match_ID)
-
-            # Returns my11 WK score using my11 scoring scheme
-            wkscore = get_my11score_wk(player_name, match_ID)
-
             # Calculate total score obtained
-            total = batscore + ballscore + wkscore
+            total = get_my11score_bat(player_name, team_class.match.split("%")[1])\
+                    + get_my11score_ball(player_name, team_class.match.split("%")[1])\
+                    + get_my11score_wk(player_name, team_class.match.split("%")[1])
 
             if player == captain:
-                total = total * 2
-            elif player == vc:
+                total*=2
+            elif player == vcaptain:
                 total *= 1.5
-            else:
-                total = total
 
             teamtotal += total
 
-        if ids == "a":
-            values[match][Predict.value] = teamtotal + 18
-        elif ids == "b":
-            values[match][Predict.value] = teamtotal + 31
-        elif ids == "c":
-            values[match][Predict.value] = teamtotal + 30
-        elif ids == "d":
-            values[match][Predict.value] = teamtotal + 20
-        elif ids == "e":
-            values[match][Predict.value] = teamtotal + 11
-        elif ids == "f":
-            values[match][Predict.value] = teamtotal + 38
+        scores[team_class.match.split("%")[0]][Predict.value] = fielding_points[ids] + teamtotal
 
     loss = {}
     win = {}
     for i  in range(len(winning_points)):
         #print(matchname)
-        print(i)
-        print(winning_points.iloc[i,-1])
-        match_id = matchname[winning_points.iloc[i, -1]].split("%")[0].strip()
-        print(match_id)
-        difference = winning_points.iloc[i, 1] - values[match_id][Predict.value]
-        win[match_id] = winning_points.iloc[i, 1]
-        loss[match_id] = difference
+        win[team_class.get_match[winning_points.iloc[i, -1]]\
+                        .split("%")[0].strip()] = winning_points.iloc[i, 1]
+        loss[team_class.get_match[winning_points.iloc[i, -1]]\
+            .split("%")[0].strip()] = winning_points.iloc[i, 1] \
+                            - scores[team_class.get_match[winning_points.iloc[i, -1]]\
+                                    .split("%")[0].strip()][Predict.value]
 
     clear()
-    x = []
-    for i in values:
-        x.append([i, values[i][5], loss[i], win[i], str((100 * (loss[i] / win[i]))) + "%"])
+    result = []
+    for i in scores:
+        result.append([i, scores[i][5], loss[i], win[i], str((100 * (loss[i] / win[i]))) + "%"])
 
-    x = pd.DataFrame(
-        x,
+    result = pd.DataFrame(
+        result,
         columns=[
             "Game",
             "Real points Score",
@@ -284,6 +237,6 @@ def main():
         ],
     )
 
-    print(x.head(6))
+    print(result.head(6))
 
 main()
