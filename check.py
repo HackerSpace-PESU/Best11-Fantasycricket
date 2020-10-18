@@ -2,7 +2,7 @@
 This module evaluates the performnce of the model
 """
 
-from os import system, name
+import bisect
 import os
 import warnings
 import pandas as pd
@@ -21,12 +21,12 @@ def clear():
     Clears the console screen
     """
     # for windows
-    if name == "nt":
-        _ = system("cls")
+    if os.name == "nt":
+        _ = os.system("cls")
 
     # for mac and linux(here, os.name is 'posix')
     else:
-        _ = system("clear")
+        _ = os.system("clear")
 
 
 def get_my11score_wk(playername, match_id):
@@ -85,28 +85,16 @@ def get_my11score_ball(playername, match_id):
 
         if not ball.empty:
             wicket = 12 * float(ball.Wicket.values[0])
-            if float(ball.Wicket.values[0]) >= 7:
-                wicket += 9
-            elif float(ball.Wicket.values[0]) >= 5:
-                wicket += 6
-            elif float(ball.Wicket.values[0]) >= 3:
-                wicket += 3
+            #if-else statement alternative
+            i = bisect.bisect([2,4,6,10],float(ball.Wicket.values[0])-1)
+            wicket += int("0369"[i])
             over = float(ball.Overs.values[0])
             maiden = 4 * float(ball.Maidens.values[0])
             economy = 0
             if over >= 2:
-                if float(ball.Economy.values[0]) < 3:
-                    economy += 3
-                elif float(ball.Economy.values[0]) <= 4.49:
-                    economy += 2
-                elif float(ball.Economy.values[0]) <= 5.99:
-                    economy += 1
-                elif float(ball.Economy.values[0]) <= 7.49:
-                    economy += 0
-                elif float(ball.Economy.values[0]) <= 8.99:
-                    economy -= 1
-                elif float(ball.Economy.values[0]) > 9:
-                    economy -= 2
+                i = bisect.bisect([3,4.49,5.99,7.49,8.99,float('inf')],\
+                    float(ball.Economy.values[0]))
+                economy+=[3,2,1,0,-1,-2][i]
             ballscore = wicket + maiden + economy
         else:
             ballscore = 0

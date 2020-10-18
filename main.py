@@ -39,13 +39,14 @@ def result(request: Request):
     captain = team_match[0]
     team_list = t_d.player
     players = []
-
+    captain_tag= {
+        captain:"(C)",
+        vcaptain:"(VC)"
+    }
     for i in team_list:
-        if i == captain:
-            tag_c = "(C)"
-        elif i == vcaptain:
-            tag_c = "(VC)"
-        else:
+        try:
+            tag_c = captain_tag[i]
+        except KeyError:
             tag_c = ""
         if i == "Nathan Coulter":
             players.append("Nathan Coulter Nile" + tag_c)
