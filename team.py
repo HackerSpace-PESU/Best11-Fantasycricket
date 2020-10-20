@@ -4,7 +4,6 @@ and the Predict class which predicts the score based on the role
 """
 
 from collections import Counter
-import os
 import pandas as pd
 import numpy as np
 from sklearn.linear_model import LinearRegression
@@ -184,7 +183,8 @@ class Predict:
     value = 5
 
     def __init__(self, player, role, date):
-        self.get_filename(player)
+
+        self.player = player
         self.date = date
         predict_map = {
             "all": self.predict_allrounder,
@@ -192,22 +192,28 @@ class Predict:
             "bat": self.predict_bat,
             "ball": self.predict_ball,
         }
-        self.dates = pd.read_csv("data/zip/ODI/" + self.player_name)
         self.result = predict_map[role]()
 
-    def get_filename(self, player):
+    def get_dataframe(self,filename):
         """
-        Returns filename corresponding to the player
-        (to be removed soon)
+        Returns dataframe corresponding to the player
 
-        :rtype : void
+        :param: filename : filename corresponding to role of the player
+        :type : str
+
+        :rtype : :pyclass: `pd.DataFrame()`
         """
 
-        self.player_name = player.split("(")[0].strip()
-        for i in os.listdir("data/zip/ODI"):
-            if self.player_name in i:
-                self.player_name = i
-                break
+        match_id = pd.read_csv('data/ODI/'+filename)
+        match_id = match_id[match_id['player_name']==self.player[:-4]]
+        if match_id.empty:
+            index =[]
+            match_id = pd.read_csv('data/ODI/'+filename)
+            for i,_ in enumerate(match_id.iloc[:,-1].values):
+                if self.player.split('(')[0].strip() in match_id.iloc[i,-1]:
+                    index.append(i)
+            match_id = match_id.iloc[index,:-1]
+        return match_id
 
     def predict(self, scores):
         """
@@ -241,12 +247,14 @@ class Predict:
         :rtype : float
         """
 
-        batting_score = pd.read_csv("data/zip2/ODI/" + self.player_name)
-        bowling_score = pd.read_csv("data/bowl/ODI/" + self.player_name)
+        batting_score = self.get_dataframe('batting_ODI.csv')
+        bowling_score = self.get_dataframe('bowling_ODI.csv')
+        assert not batting_score.empty
+        assert not bowling_score.empty
         scores = batting_score.merge(
             bowling_score, how="left", left_on="match_id", right_on="Match_id"
         )
-        scores = self.dates.merge(
+        scores = self.get_dataframe('match_ids_ODI.csv').merge(
             scores, how="left", left_on="matchid", right_on="match_id"
         )
 
@@ -260,7 +268,6 @@ class Predict:
                 "Wicket",
                 "Economy",
                 "Maidens",
-                "Unnamed: 0",
                 "batting position",
                 "6s",
                 "4s",
@@ -290,12 +297,14 @@ class Predict:
         :rtype : float
         """
 
-        wk_score = pd.read_csv("data/wk/ODI/" + self.player_name)
-        batting_score = pd.read_csv("data/zip2/ODI/" + self.player_name)
+        wk_score = self.get_dataframe("wicketkeeping_ODI.csv")
+        assert not wk_score.empty
+        batting_score = self.get_dataframe("batting_ODI.csv")
+        assert not batting_score.empty
         scores = batting_score.merge(
             wk_score, how="left", left_on="match_id", right_on="MATCH_ID"
         )
-        scores = self.dates.merge(
+        scores = self.get_dataframe("match_ids_ODI.csv").merge(
             scores, how="left", left_on="matchid", right_on="match_id"
         )
         scores = scores.sort_values(by="date", ascending=True).reset_index(drop=True)
@@ -307,12 +316,12 @@ class Predict:
                 "match_id",
                 "MATCH_ID",
                 "how dismissed",
-                "Unnamed: 0",
                 "batting position",
                 "6s",
                 "4s",
                 "strike rate",
                 "date",
+
             ],
             axis=1,
             inplace=True,
@@ -335,8 +344,9 @@ class Predict:
         :rtype : float
         """
 
-        batting_score = pd.read_csv("data/zip2/ODI/" + self.player_name)
-        scores = self.dates.merge(
+        batting_score = self.get_dataframe("batting_ODI.csv")
+        assert not batting_score.empty
+        scores = self.get_dataframe("match_ids_ODI.csv").merge(
             batting_score, how="left", left_on="matchid", right_on="match_id"
         )
         scores = scores.sort_values(by="date", ascending=True).reset_index(drop=True)
@@ -359,8 +369,9 @@ class Predict:
         :rtype : float
         """
 
-        bowling_score = pd.read_csv("data/bowl/ODI/" + self.player_name)
-        scores = self.dates.merge(
+        bowling_score = self.get_dataframe("bowling_ODI.csv")
+        assert not bowling_score.empty
+        scores = self.get_dataframe("match_ids_ODI.csv").merge(
             bowling_score, how="left", left_on="matchid", right_on="Match_id"
         )
         scores = scores.sort_values(by="date", ascending=True).reset_index(drop=True)
