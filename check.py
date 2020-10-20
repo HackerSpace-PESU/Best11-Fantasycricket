@@ -28,6 +28,27 @@ def clear():
     else:
         _ = os.system("clear")
 
+def get_dataframe(filename,player):
+    """
+    Returns the data frame corresponding to the player
+
+    :param filename : filename of the role of the player
+    :type : str
+    :param player : player name
+    :type : str
+
+    :rtype: :pyclass: `pd.DataFrame()`
+    """
+    data = pd.read_csv('data/ODI/'+filename)
+    data = data[data['player_name']==player]
+    if data.empty:
+        index =[]
+        data = pd.read_csv('data/ODI/'+filename)
+        for i,_ in enumerate(data.iloc[:,-1].values):
+            if player.split('(')[0].strip() in data.iloc[i,-1]:
+                index.append(i)
+        data = data.iloc[index,:-1]
+    return data
 
 def get_my11score_wk(playername, match_id):
     """
@@ -40,11 +61,9 @@ def get_my11score_wk(playername, match_id):
         Returns:
             wkscore (int): My11 WK score of the player of the given match
     """
+    wkscore = 0
     wicket_keeper = pd.DataFrame()
-    try:
-        wicket_keeper = pd.read_csv("data/wk/ODI/" + playername)
-    except FileNotFoundError:
-        wkscore = 0
+    wicket_keeper = get_dataframe("wicketkeeping_ODI.csv", playername)
 
     if not wicket_keeper.empty:
         match_id = match_id.replace("@", "/").replace("p_", "p?").strip()
@@ -72,11 +91,8 @@ def get_my11score_ball(playername, match_id):
     warnings.filterwarnings("ignore")
 
     ball = pd.DataFrame()
-
-    try:
-        ball = pd.read_csv("data/bowl/ODI/" + playername)
-    except FileNotFoundError:
-        ballscore = 0
+    ballscore = 0
+    ball = get_dataframe("bowling_ODI.csv", playername)
 
     if not ball.empty:
         match_id = match_id.replace("@", "/").replace("p_", "p?").strip()
@@ -113,7 +129,7 @@ def get_my11score_bat(playername, match_id):
         Returns:
             batscore (int): My11 batting score of the player of the given match
     """
-    bat = pd.read_csv("data/zip2/ODI/" + playername)
+    bat = get_dataframe("batting_ODI.csv", playername)
 
     match_id = match_id.replace("@", "/")
     match_id = match_id.replace("p_", "p?")
@@ -162,7 +178,7 @@ fielding_points = {
 def main():
     """Runs the check algorithm"""
     for ids in Teams.get_match:
-
+        print(ids)
         # Create an instance of the teams class to use its member functions
         team_class = Teams(ids)
 
@@ -181,16 +197,11 @@ def main():
 
             # Name of the player
 
-            for i in os.listdir("data/zip/ODI/"):
-                if player[0 : player.find("(")].strip() in i:
-                    player_name = i
-                    break
-
             # Calculate total score obtained
             total = (
-                get_my11score_bat(player_name, team_class.match.split("%")[1])
-                + get_my11score_ball(player_name, team_class.match.split("%")[1])
-                + get_my11score_wk(player_name, team_class.match.split("%")[1])
+                get_my11score_bat(player, team_class.match.split("%")[1])
+                + get_my11score_ball(player, team_class.match.split("%")[1])
+                + get_my11score_wk(player, team_class.match.split("%")[1])
             )
 
             if player == captain:
