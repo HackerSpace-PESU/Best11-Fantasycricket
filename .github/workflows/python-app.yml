@@ -11,8 +11,10 @@ on:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.platform }}
 
     steps:
     - uses: actions/checkout@v2
@@ -23,8 +25,14 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pytest
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install pylint pytest
+        pip install -r requirements.txt
+    - name: Lint with pylint
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        pylint *.py -E
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        pylint *.py --exit-zero
     - name: Test with pytest
       run: |
         pytest
