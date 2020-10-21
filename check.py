@@ -66,7 +66,6 @@ def get_my11score_wk(playername, match_id):
     wicket_keeper = get_dataframe("wicketkeeping_ODI.csv", playername)
 
     if not wicket_keeper.empty:
-        match_id = match_id.replace("@", "/").replace("p_", "p?").strip()
         wicket_keeper = wicket_keeper[wicket_keeper["MATCH_ID"] == match_id]
 
         if not wicket_keeper.empty:
@@ -95,7 +94,6 @@ def get_my11score_ball(playername, match_id):
     ball = get_dataframe("bowling_ODI.csv", playername)
 
     if not ball.empty:
-        match_id = match_id.replace("@", "/").replace("p_", "p?").strip()
 
         ball = ball[ball["Match_id"] == match_id]
 
@@ -131,10 +129,6 @@ def get_my11score_bat(playername, match_id):
     """
     bat = get_dataframe("batting_ODI.csv", playername)
 
-    match_id = match_id.replace("@", "/")
-    match_id = match_id.replace("p_", "p?")
-    match_id = match_id.strip()
-
     bat = bat[bat["match_id"] == match_id]
     score = bat["score"].values[0]
 
@@ -165,15 +159,32 @@ def get_my11score_bat(playername, match_id):
     return batscore
 
 
-fielding_points = {
-    "a": 18,
-    "b": 30,
-    "c": 31,
-    "d": 20,
-    "e": 11,
-    "f": 38,
+id_map = {
+    "a": {
+            "match_id": "Matches/MatchScorecard_ODI.asp?MatchCode=4354",
+            "fielding_points":18
+         },
+    "b": {
+            "match_id": "Matches/MatchScorecard_ODI.asp?MatchCode=4336",
+            "fielding_points":30
+         },
+    "c": {
+            "match_id": "Matches/MatchScorecard_ODI.asp?MatchCode=4345",
+            "fielding_points":31
+         },
+    "d": {
+            "match_id": "Matches/MatchScorecard_ODI.asp?MatchCode=4342",
+            "fielding_points":20
+         },
+    "e": {
+            "match_id": "Matches/MatchScorecard_ODI.asp?MatchCode=4316",
+            "fielding_points":11
+         },
+    "f": {
+            "match_id": "Matches/MatchScorecard_ODI.asp?MatchCode=4353",
+            "fielding_points":38
+         },
 }
-
 
 def main():
     """Runs the check algorithm"""
@@ -199,9 +210,9 @@ def main():
 
             # Calculate total score obtained
             total = (
-                get_my11score_bat(player, team_class.match.split("%")[1])
-                + get_my11score_ball(player, team_class.match.split("%")[1])
-                + get_my11score_wk(player, team_class.match.split("%")[1])
+                get_my11score_bat(player, id_map[ids]["match_id"])
+                + get_my11score_ball(player, id_map[ids]["match_id"])
+                + get_my11score_wk(player, id_map[ids]["match_id"])
             )
 
             if player == captain:
@@ -212,7 +223,7 @@ def main():
             teamtotal += total
 
         scores[team_class.match.split("%")[0]][Predict.value] = (
-            fielding_points[ids] + teamtotal
+            id_map[ids]["fielding_points"] + teamtotal
         )
 
     loss = {}

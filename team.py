@@ -23,18 +23,12 @@ class Teams:
     """
 
     get_match = {
-        "a": "EnglandvsAustraliaSemi%Matches@MatchScorecard_ODI.asp?"
-        + "MatchCode=4354%2019-07-11.csv",
-        "b": "EnglandvsAustralia%Matches@MatchScorecard_ODI.asp?"
-        + "MatchCode=4336%2019-06-25.csv",
-        "c": "Bangladesh vs India%Matches@MatchScorecard_ODI.asp?"
-        + "MatchCode=4345%2019-07-02.csv",
-        "d": "England vs India%Matches@MatchScorecard_ODI.asp?"
-        + "MatchCode=4342%2019-06-30.csv",
-        "e": "Australia vs India%Matches@MatchScorecard_ODI.asp?"
-        + "MatchCode=4316%2019-06-09.csv",
-        "f": "India vs New Zealand%Matches@MatchScorecard_ODI.asp?"
-        + "MatchCode=4353%2019-07-09.csv",
+        "a": "EnglandvsAustraliaSemi%2019-07-11.csv",
+        "b": "EnglandvsAustralia%2019-06-25.csv",
+        "c": "Bangladesh vs India%2019-07-02.csv",
+        "d": "England vs India%2019-06-30.csv",
+        "e": "Australia vs India%2019-06-09.csv",
+        "f": "India vs New Zealand%2019-07-09.csv",
     }
 
     def __init__(self, Id):
@@ -403,7 +397,7 @@ def get_role_team(role, role_data, file_name):
         if player_det.split("-")[0] not in team:
             team[player_det.split("-")[0]] = None
         team[player_det.split("-")[0]] = Predict(
-            player_det.split("-")[0], role, file_name.split("%")[2][:-4]
+            player_det.split("-")[0], role, file_name.split("%")[1][:-4]
         ).result
     wkt = sorted(team.items(), key=lambda x: x[1], reverse=True)
     wkteam = {i[0]: i[1] for i in wkt}
