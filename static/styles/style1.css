@@ -1,12 +1,15 @@
 body {
- background-image: url("../images/result4.jpg");
+ background-image: url("../images/result1.jpg") ;
+ background-size:cover;
+ height: auto;
+ width: 100%;
 }
 
 h1 {
     text-align: center;
-    color: white;
-    font-size: 3em;
-    margin-top: 2.5em;
+    color: rgb(7, 65, 182);
+    font-size: 3.5em;
+    margin-top: 1em;
 }
 
 .line1 {  
@@ -18,6 +21,8 @@ h1 {
   grid-row-gap: 40px;
   padding: 10px;
   text-align: center;
+  font-size: large;
+  font-weight:20px;
 }
 
 .line2 {  
@@ -26,6 +31,8 @@ h1 {
   display: grid;
   grid-template-columns: auto auto auto auto auto auto;
   text-align: center;
+  font-size: large;
+  font-weight:40px;
 }
 
 p {
@@ -38,9 +45,12 @@ figcaption {
 }
 
 .button {
+    background: linear-gradient(to bottom, #081482, #004e92);
     position: absolute;
     top: 600px;
+    color:white;
     left: 47.5%;
+    padding:2px 6px;
     border-radius: 4px;
     font-family: Arial;
     line-height:30px;

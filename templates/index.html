@@ -1,27 +1,174 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',path='styles/style.css') }}">
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.3.1/css/flag-icon.min.css" rel="stylesheet"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
         <link rel="icon" href="../static/images/icon.jpg">
         <title>Home Page</title>
-    </head>
-    <body>
-        <h1>Best Playing 11 Recommendation System</h1>
-        <h2>Enter match to get best playing 11</h2>
         
-        <form action="/" method="POST">
-            <div class="custom-select">    
-                <select name="match" >
-                    <option value="e">Australia vs India</option>
-                    <option value="d">England vs India</option>
-                    <option value="f">India vs New Zealand</option>
-                    <option value="b">England vs Australia</option>
-                    <option value="c">Bangladesh vs India</option>
-                    <option value="a">England vs Australia (Semi-Final)</option>
-                </select>
+        <style>
+            .button 
+            {
+                background: linear-gradient(to bottom, #081482, #004e92);
+                border: none;
+                color: rgb(168, 204, 248);
+                padding: 5px 16px;
+                text-align: center;
+                font-size: 20px;
+                opacity: 1;
+                transition: 0.3s;
+                display: inline-block;
+                text-decoration: none;
+                cursor: pointer;
+            }
+            .button:hover {opacity: 0.6}
+            .button1{border-radius: 8px;}
+
+            .responsive {
+                width: 30%;
+                max-width: 100px;
+                height: auto;
+            }
+
+            .card
+            {
+                background-color: #131314; border-radius: 5px; margin-bottom:-5px; color: rgb(255, 240, 240);
+                font-size: 60px; border-radius: 8px;
+            }
+
+            .header
+            {
+                background: linear-gradient(to bottom, #000428, #004e92); color:rgb(240, 234, 234); margin:-10px; 
+            }
+        </style>
+
+        
+    </head>
+        <body style="background-color: #000000;">
+            <p style="margin: 2px;color: blanchedalmond;">BestOf11.org</p>
+    
+            <div class="container" style="text-align:centre;">
+                <div class="jumbotron header" >
+                    <div style="text-align: center;font-size: 50px; font-weight:100px">
+                        <div>Best Playing 11 Recommendation System</div>
+                    </div>          
+                </div>
+    
+                <div style="text-align: center;  color:rgb(235, 225, 225); margin-top:40px;">
+                    <h3 >Select match to get best playing 11</h3>
+                    
+                    
+                    
+                    
+                    <div class="col;container" style="text-align: center; font-size: 20px;"  >
+    
+    
+                        <!--AUSTRALIA VS INDIA-->
+                        <div class="col-sm-4">
+                            <div class="card">
+    
+                                <h3>Australia vs India</h3>
+                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-au"></img>
+                                vs
+                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-in" ></img>
+                                <form action="/" method="POST">
+                                <button  class ="button button1"  type="submit" name="match" value="e">predict</button>
+                                </form>
+    
+                            </div>
+                  
+                        </div>
+    
+                        <!--ENGLAND VS INDIA-->
+                        <div class="col-sm-4">
+                            <div class="card">
+    
+                                <h3>England vs India</h3>
+                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-gb" ></img>
+                                vs
+                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-in"></img>
+                                <form action="/" method="POST">
+                                <button  class ="button button1"  type="submit" name="match" value="d">predict</button>
+                                </form>
+    
+                            </div>
+                        </div>
+    
+                        <!--NEW ZEALAND VS INDIA-->
+                        <div class="col-sm-4">
+                            <div class="card">
+    
+                                <h3>India vs New Zealand</h3>
+                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-nz"></img>
+                                vs
+                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-in"></img>
+                                <form action="/" method="POST">
+                                <button  class ="button button1"  type="submit" name="match" value="f">predict</button>
+                                </form>
+    
+                            </div>
+                        </div>
+    
+                        <!--AUSTRALIA VS ENGLAND-->
+                        <div class="col-sm-4">
+                            <div class="card">
+    
+                                <h3>England vs Australia</h3>
+                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-au"></img>
+                                vs
+                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-gb" ></img>
+                                <form action="/" method="POST">
+                                <button  class ="button button1"  type="submit" name="match" value="b">predict</button>
+                                </form>
+    
+                            </div>
+                        </div>
+    
+                        <!--BANGLADESH VS INDIA-->
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <h3>Bangladesh vs India</h3>
+    
+                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-bd"></img>
+                                <i class="ae flag"></i>
+                                vs
+                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-in" ></img>
+                                <form action="/" method="POST">
+                                <button  class ="button button1"  type="submit" name="match" value="c">predict</button>
+                                </form>
+    
+                            </div>
+                        </div>
+    
+                        <!--AUSTRALIA VS ENGLAND-->
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <h3>England vs Australia (Semi)</h3>
+    
+                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-au" ></img>
+                                vs
+                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-gb"></img>
+                                <form action="/" method="POST">
+                                <button  class ="button button1"  type="submit" name="match" value="a">predict</button>
+                                </form>
+    
+                            </div>
+                        </div>
+    
+                    </div>
+                
+    
+                </div>
+    
             </div>
-            
-            <div class="button"><p><input type="submit" value="Recommend Team"/></p></div>            
-        </form>
-    </body>
-</html>
+        </body>
+</html> 
