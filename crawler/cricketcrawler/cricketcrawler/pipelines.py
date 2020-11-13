@@ -6,30 +6,31 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
-from cricketcrawler.csvexporter import CsvItemExporter_M
 from scrapy.exceptions import DropItem
+from scrapy.exporters import CsvItemExporter
 class CricketcrawlerPipeline:
     def open_spider(self, spider):
         self.name_to_exporter = {}
 
     def close_spider(self, spider):
-        for exporter in self.name_to_exporter.values():
+        for exporter,fp in self.name_to_exporter.values():
             exporter.finish_exporting()
+            fp.close()
 
     def process_item(self, item, spider):
         exporter = self._exporter_for_item(item)
+        del item["folder"]
         item2=dict(item)
-        del item2["name"]
         exporter.export_item(item2)
         return item
     def _exporter_for_item(self, item):
-        name = item['name']
+        name = f'../../data_crawler/{item["folder"]}/{item.file}.csv'
         if name not in self.name_to_exporter:
-            f = open(f'{item.folder}/{name}.csv', 'wb')
-            exporter = CsvItemExporter_M(f)
+            f = open(name, 'wb')
+            exporter = CsvItemExporter(f)
             exporter.start_exporting()
-            self.name_to_exporter[name] = exporter
-        return self.name_to_exporter[name]
+            self.name_to_exporter[name] = exporter,f
+        return self.name_to_exporter[name][0]
 
 
 class DuplicatesPipeline:
@@ -38,9 +39,9 @@ class DuplicatesPipeline:
         self.ids_seen = set()
 
     def process_item(self, item, spider):
-        adapter = ItemAdapter(item)
-        if not adapter['name']+adapter['matchid'] in self.ids_seen:
-            self.ids_seen.add(adapter['name']+adapter['matchid'])
+        key=item.get_key()
+        if not key in self.ids_seen:
+            print(key)
             return item
         else:
 
