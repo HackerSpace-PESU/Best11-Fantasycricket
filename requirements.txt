@@ -1,0 +1,4 @@
+sklearn
+fastapi[all]
+pandas
+numpy

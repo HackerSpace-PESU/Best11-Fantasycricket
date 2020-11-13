@@ -6,13 +6,13 @@ In the past year or so fantasy cricket has been getting a lot of traction and wi
 
 ## Requirements
 
-1. Flask
-2. sklearn
+1. FastAPI
+2. Uvicorn
+3. sklearn
 
 Install using </br>
 ```bash
-pip3 install Flask
-pip3 install sklearn
+pip3 install -r requirements.txt
 ```
 
 ## I want to run your project
@@ -26,12 +26,11 @@ To run our project follow these steps
 cd Best11-Fantasycricket
 ``` 
 
-3. Run the files : 
-```bash
-python3 Flask.py
+3. Run the model : 
 
-```
-5. Open http://127.0.0.1:5000/  and voila!! 
+`uvicorn main:app --reload`
+
+5. Open http://127.0.0.1:8000/  and voila!! 
 
 ## How do you verify your model??
 
@@ -64,8 +63,7 @@ Check out [Dataset.md](https://github.com/lucasace/Best11-Fantasycricket/blob/ma
 
 ## How do I contribute to this project????
 
-We have created two issues for you in the Issues section namely Web Scraping and The algorithm </br></br>
-To contribute to this project, first fork the repo then , You can complete the problems presented in each issue and set up a Pull Request, If we think it helps the project or if you have fulfilled the requirements , we will merge it and CONGRATULATIONS, you are a contributor
+Refer to the [Contributing.md](https://github.com/HackerSpace-PESU/Best11-Fantasycricket/blob/master/.github/CONTRIBUTING.md) file of our repository 
 </br></br>
 If you have any suggestions for our project , do raise a issue and we will look into it and if we think it helps our project we will keep it open until its implemented by us or by anyone else 
 </br></br>
