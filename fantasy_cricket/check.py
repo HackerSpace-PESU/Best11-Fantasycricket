@@ -9,9 +9,8 @@ import pandas as pd
 from team import Teams, Predict
 
 
-
 # csv file containing the winning points for all 6 matches
-winning_points = pd.read_csv("data/Winning points.csv")
+winning_points = pd.read_csv("fantasy_cricket/data/Winning points.csv")
 
 scores = {}
 
@@ -28,7 +27,8 @@ def clear():
     else:
         _ = system("clear")
 
-def get_dataframe(filename,player):
+
+def get_dataframe(filename, player):
     """
     Returns the data frame corresponding to the player
 
@@ -39,16 +39,17 @@ def get_dataframe(filename,player):
 
     :rtype: :pyclass: `pd.DataFrame()`
     """
-    data = pd.read_csv('data/ODI/'+filename)
-    data = data[data['player_name']==player]
+    data = pd.read_csv("fantasy_cricket/data/ODI/" + filename)
+    data = data[data["player_name"] == player]
     if data.empty:
-        index =[]
-        data = pd.read_csv('data/ODI/'+filename)
-        for i,_ in enumerate(data.iloc[:,-1].values):
-            if player.split('(')[0].strip() in data.iloc[i,-1]:
+        index = []
+        data = pd.read_csv("fantasy_cricket/data/ODI/" + filename)
+        for i, _ in enumerate(data.iloc[:, -1].values):
+            if player.split("(")[0].strip() in data.iloc[i, -1]:
                 index.append(i)
-        data = data.iloc[index,:-1]
+        data = data.iloc[index, :-1]
     return data
+
 
 def get_my11score_wk(playername, match_id):
     """
@@ -173,30 +174,31 @@ def get_my11score_bat(playername, match_id):
 
 id_map = {
     "a": {
-            "match_id": "Matches/MatchScorecard_ODI.asp?MatchCode=4354",
-            "fielding_points":18
-         },
+        "match_id": "Matches/MatchScorecard_ODI.asp?MatchCode=4354",
+        "fielding_points": 18,
+    },
     "b": {
-            "match_id": "Matches/MatchScorecard_ODI.asp?MatchCode=4336",
-            "fielding_points":30
-         },
+        "match_id": "Matches/MatchScorecard_ODI.asp?MatchCode=4336",
+        "fielding_points": 30,
+    },
     "c": {
-            "match_id": "Matches/MatchScorecard_ODI.asp?MatchCode=4345",
-            "fielding_points":31
-         },
+        "match_id": "Matches/MatchScorecard_ODI.asp?MatchCode=4345",
+        "fielding_points": 31,
+    },
     "d": {
-            "match_id": "Matches/MatchScorecard_ODI.asp?MatchCode=4342",
-            "fielding_points":20
-         },
+        "match_id": "Matches/MatchScorecard_ODI.asp?MatchCode=4342",
+        "fielding_points": 20,
+    },
     "e": {
-            "match_id": "Matches/MatchScorecard_ODI.asp?MatchCode=4316",
-            "fielding_points":11
-         },
+        "match_id": "Matches/MatchScorecard_ODI.asp?MatchCode=4316",
+        "fielding_points": 11,
+    },
     "f": {
-            "match_id": "Matches/MatchScorecard_ODI.asp?MatchCode=4353",
-            "fielding_points":38
-         },
+        "match_id": "Matches/MatchScorecard_ODI.asp?MatchCode=4353",
+        "fielding_points": 38,
+    },
 }
+
 
 def main():
     """Runs the check algorithm"""
@@ -270,7 +272,8 @@ def main():
 
     return result
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     clear()
     checks = main()
     print(checks.head(6))

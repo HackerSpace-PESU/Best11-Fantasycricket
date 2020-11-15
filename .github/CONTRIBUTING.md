@@ -8,6 +8,10 @@ Steps to contribute:
 
 * Fix the issue 
 
+* Run `pylint fantasy_cricket` and fix all warnings
+
+* Run `pytest` and ensure it passes before setting up a PR
+
 * Set up a Pull request
 
 * Sit back and wait for maintainers to review!
