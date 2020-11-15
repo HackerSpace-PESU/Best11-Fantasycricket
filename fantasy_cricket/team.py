@@ -115,7 +115,9 @@ class Teams:
                 )
         """
 
-        files = pd.read_csv("data/6 Matches (Final)/" + self.match, encoding="utf-8")
+        files = pd.read_csv(
+            "fantasy_cricket/data/6 Matches (Final)/" + self.match, encoding="utf-8"
+        )
         wkteam = batteam = ballteam = allteam = None
         position_map = {
             "wk": {"var": wkteam},
@@ -188,7 +190,7 @@ class Predict:
         }
         self.result = predict_map[role]()
 
-    def get_dataframe(self,filename):
+    def get_dataframe(self, filename):
         """
         Returns dataframe corresponding to the player
 
@@ -198,15 +200,15 @@ class Predict:
         :rtype : :pyclass: `pd.DataFrame()`
         """
 
-        match_id = pd.read_csv('data/ODI/'+filename)
-        match_id = match_id[match_id['player_name']==self.player[:-4]]
+        match_id = pd.read_csv("fantasy_cricket/data/ODI/" + filename)
+        match_id = match_id[match_id["player_name"] == self.player[:-4]]
         if match_id.empty:
-            index =[]
-            match_id = pd.read_csv('data/ODI/'+filename)
-            for i,_ in enumerate(match_id.iloc[:,-1].values):
-                if self.player.split('(')[0].strip() in match_id.iloc[i,-1]:
+            index = []
+            match_id = pd.read_csv("fantasy_cricket/data/ODI/" + filename)
+            for i, _ in enumerate(match_id.iloc[:, -1].values):
+                if self.player.split("(")[0].strip() in match_id.iloc[i, -1]:
                     index.append(i)
-            match_id = match_id.iloc[index,:-1]
+            match_id = match_id.iloc[index, :-1]
         return match_id
 
     def predict(self, scores):
@@ -241,14 +243,14 @@ class Predict:
         :rtype : float
         """
 
-        batting_score = self.get_dataframe('batting_ODI.csv')
-        bowling_score = self.get_dataframe('bowling_ODI.csv')
+        batting_score = self.get_dataframe("batting_ODI.csv")
+        bowling_score = self.get_dataframe("bowling_ODI.csv")
         assert not batting_score.empty
         assert not bowling_score.empty
         scores = batting_score.merge(
             bowling_score, how="left", left_on="match_id", right_on="Match_id"
         )
-        scores = self.get_dataframe('match_ids_ODI.csv').merge(
+        scores = self.get_dataframe("match_ids_ODI.csv").merge(
             scores, how="left", left_on="matchid", right_on="match_id"
         )
 
@@ -315,7 +317,6 @@ class Predict:
                 "4s",
                 "strike rate",
                 "date",
-
             ],
             axis=1,
             inplace=True,
