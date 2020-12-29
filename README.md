@@ -6,9 +6,9 @@ In the past year or so fantasy cricket has been getting a lot of traction and wi
 
 ## Requirements
 
-1. FastAPI
-2. Uvicorn
-3. sklearn
+1. [FastAPI](https://fastapi.tiangolo.com/)
+2. [sklearn](https://scikit-learn.org/stable/)
+3. [pycricbuzz](https://github.com/codophobia/pycricbuzz) 
 
 Install using </br>
 ```bash

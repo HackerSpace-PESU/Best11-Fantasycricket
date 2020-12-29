@@ -1,174 +1,135 @@
 <!DOCTYPE html>
+<!--Copyright (C) 2020  Royston E Tauro & Sammith S Bharadwaj & Shreyas Raviprasad
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
 <html>
-    <head>
-
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.3.1/css/flag-icon.min.css" rel="stylesheet"/>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-        <link rel="icon" href="../static/images/icon.jpg">
-        <title>Home Page</title>
-        
-        <style>
-            .button 
-            {
-                background: linear-gradient(to bottom, #081482, #004e92);
-                border: none;
-                color: rgb(168, 204, 248);
-                padding: 5px 16px;
-                text-align: center;
-                font-size: 20px;
-                opacity: 1;
-                transition: 0.3s;
-                display: inline-block;
-                text-decoration: none;
-                cursor: pointer;
-            }
-            .button:hover {opacity: 0.6}
-            .button1{border-radius: 8px;}
-
-            .responsive {
-                width: 30%;
-                max-width: 100px;
-                height: auto;
-            }
-
-            .card
-            {
-                background-color: #131314; border-radius: 5px; margin-bottom:-5px; color: rgb(255, 240, 240);
-                font-size: 60px; border-radius: 8px;
-            }
-
-            .header
-            {
-                background: linear-gradient(to bottom, #000428, #004e92); color:rgb(240, 234, 234); margin:-10px; 
-            }
-        </style>
-
-        
-    </head>
-        <body style="background-color: #000000;">
-            <p style="margin: 2px;color: blanchedalmond;">BestOf11.org</p>
-    
-            <div class="container" style="text-align:centre;">
-                <div class="jumbotron header" >
-                    <div style="text-align: center;font-size: 50px; font-weight:100px">
-                        <div>Best Playing 11 Recommendation System</div>
-                    </div>          
-                </div>
-    
-                <div style="text-align: center;  color:rgb(235, 225, 225); margin-top:40px;">
-                    <h3 >Select match to get best playing 11</h3>
-                    
-                    
-                    
-                    
-                    <div class="col;container" style="text-align: center; font-size: 20px;"  >
-    
-    
-                        <!--AUSTRALIA VS INDIA-->
-                        <div class="col-sm-4">
-                            <div class="card">
-    
-                                <h3>Australia vs India</h3>
-                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-au"></img>
-                                vs
-                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-in" ></img>
-                                <form action="/" method="POST">
-                                <button  class ="button button1"  type="submit" name="match" value="e">predict</button>
-                                </form>
-    
-                            </div>
-                  
-                        </div>
-    
-                        <!--ENGLAND VS INDIA-->
-                        <div class="col-sm-4">
-                            <div class="card">
-    
-                                <h3>England vs India</h3>
-                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-gb" ></img>
-                                vs
-                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-in"></img>
-                                <form action="/" method="POST">
-                                <button  class ="button button1"  type="submit" name="match" value="d">predict</button>
-                                </form>
-    
-                            </div>
-                        </div>
-    
-                        <!--NEW ZEALAND VS INDIA-->
-                        <div class="col-sm-4">
-                            <div class="card">
-    
-                                <h3>India vs New Zealand</h3>
-                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-nz"></img>
-                                vs
-                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-in"></img>
-                                <form action="/" method="POST">
-                                <button  class ="button button1"  type="submit" name="match" value="f">predict</button>
-                                </form>
-    
-                            </div>
-                        </div>
-    
-                        <!--AUSTRALIA VS ENGLAND-->
-                        <div class="col-sm-4">
-                            <div class="card">
-    
-                                <h3>England vs Australia</h3>
-                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-au"></img>
-                                vs
-                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-gb" ></img>
-                                <form action="/" method="POST">
-                                <button  class ="button button1"  type="submit" name="match" value="b">predict</button>
-                                </form>
-    
-                            </div>
-                        </div>
-    
-                        <!--BANGLADESH VS INDIA-->
-                        <div class="col-sm-4">
-                            <div class="card">
-                                <h3>Bangladesh vs India</h3>
-    
-                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-bd"></img>
-                                <i class="ae flag"></i>
-                                vs
-                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-in" ></img>
-                                <form action="/" method="POST">
-                                <button  class ="button button1"  type="submit" name="match" value="c">predict</button>
-                                </form>
-    
-                            </div>
-                        </div>
-    
-                        <!--AUSTRALIA VS ENGLAND-->
-                        <div class="col-sm-4">
-                            <div class="card">
-                                <h3>England vs Australia (Semi)</h3>
-    
-                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-au" ></img>
-                                vs
-                                <img style ="width: 90px; height: 70px; border-radius: 5px;" class="flag-icon flag-icon-gb"></img>
-                                <form action="/" method="POST">
-                                <button  class ="button button1"  type="submit" name="match" value="a">predict</button>
-                                </form>
-    
-                            </div>
-                        </div>
-    
-                    </div>
-                
-    
-                </div>
-    
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.3.1/css/flag-icon.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
+    </script>
+    <link href="../static/images/icon.jpg" rel="icon">
+    <title>
+      Home Page
+    </title>
+    <style>
+      .button {
+        background          : linear-gradient(to bottom, #081482, #004e92);
+        border              : none;
+        color               : rgb(168, 204, 248);
+        padding             : 5px 16px;
+        text-align          : center;
+        font-size           : 20px;
+        opacity             : 1;
+        transition          : 0.3s;
+        display             : inline-block;
+        text-decoration     : none;
+        cursor              : pointer;
+      }
+      .button:hover {
+        opacity             : 0.6
+      }
+      .button1 {
+        border-radius       : 8px;
+      }
+      .responsive {
+        width               : 30%;
+        max-width           : 100px;
+        height              : auto;
+      }
+      .card {
+        background-color    : #131314;
+        border-radius       : 5px;
+        margin-bottom       : -5px;
+        color               : rgb(255, 240, 240);
+        font-size           : 60px;
+        border-radius       : 8px;
+      }
+      .header {
+        background          : linear-gradient(to bottom, #000428, #004e92);
+        color               : rgb(240, 234, 234);
+        margin              : -10px;
+      }
+    </style>
+  </head>
+  <body style="background-color: #000000;">
+    <p style="margin: 2px;color: blanchedalmond;">
+      BestOf11.org
+    </p>
+    <div class="container" style="text-align:centre;">
+      <div class="jumbotron header">
+        <div style="text-align: center;font-size: 50px; font-weight:100px">
+          <div>
+            Best Playing 11 Recommendation System
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center;  color:rgb(235, 225, 225); margin-top:40px;">
+        {% if teams|length == 0 %}
+        <h1>
+          There are no matches scheduled for the next 24 hours!
+          <br>
+          If you think this is a mistake , Kindly contact us on Github
+          by clicking the button below
+        </h1>
+        <button class="button button1">
+          <a href="https://github.com/HackerSpace-PESU/Best11-Fantasycricket/issues/new?assignees=&amp;labels=&amp;template=bug_report.md&amp;title=">
+            Report
+          </a>
+        </button>
+        {% else %}
+        <div class="col;container" style="text-align: center; font-size: 20px;">
+          <h3>
+            Select match to get best playing 11
+          </h3>
+          {% for match in teams %}
+          <div class="col-sm-4">
+            <div class="card">
+              <h3>
+                {{match[0]}} vs {{match[1]}}
+              </h3>
+              <img <="" alt="{{match[0]}} flag&gt;" img="" src="{{match[2]}}" style="width: 90px; height: 70px; border-radius: 5px;">
+              vs
+              <img <="" img="" src="{{match[3]}}" style="width: 90px; height: 70px; border-radius: 5px;">
+              <form action="/" method="POST">
+                <button class="button button1" name="match" type="submit" value="{{match[0]}} vs {{match[1]}}">
+                  predict
+                </button>
+              </form>
             </div>
-        </body>
-</html> 
+            <br>
+            <br>
+          </div>
+          {% endfor %}
+          <h2 style="text-align:center; color: white">
+            If there is any match missing that you would like us to add
+            <br>
+            Do raise a issue on Github by clicking on the button below
+          </h2>
+          <button class="button button1">
+            <a href="https://github.com/HackerSpace-PESU/Best11-Fantasycricket/issues/new?assignees=&amp;labels=&amp;template=bug_report.md&amp;title=">
+              Report
+            </a>
+          </button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

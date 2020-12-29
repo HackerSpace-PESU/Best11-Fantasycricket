@@ -1,13 +1,26 @@
 """
 Module which runs the GUI for the project using FastAPI
-"""
+Copyright (C) 2020  Royston E Tauro & Sammith S Bharadwaj & Shreyas Raviprasad
 
-from fastapi import Request
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi import FastAPI, Form
+from fastapi import FastAPI, Form, Request
 from fastapi.staticfiles import StaticFiles
 from fantasy_cricket.team import Teams
+from fantasy_cricket.utils import Matches
 
 # pylint: disable=missing-function-docstring
 # pylint: disable=global-variable-undefined
@@ -17,10 +30,19 @@ app = FastAPI()
 templates = Jinja2Templates(directory="fantasy_cricket/templates")
 app.mount("/static", StaticFiles(directory="fantasy_cricket/static"), name="static")
 
+cricket = Matches()
+
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    matches = cricket.get_match()
+    teams = [
+        [match[0]["name"], match[1]["name"], match[2]["flag"], match[3]["flag"]]
+        for match in matches
+    ]
+    return templates.TemplateResponse(
+        "index.html", {"request": request, "teams": teams}
+    )
 
 
 @app.post("/")

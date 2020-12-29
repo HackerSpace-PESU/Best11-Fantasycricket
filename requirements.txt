@@ -1,4 +1,4 @@
 sklearn
 fastapi[all]
 pandas
-numpy
+pycricbuzz
