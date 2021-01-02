@@ -3,6 +3,7 @@ This modules defines all the fantasy leagues that
 the project supports
 """
 
+
 class Scorer:
     """
     Scorer class to use different formats of the game

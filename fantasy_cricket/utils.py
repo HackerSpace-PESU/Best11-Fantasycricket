@@ -32,7 +32,7 @@ class Matches:
         flags: flags json with links
         """
 
-        self.cricket = Cricbuzz()
+        self.cricket = Cricbuzz().matches()
 
         self.supported_teams = [
             "India",
@@ -54,12 +54,12 @@ class Matches:
         Gets current matches dict
         """
         matches = []
-        for match in self.cricket.matches():
+        for match in self.cricket:
 
             if (
                 match["team1"]["name"] in self.supported_teams
                 and match["team2"]["name"] in self.supported_teams
-                and match["mchstate"] == "preview"
+                #and match["mchstate"] == "preview"
             ):
                 matches.append(
                     (
@@ -70,3 +70,21 @@ class Matches:
                     )
                 )
         return matches
+
+    def get_squad(self,teams):
+
+        for match in self.cricket:
+
+            if(
+                match["team1"]["name"] == teams[0] and match["team2"]["name"] == teams[1]
+            ):
+                return (match["team1"]["squad_bench"] + match["team1"]["squad"],match["team2"]["squad_bench"] + match["team2"]["squad"])
+                #return [match["team1"]["squad_bench"], match["team2"]["squad_bench"]]
+    def get_file_name_and_type(self,teams):
+        for match in self.cricket:
+
+            if(
+                match["team1"]["name"] == teams[0] and match["team2"]["name"] == teams[1]
+            ):
+                return (match["srs"]+match["mnum"],match["type"])
+

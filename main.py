@@ -15,10 +15,12 @@ Copyright (C) 2020  Royston E Tauro & Sammith S Bharadwaj & Shreyas Raviprasad
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
+import subprocess
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi import FastAPI, Form, Request
+from fastapi import FastAPI, Form, Request, status
 from fastapi.staticfiles import StaticFiles
+from fastapi.encoders import jsonable_encoder
 from fantasy_cricket.team import Teams
 from fantasy_cricket.utils import Matches
 
@@ -47,15 +49,65 @@ def home(request: Request):
 
 @app.post("/")
 async def home_post(match: str = Form(...)):
-    global MATCH_ID
-    MATCH_ID = match
-    response = RedirectResponse(url="/results")
+    response = RedirectResponse(
+        url="/playing11?team1="
+        + match.split(" vs ")[0]
+        + "&team2="
+        + match.split(" vs ")[-1],
+        status_code=status.HTTP_302_FOUND
+    )
     return response
 
 
+@app.get("/playing11", response_class=HTMLResponse)
+def playing_11(request: Request):
+    squads = cricket.get_squad(
+        [request.query_params["team1"], request.query_params["team2"]]
+    )
+    return templates.TemplateResponse(
+        "Playing_11.html",
+        {
+            "request": request,
+            "squads": squads,
+            "teams": [request.query_params["team1"], request.query_params["team2"]],
+        },
+    )
+
+
+@app.post("/playing11")
+async def playing_11_post(request: Request):
+    playing_11 = list(jsonable_encoder(await request.form()).keys())
+    playing_11.remove("Confirm")
+    players1 = '"' + '","'.join(playing_11[0:11]) + '"'
+    players2 = '"' +'","'.join(playing_11[11:]) + '"'
+    file , mtch_type= cricket.get_file_name_and_type(
+        [request.query_params["team1"], request.query_params["team2"]]
+    )
+    """
+    subprocess.check_output([
+        'scrapy',
+        'crawl',
+        'howstat',
+        '-a',
+        'match_type="{0}"'.format(mtch_type),
+        '-a',
+        'team1="{0}"'.format(request.query_params["team1"]),
+        '-a', 
+        'team2="{0}"'.format(request.query_params["team2"]),
+        '-a',
+        'players1="{0}"'.format(players1),
+        '-a',
+        'players2="{0}"'.format(players2),
+        '-a', 
+        'file="{0}"'.format(file)
+    ])
+
+    f = open("data/"+file+'.json') 
+    print(json.load(f))
+    """
 @app.post("/results", response_class=HTMLResponse)
-def result(request: Request):
-    t_d = Teams(MATCH_ID)
+def result(request: Request, q):
+    t_d = Teams(q)
     team_match = t_d.team()
     vcaptain = team_match[1]
     captain = team_match[0]
