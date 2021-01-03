@@ -11,7 +11,7 @@ Copyright (C) 2020  Royston E Tauro & Sammith S Bharadwaj & Shreyas Raviprasad
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU Affero General Public License for more details.
-
+-
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
@@ -59,7 +59,7 @@ class Matches:
             if (
                 match["team1"]["name"] in self.supported_teams
                 and match["team2"]["name"] in self.supported_teams
-                #and match["mchstate"] == "preview"
+                # and match["mchstate"] == "preview"
             ):
                 matches.append(
                     (
@@ -71,20 +71,27 @@ class Matches:
                 )
         return matches
 
-    def get_squad(self,teams):
+    def get_squad_file_match_type(self, teams):
 
         for match in self.cricket:
 
-            if(
-                match["team1"]["name"] == teams[0] and match["team2"]["name"] == teams[1]
+            if (
+                match["team1"]["name"] == teams[0]
+                and match["team2"]["name"] == teams[1]
             ):
-                return (match["team1"]["squad_bench"] + match["team1"]["squad"],match["team2"]["squad_bench"] + match["team2"]["squad"])
-                #return [match["team1"]["squad_bench"], match["team2"]["squad_bench"]]
-    def get_file_name_and_type(self,teams):
+                return (
+                    match["team1"]["squad_bench"] + match["team1"]["squad"],
+                    match["team2"]["squad_bench"] + match["team2"]["squad"],
+                    match["srs"] + match["mnum"], 
+                    match["type"]
+                )
+                # return [match["team1"]["squad_bench"], match["team2"]["squad_bench"]]
+
+    def get_file_name_and_type(self, teams):
         for match in self.cricket:
 
-            if(
-                match["team1"]["name"] == teams[0] and match["team2"]["name"] == teams[1]
+            if (
+                match["team1"]["name"] == teams[0]
+                and match["team2"]["name"] == teams[1]
             ):
-                return (match["srs"]+match["mnum"],match["type"])
-
+                return (match["srs"] + match["mnum"], match["type"])

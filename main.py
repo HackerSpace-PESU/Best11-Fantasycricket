@@ -15,14 +15,17 @@ Copyright (C) 2020  Royston E Tauro & Sammith S Bharadwaj & Shreyas Raviprasad
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-import subprocess
+
+import time
+import os
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi import FastAPI, Form, Request, status
+from fastapi import FastAPI, Form, Request, status, BackgroundTasks
 from fastapi.staticfiles import StaticFiles
 from fastapi.encoders import jsonable_encoder
 from fantasy_cricket.team import Teams
 from fantasy_cricket.utils import Matches
+from crawler.spiders.howstat import HowstatSpider
 
 # pylint: disable=missing-function-docstring
 # pylint: disable=global-variable-undefined
@@ -31,6 +34,7 @@ app = FastAPI()
 
 templates = Jinja2Templates(directory="fantasy_cricket/templates")
 app.mount("/static", StaticFiles(directory="fantasy_cricket/static"), name="static")
+
 
 cricket = Matches()
 
@@ -54,66 +58,69 @@ async def home_post(match: str = Form(...)):
         + match.split(" vs ")[0]
         + "&team2="
         + match.split(" vs ")[-1],
-        status_code=status.HTTP_302_FOUND
+        status_code=status.HTTP_302_FOUND,
     )
     return response
 
 
 @app.get("/playing11", response_class=HTMLResponse)
 def playing_11(request: Request):
-    squads = cricket.get_squad(
+
+    squad1,squad2,file,match_type = cricket.get_squad_file_match_type(
         [request.query_params["team1"], request.query_params["team2"]]
     )
+    if os.path.isfile("data/"+file):
+        timeout = 13
+    else:
+        timeout = 75
     return templates.TemplateResponse(
         "Playing_11.html",
         {
             "request": request,
-            "squads": squads,
+            "squads": [squad1,squad2],
+            "file": file,
+            "match_type": match_type,
             "teams": [request.query_params["team1"], request.query_params["team2"]],
         },
     )
 
 
 @app.post("/playing11")
-async def playing_11_post(request: Request):
+async def playing_11_post(request:Request,background_tasks: BackgroundTasks):
     playing_11 = list(jsonable_encoder(await request.form()).keys())
     playing_11.remove("Confirm")
     players1 = '"' + '","'.join(playing_11[0:11]) + '"'
-    players2 = '"' +'","'.join(playing_11[11:]) + '"'
-    file , mtch_type= cricket.get_file_name_and_type(
-        [request.query_params["team1"], request.query_params["team2"]]
+    players2 = '"' + '","'.join(playing_11[11:]) + '"'
+    
+    background_tasks.add_task(
+        scrape_with_crochet,
+        file = request.query_params["file"],
+        match_type = request.query_params["type"],
+        team1 =request.query_params["team1"],
+        team2 = request.query_params["team2"],
+        players2 = players2,
+        players1 = players1
     )
-    """
-    subprocess.check_output([
-        'scrapy',
-        'crawl',
-        'howstat',
-        '-a',
-        'match_type="{0}"'.format(mtch_type),
-        '-a',
-        'team1="{0}"'.format(request.query_params["team1"]),
-        '-a', 
-        'team2="{0}"'.format(request.query_params["team2"]),
-        '-a',
-        'players1="{0}"'.format(players1),
-        '-a',
-        'players2="{0}"'.format(players2),
-        '-a', 
-        'file="{0}"'.format(file)
-    ])
+    
+    return RedirectResponse(
+        url = "/results?file="+request.query_params["file"], 
+        
+    )
 
-    f = open("data/"+file+'.json') 
-    print(json.load(f))
-    """
+
 @app.post("/results", response_class=HTMLResponse)
-def result(request: Request, q):
-    t_d = Teams(q)
+def result(request: Request):
+    if os.path.isfile("fantasy_cricket/data/"+request.query_params["file"]+".json"):
+        timeout = 15
+    else:
+        timeout = 80
+    time.sleep(timeout)
+    t_d = Teams("fantasy_cricket/data/"+request.query_params["file"]+".json")
     team_match = t_d.team()
     vcaptain = team_match[1]
     captain = team_match[0]
     team_list = t_d.player
     players = []
-
     for i in team_list:
         if i == captain:
             tag_c = "(C)"
@@ -121,16 +128,7 @@ def result(request: Request, q):
             tag_c = "(VC)"
         else:
             tag_c = ""
-        if i == "Nathan Coulter":
-            players.append("Nathan Coulter Nile" + tag_c)
-        elif "Eoin Morgan" in i:
-            players.append("Eoin Morgan" + tag_c)
-        elif "Jason Roy" in i:
-            players.append("Jason Roy" + tag_c)
-        elif "Liam Plunkett" in i:
-            players.append("Liam Plunkett" + tag_c)
-        else:
-            players.append(i[: i.find("\xa0")] + tag_c)
+        players.append(i)
     captain_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     vcaptain_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     for i, _ in enumerate(players):
@@ -184,3 +182,26 @@ def result(request: Request, q):
             "t11": players[10],
         },
     )
+
+
+def scrape_with_crochet(file, match_type, team1, team2, players1, players2):
+    
+    v = os.popen(
+        'scrapy crawl howstat -a match_type="'
+        + match_type
+        + '" -a team1="'
+        + team1
+        + '" -a team2="'
+        + team2 
+        + '" -a players1='
+        + players1
+        + ' -a players2='
+        + players2
+        + ' -a file="'
+        + file
+        + '" --loglevel DEBUG',
+    )
+    v.close()
+    
+def _crawler_Stop():
+    print("done")
