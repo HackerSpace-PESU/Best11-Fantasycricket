@@ -64,10 +64,10 @@ async def home_post(match: str = Form(...)):
 
 
 @app.get("/playing11", response_class=HTMLResponse)
-def playing_11(request: Request):
+def playing_11(team1,team2):
 
     squad1,squad2,file,match_type = cricket.get_squad_file_match_type(
-        [request.query_params["team1"], request.query_params["team2"]]
+        [team1,team2]
     )
     if os.path.isfile("data/"+file):
         timeout = 13
@@ -80,13 +80,13 @@ def playing_11(request: Request):
             "squads": [squad1,squad2],
             "file": file,
             "match_type": match_type,
-            "teams": [request.query_params["team1"], request.query_params["team2"]],
+            "teams": [team1, team2],
         },
     )
 
 
 @app.post("/playing11")
-async def playing_11_post(request:Request,background_tasks: BackgroundTasks):
+async def playing_11_post(request:Request,file,type,team1,team2,background_tasks: BackgroundTasks):
     playing_11 = list(jsonable_encoder(await request.form()).keys())
     playing_11.remove("Confirm")
     players1 = '"' + '","'.join(playing_11[0:11]) + '"'
@@ -94,10 +94,10 @@ async def playing_11_post(request:Request,background_tasks: BackgroundTasks):
     
     background_tasks.add_task(
         scrape_with_crochet,
-        file = request.query_params["file"],
-        match_type = request.query_params["type"],
-        team1 =request.query_params["team1"],
-        team2 = request.query_params["team2"],
+        file = file,
+        match_type = file,
+        team1 =file,
+        team2 = file,
         players2 = players2,
         players1 = players1
     )
