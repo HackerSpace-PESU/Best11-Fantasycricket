@@ -2,3 +2,4 @@ sklearn
 fastapi[all]
 pandas
 pycricbuzz
+scrapy
