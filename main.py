@@ -103,19 +103,19 @@ async def playing_11_post(request:Request,file,type,team1,team2,background_tasks
     )
     
     return RedirectResponse(
-        url = "/results?file="+request.query_params["file"], 
+        url = "/results?file="+file, 
         
     )
 
 
 @app.post("/results", response_class=HTMLResponse)
 def result(request: Request):
-    if os.path.isfile("fantasy_cricket/data/"+request.query_params["file"]+".json"):
+    if os.path.isfile("fantasy_cricket/data/"+file+".json"):
         timeout = 15
     else:
         timeout = 80
     time.sleep(timeout)
-    t_d = Teams("fantasy_cricket/data/"+request.query_params["file"]+".json")
+    t_d = Teams("fantasy_cricket/data/"+file+".json")
     team_match = t_d.team()
     vcaptain = team_match[1]
     captain = team_match[0]
