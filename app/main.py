@@ -67,7 +67,7 @@ async def home_post(match: str = Form(...)):
 def playing_11(request: Request,team1,team2):
 
     squad1,squad2,file,match_type = cricket.get_squad_file_match_type(
-        [team1, team2]]
+        [team1, team2]
     )
     if os.path.isfile("data/"+file):
         timeout = 13
