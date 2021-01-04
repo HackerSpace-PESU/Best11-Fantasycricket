@@ -64,10 +64,10 @@ async def home_post(match: str = Form(...)):
 
 
 @app.get("/playing11", response_class=HTMLResponse)
-def playing_11(request: Request):
+def playing_11(request: Request,team1,team2):
 
     squad1,squad2,file,match_type = cricket.get_squad_file_match_type(
-        [request.query_params["team1"], request.query_params["team2"]]
+        [team1, team2]
     )
     if os.path.isfile("data/"+file):
         timeout = 13
@@ -80,36 +80,36 @@ def playing_11(request: Request):
             "squads": [squad1,squad2],
             "file": file,
             "match_type": match_type,
-            "teams": [request.query_params["team1"], request.query_params["team2"]],
+            "teams": [team1,team2],
         },
     )
 
 
 @app.post("/playing11")
-async def playing_11_post(request:Request,background_tasks: BackgroundTasks):
+async def playing_11_post(request:Request,file,type,team1,team2):
     playing_11 = list(jsonable_encoder(await request.form()).keys())
     playing_11.remove("Confirm")
     players1 = '"' + '","'.join(playing_11[0:11]) + '"'
     players2 = '"' + '","'.join(playing_11[11:]) + '"'
     
     scrape_with_crochet(
-        file = request.query_params["file"],
-        match_type = request.query_params["type"],
-        team1 =request.query_params["team1"],
-        team2 = request.query_params["team2"],
+        file = file,
+        match_type = type,
+        team1 =team1,
+        team2 = team2,
         players2 = players2,
         players1 = players1
     )
     return RedirectResponse(
-        url = "/results?file="+request.query_params["file"], 
+        url = "/results?file="+file, 
         status_code = status.HTTP_302_FOUND
         
     )
 
 
 @app.get("/results", response_class=HTMLResponse)
-def result(request: Request):
-    t_d = Teams("app/fantasy_cricket/data/"+request.query_params["file"]+".json")
+def result(request: Request,file):
+    t_d = Teams("app/fantasy_cricket/data/"+file+".json")
     team_match = t_d.team()
     vcaptain = team_match[1]
     captain = team_match[0]
