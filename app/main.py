@@ -86,7 +86,7 @@ def playing_11(request: Request,team1,team2):
 
 
 @app.post("/playing11")
-async def playing_11_post(request:Request,file,type,team1,team2,background_tasks: BackgroundTasks):
+async def playing_11_post(request:Request,file,type,team1,team2):
     playing_11 = list(jsonable_encoder(await request.form()).keys())
     playing_11.remove("Confirm")
     players1 = '"' + '","'.join(playing_11[0:11]) + '"'
