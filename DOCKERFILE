@@ -10,4 +10,5 @@ RUN pip install --no-cache-dir -r requirements.txt; rm -r /tmp
 
 COPY ./app /app
 COPY ./crawler /app/crawler
+COPY ./scrapy.cfg /scrapy.cfg
 ENV PYTHONPATH=/app
