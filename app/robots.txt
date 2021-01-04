@@ -1,0 +1,6 @@
+#Dont mind this, this is just a file to keep uneccessary crawlers out
+
+User-agent: *
+Allow: /
+Disallow: /playing11
+Disallow: /results
