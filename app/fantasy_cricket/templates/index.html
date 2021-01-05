@@ -29,6 +29,8 @@
       Fantasy-cricket Prediction
     </title>
     <meta name="description" content="A simple website to help you choose your playing 11 in your fantasy cricket game">
+    <!-- CDN for fontawesome library  -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <style>
       .button {
         background          : linear-gradient(to bottom, #081482, #004e92);
@@ -42,12 +44,28 @@
         display             : inline-block;
         text-decoration     : none;
         cursor              : pointer;
+        border-radius       : 8px;
       }
       .button:hover {
-        opacity             : 0.6
+        opacity             : 0.6;
       }
-      .button1 {
+      .reportbutton {
         border-radius       : 8px;
+        background          : linear-gradient(to bottom, #081482, #004e92);
+        border              : none;
+        color               : rgb(168, 204, 248);
+        padding             : 5px 16px;
+        text-align          : center;
+        font-size           : 20px;
+        opacity             : 1;
+        transition          : 0.3s;
+        display             : inline-block;
+        text-decoration     : none;
+        cursor              : pointer;
+      }
+      .reportbutton:hover {
+        opacity             : 0.6;
+        text-decoration     : none;
       }
       .responsive {
         width               : 30%;
@@ -58,19 +76,61 @@
         background-color    : #131314;
         border-radius       : 5px;
         margin-bottom       : -5px;
+        margin-top: 20px;
         color               : rgb(255, 240, 240);
         font-size           : 60px;
         border-radius       : 8px;
+        padding             : 5px;
       }
       .header {
         background          : linear-gradient(to bottom, #000428, #004e92);
         color               : rgb(240, 234, 234);
         margin              : -10px;
       }
+      .reportBox{
+        background-color:  #131314;
+        padding: 20px;
+        padding-top:20px ;
+        padding-bottom: 20px;
+        margin-left: 200px;
+        margin-right: 200px;
+        border-radius: 16px;
+      }
+      .footer {
+      background-color: rgb(26, 26, 26,0.5);
+      color: white;
+      display: flex;
+      flex-direction: row;
+      align-content: space-around;
+      padding: 10px;
+      bottom: 0;
+      position: relative;
+    }
+    .footerIcon {
+      font-size: 20px;
+      color: white;
+      padding-right: 10px;
+      padding-left: 10px;
+      float: right;
+      justify-content: right;
+    }
+    .footerSpace {
+      width: 1600px;
+    }
+    #github #instagram #discord #mail:hover {
+      color: lightblue;
+    }
+    .content {
+      font-size: 20px;
+      font-weight: 500;
+      color: rgb(100, 166, 252);
+    }
     </style>
   </head>
   <body style="background-color: #000000;">
+
     <div class="container" style="text-align:centre;">
+     
       <div class="jumbotron header">
         <div style="text-align: center;font-size: 50px; font-weight:100px">
           <div>
@@ -78,58 +138,106 @@
           </div>
         </div>
       </div>
+
+      
       <div style="text-align: center;  color:rgb(235, 225, 225); margin-top:40px;">
+       
         {% if teams|length == 0 %}
-        <h1>
-          There are no matches scheduled for the next 24 hours!
-          <br>
-          If you think this is a mistake , Kindly contact us on Github
-          by clicking the button below
-        </h1>
-        <button class="button button1">
-          <a href="https://github.com/HackerSpace-PESU/Best11-Fantasycricket/issues/new?assignees=&amp;labels=&amp;template=bug_report.md&amp;title=">
-            Report
-          </a>
-        </button>
-        {% else %}
-        <div class="col;container" style="text-align: center; font-size: 20px;">
-          <h3>
-            Select match to get best playing 11
-          </h3>
-          {% for match in teams %}
-          <div class="col-sm-4">
-            <div class="card">
-              <h3>
-                {{match[0]}} vs {{match[1]}}
-              </h3>
-              <img <="" alt="{{match[0]}} flag&gt;" img="" src="{{match[2]}}" style="width: 90px; height: 70px; border-radius: 5px;">
-              vs
-              <img <="" img="" src="{{match[3]}}" style="width: 90px; height: 70px; border-radius: 5px;">
-              <form action="/" method="POST">
-                <button class="button button1" name="match" type="submit" value="{{match[0]}} vs {{match[1]}}">
-                  predict
-                </button>
-              </form>
-            </div>
-            <br>
-            <br>
-          </div>
-          {% endfor %}
           <div>
-          <h2 style="text-align:center; color: white">
-            If there is any match missing that you would like us to add
-            <br>
-            Do raise a issue on Github by clicking on the button below
-          </h2>
-          <button class="button button1">
-            <a href="https://github.com/HackerSpace-PESU/Best11-Fantasycricket/issues/new?assignees=&amp;labels=&amp;template=bug_report.md&amp;title=">
-              Report
-            </a>
-          </button>
+              <h1>
+                There are no matches scheduled for the next 24 hours!
+                <br>
+                If you think this is a mistake , Kindly contact us on Github
+                by clicking the button below
+              </h1>
+              <button class="button button1">
+                <a href="https://github.com/HackerSpace-PESU/Best11-Fantasycricket/issues/new?assignees=&amp;labels=&amp;template=bug_report.md&amp;title=">
+                  Report
+                </a>
+              </button>
           </div>
+        {% else %}
+          <div class="col;container" style="text-align: center; font-size: 20px;">
+            
+            <h3>
+              Select match to get best playing 11
+            </h3>
+              {% for match in teams %}
+              <div class="col-sm-4">
+                <div class="card">
+                  <h3>
+                    {{match[0]}} vs {{match[1]}}
+                  </h3>
+                  <img <="" alt="{{match[0]}} flag&gt;" img="" src="{{match[2]}}" style="width: 90px; height: 70px; border-radius: 5px;">
+                  vs
+                  <img <="" img="" src="{{match[3]}}" style="width: 90px; height: 70px; border-radius: 5px;">
+                  <form action="/" method="POST">
+                    <button class="button button1" name="match" type="submit" value="{{match[0]}} vs {{match[1]}}">
+                      Predict
+                    </button>
+                  </form>
+                </div>
+              </div>
+          {% endfor %}
+          <div></div>
           {% endif %}
+          <div></div>
         </div>
       </div>
     </div>
+    <br>
+    <br>
+    <!-- The Report part for missing matches -->
+    <div class="reportBox">
+      <h2 style="text-align:center; color: white">
+        If there is any match missing that you would like us to add <br> Do raise a issue on Github by clicking on the button below
+      </h2>
+      <br>
+      <center>
+        <button 
+        class="reportbutton" 
+        onclick="location.href='https://github.com/HackerSpace-PESU/Best11-Fantasycricket/issues/new?assignees=&amp;labels=&amp;template=bug_report.md&amp;title='">  
+          Report
+        </button>
+      </center>
+    </div> 
+    <br><br>
+    <!--Footer for the Webpage-->
+    <footer class="footer">
+        <p class="content">&#60;/HackerSpace&#62;</p>
+      <div class="footerSpace"></div>
+      <div id="github">
+        <a
+          class="footerIcon"
+          href="https://github.com/HackerSpace-PESU"
+          target="_blank"
+          ><i id="github" class="fab fa-github"></i
+        ></a>
+      </div>
+      <div id="instagram">
+        <a
+          class="footerIcon"
+          href="https://www.instagram.com/peshackerspace/"
+          target="_blank"
+          ><i id="instagram" class="fab fa-instagram"></i
+        ></a>
+      </div>
+      <div id="mail">
+        <a
+          class="footerIcon"
+          href="mailto:hackathonclubpes@gmail.com"
+          target="_blank"
+          ><i id="mail" class="fas fa-at"></i
+        ></a>
+      </div>
+      <div id="discord">
+        <a
+          class="footerIcon"
+          href="https://discord.com/invite/zEpxPnP"
+          target="_blank"
+          ><i id="discord" class="fab fa-discord"></i
+        ></a>
+      </div>
+    </footer>
   </body>
 </html>

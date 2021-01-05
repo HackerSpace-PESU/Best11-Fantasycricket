@@ -3,60 +3,97 @@
 <head>
 	<title>Choose your playing 11</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-	</script>	
+	</script>
+	<link
+	rel="stylesheet"
+	type="text/css"
+	href="{{ url_for('static',path='styles/style2.css') }}"
+  />	
 </head>
 <body>
-	<style>
-        body {
-            background-image: url('https://images.unsplash.com/photo-1550128936-adfaf4770903?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80');
-            background-repeat: no-repeat;
-            background-attachment: fixed; 
-            background-size: 100% 100%;
+	<center>
 
-        }
+		<p class="mainHeader">Select 11 Players From Each Team</p>
+		
+		<form id= "select_players" action="/playing11?team1={{teams[0]}}&team2={{teams[1]}}&file={{file}}&type={{match_type}}" method="POST">
+				
+			<div class="container">
 
-       </style>
-	<form id= "select_players" action="/playing11?team1={{teams[0]}}&team2={{teams[1]}}&file={{file}}&type={{match_type}}" method="POST">
-		<table name="team1" style="display: inline-block;">
+			<div class="content">
+				<table name="team1" style="display: inline-block;">
+					<h4 class="heading"> 
+						{{teams[0]}}
+					</h4>
+					{% for player in squads[0] %}
+						<tr>
+							<td>
+								{{player}}
+							</td>
+							<td>
+								<input class="team1" type="checkbox" name="{{player}}"></input>
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
 
-			<caption> 
-				{{teams[0]}}
-			</caption>
-			{% for player in squads[0] %}
-				<tr>
-					<td>
-						{{player}}
-					</td>
-					<td>
-						<input class="team1" type="checkbox" name="{{player}}"></input>
-					</td>
-				</tr>
-			{% endfor %}
-		</table>
-		<table style="float: left;">
-			<caption>
-				{{teams[1]}}
-			</caption>
-			{% for player in squads[1] %}
-				<tr>
-					<td>
-						{{player}}
-					</td>
-					<td>
-						<input class="team2" type="checkbox" name="{{player}}"></input>
-					</td>
-				</tr>
-			{% endfor %}
-		</table>
-		<input type="submit" name="Confirm">
-			Submit
-		</input>
-	</form>
-	<div class="wait">
-	</div>
+			<div class="space"></div>
+
+			<div class="content">
+		
+				<table>
+					<h4 class="heading">
+						{{teams[1]}}
+					</h4>
+					{% for player in squads[1] %}
+						<tr>
+							<td>
+								<td>{{player}}</td>
+							</td>
+							<td>
+								<input class="team2" type="checkbox" name="{{player}}"></input>
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+			
+
+		</div>
+		
+		<input type="submit" class="button" id="submitButton" name="Confirm"></input>
+		</form>
+		
+		<div id="grey" style="
+		width: 100%; 
+		position: fixed;
+		height:100%;
+		background-color: rgb(0, 0, 0,0.9);
+		top:0%;
+		left:0%;
+		display: none;
+		">
+			<img src="../static/loading.gif" alt="Loading" 
+			id="loading"
+			style="width: 300px; position: fixed;
+			height:auto;
+			top:30%;
+			left:40%;
+			display: none;
+			">
+			<br><br>
+			<center>
+				<h2 style="color:white; font-size:40px">Loading....</h2>
+			</center>
+		</div>
+		
+
+	</center>
 	<script type="text/javascript">
+
 		var groupA = $("input.team1[type='checkbox']");
 		var groupB = $("input.team2[type='checkbox']");
+		
 		groupA.click(function(e) {
   			if (groupA.filter(":checked").length > 11) {
     			e.preventDefault();
@@ -74,12 +111,15 @@
 				event.preventDefault();
 			}
 			else{
-				document.getElementsByClassName("wait")[0].innerHTML = "Please Wait we are processing your request ... "
+				
+				document.getElementById("submitButton").style.display="none";
+				document.getElementById("grey").style.display="inline-block";
+				document.getElementById('loading').style.display="inline-block";
 			}
-
 			
 		})
 
 	</script>
+	
 </body>
 </html>

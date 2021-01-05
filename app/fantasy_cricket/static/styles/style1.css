@@ -1,19 +1,36 @@
-body {
- background-image: url("../images/result1.jpg") ;
+.bgImage {
+ background-image: url("../result1.jpg") ;
  background-size:cover;
- height: auto;
- width: 100%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top:0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: blur(2px);
+}
+
+.content{
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 h1 {
     text-align: center;
-    color: rgb(7, 65, 182);
-    font-size: 3.5em;
+    color: white;
+    font-size: 40px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
     margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 .line1 {  
-  margin-top: 4em;
   margin-left: 2em;
   display: grid;
   grid-template-columns: auto auto auto auto auto;
@@ -27,7 +44,6 @@ h1 {
 
 .line2 {  
   margin-top: 4em;
-  margin-left: 2em;
   display: grid;
   grid-template-columns: auto auto auto auto auto auto;
   text-align: center;
@@ -36,23 +52,36 @@ h1 {
 }
 
 p {
-  color: white;
+  color: white; 
 }
 
 figcaption {
-    color: white;
+    color: black;
     text-align: center;
 }
 
 .button {
     background: linear-gradient(to bottom, #081482, #004e92);
-    position: absolute;
-    top: 600px;
     color:white;
-    left: 47.5%;
-    padding:2px 6px;
-    border-radius: 4px;
+    padding:6px 8px;
+    border-radius: 8px;
     font-family: Arial;
     line-height:30px;
-    font-size: 1em;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.button:hover{
+  transition: 0.5s;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
+}
+
+.whiteCard{
+  border-radius: 5px;
+  background-color:rgb(255,255,255,0.6);
+  padding: 10px;
+  padding-top:30px ;
+  padding-bottom: 30px;
+  margin-left: 40px;
+  margin-right: 40px;
 }

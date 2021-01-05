@@ -31,46 +31,52 @@
     <title>Results Page</title>
   </head>
   <body class="container">
-    <h1>Your Recommended Team</h1>
 
-    <div class="line1">
-      <div>
-        <img
-          class="img"
+    <div class="bgImage"></div>
 
-          src="{{url_for('static',path='bat.png')}}"
-        />
-        <figcaption>{{ t1 }}{{ c1 }}{{ v1 }}</figcaption>
+    <div class="content"> 
+      <h1>Your Recommended Team</h1>
+
+      <div class="whiteCard">
+
+      <div class="line1"> 
+        <div>
+          <img
+            class="img"
+
+            src="{{url_for('static',path='bat.png')}}"
+          />
+          <figcaption>{{ t1 }}{{ c1 }}{{ v1 }}</figcaption>
+        </div>
+        <div>
+          <img
+            class="img"
+            src="{{url_for('static',path='bat.png')}}"
+          />
+          <figcaption>{{ t2 }}{{ c2 }}{{ v2 }}</figcaption>
+        </div>
+        <div>
+          <img
+            class="img"
+            src="{{url_for('static',path='bat.png')}}"
+          />
+          <figcaption>{{ t3 }}{{ c3 }}{{ v3 }}</figcaption>
+        </div>
+        <div>
+          <img
+            class="img"
+            src="{{url_for('static',path='bat.png')}}"
+          />
+          <figcaption>{{ t4 }}{{ c4 }}{{ v4 }}</figcaption>
+        </div>
+        <div>
+          <img
+            class="img"
+            src="{{url_for('static',path='bat.png')}}"
+          />
+          <figcaption>{{ t5 }}{{ c5 }}{{ v5 }}</figcaption>
+        </div>
       </div>
-      <div>
-        <img
-          class="img"
-          src="{{url_for('static',path='bat.png')}}"
-        />
-        <figcaption>{{ t2 }}{{ c2 }}{{ v2 }}</figcaption>
-      </div>
-      <div>
-        <img
-          class="img"
-          src="{{url_for('static',path='bat.png')}}"
-        />
-        <figcaption>{{ t3 }}{{ c3 }}{{ v3 }}</figcaption>
-      </div>
-      <div>
-        <img
-          class="img"
-          src="{{url_for('static',path='bat.png')}}"
-        />
-        <figcaption>{{ t4 }}{{ c4 }}{{ v4 }}</figcaption>
-      </div>
-      <div>
-        <img
-          class="img"
-          src="{{url_for('static',path='bat.png')}}"
-        />
-        <figcaption>{{ t5 }}{{ c5 }}{{ v5 }}</figcaption>
-      </div>
-    </div>
 
     <div class="line2">
       <div>
@@ -117,10 +123,15 @@
       </div>
     </div>
 
+  </div>
+  <br>
+
     <form action="/" method="GET">
-      <div>
-        <p><input class="button" type="submit" value="Go to Home Page" /></p>
-      </div>
+      <center>
+        <div>
+          <p><input class="button" type="submit" value="Go to Home Page" /></p>
+        </div>
+      </center>
     </form>
   </body>
 </html>
