@@ -46,7 +46,7 @@ class Matches:
             "Afghanistan",
             "Sri Lanka",
         ]
-        with open("app/fantasy_cricket/data/flags.json") as flag_file:
+        with open("./app/fantasy_cricket/data/flags.json") as flag_file:
             self.flags = json.load(flag_file)
 
     def get_match(self):

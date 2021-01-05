@@ -32,8 +32,8 @@ from crawler.spiders.howstat import HowstatSpider
 
 app = FastAPI()
 
-templates = Jinja2Templates(directory="app/fantasy_cricket/templates")
-app.mount("/static", StaticFiles(directory="app/fantasy_cricket/static"), name="static")
+templates = Jinja2Templates(directory="./app/fantasy_cricket/templates")
+app.mount("/static", StaticFiles(directory="./app/fantasy_cricket/static"), name="static")
 
 
 cricket = Matches()
@@ -109,7 +109,7 @@ async def playing_11_post(request:Request,background_tasks: BackgroundTasks):
 
 @app.get("/results", response_class=HTMLResponse)
 def result(request: Request):
-    t_d = Teams("app/fantasy_cricket/data/"+request.query_params["file"]+".json")
+    t_d = Teams(".app/fantasy_cricket/data/"+request.query_params["file"]+".json")
     team_match = t_d.team()
     vcaptain = team_match[1]
     captain = team_match[0]
@@ -185,7 +185,7 @@ def robots():
 def scrape_with_crochet(file, match_type, team1, team2, players1, players2):
     
     v = os.popen(
-        'scrapy crawl howstat -a match_type="'
+        'python3 -m scrapy crawl howstat -a match_type="'
         + match_type
         + '" -a team1="'
         + team1

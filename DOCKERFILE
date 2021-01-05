@@ -9,7 +9,7 @@ RUN pip install --no-cache-dir --user -r requirements.txt; rm -r /tmp
 
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8-slim
 COPY --from=compile-image /root/.local /root/.local
-COPY ./app /app
+COPY ./app /app/app
 COPY ./crawler /app/crawler
 COPY ./scrapy.cfg /app/scrapy.cfg
 ENV PYTHONPATH=/app
