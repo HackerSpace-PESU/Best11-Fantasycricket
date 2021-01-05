@@ -9,6 +9,7 @@ In the past year or so fantasy cricket has been getting a lot of traction and wi
 1. [FastAPI](https://fastapi.tiangolo.com/)
 2. [sklearn](https://scikit-learn.org/stable/)
 3. [pycricbuzz](https://github.com/codophobia/pycricbuzz) 
+4. [scrapy](https://docs.scrapy.org/en/latest/)
 
 Install using </br>
 ```bash
@@ -28,38 +29,23 @@ cd Best11-Fantasycricket
 
 3. Run the model : 
 
-`uvicorn main:app --reload`
+`uvicorn app.main:app --reload`
 
-5. Open http://127.0.0.1:8000/  and voila!! 
+5. `Open http://localhost:8000/`  and voila!! 
 
-## How do you verify your model??
+### Docker
 
-We use six matches from the World Cup 2019 for our verification as of now,namely
+1. Follow the steps:
+	```bash
+	docker build -t best11fantasycricket:latest "." 
+	```
 
-* England vs Australia League Stage
-* England vs Australia SemiFinal
-* India vs New Zealand SemiFinal
-* India vs Australia
-* India vs Bangladesh QuarterFinal
-* England vs India
+	```bash
+	docker-compose up
+	```
 
-During the ICC World Cup the winners of the fantasy cricket league was shown and their respective scores were also showed.
-</br>We use those scores to match our models score.
+2. Visit `http://localhost:8080/`
 
-We predict the team and calculate the dream 11 score of each player for that match and match it with the winning score and calculate loss.   
-</br>
-
-To check how our model worked in our test data run : 
-
-```bash
-python3 fantasy_cricket/check.py 
-
-```
-## Dataset
-
-Confused by the dataset, Dont Worry I would be too if I were you, dont worry I'll walk you through it in detail
-
-Check out [Dataset.md](https://github.com/lucasace/Best11-Fantasycricket/blob/master/Dataset.md) to understand the dataset, the scoring system and any other doubts you might have
 
 ## How do I contribute to this project????
 
@@ -71,11 +57,19 @@ If you have any questions regarding our project , you can contact any of the mai
 
 ## Thank You 
 
-Project made by: Royston([lucasace](https://github.com/lucasace)),Shreyas ([SRP457](https://github.com/SRP457)), Sammith([SammithSB](https://github.com/SammithSB))</br>
+### Maintainers
+	
+1. [Royston](https://github.com/lucasace)
 
-Special thanks to [scientes](https://github.com/scientes) for setting up the webcrawler
+2. [Shreyas](https://github.com/SRP457)
 
-We would like to thank [Howstat](http://www.howstat.com/cricket/home.asp) for their amazing website with daily updates and availabilty to scrape 
+3. [Sammith](https://github.com/SammithSB)</br>
+
+### Acknowledgements
+
+1. Special thanks to [scientes](https://github.com/scientes) for setting up the basic webcrawler
+
+2. We would like to thank [Howstat](http://www.howstat.com/cricket/home.asp) for their amazing website with daily updates and availabilty to scrape 
 
 If you liked our project we would really appreciate you starring this repo.
 
