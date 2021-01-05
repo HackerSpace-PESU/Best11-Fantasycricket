@@ -138,10 +138,11 @@ class HowstatSpider(Spider):
                 '//table[@class = "TableLined"]/tr[position()>last()-10]/td[2]/a'
             )
         crawl = False
-
         if len(matches) >= 5:
             crawl = True
+            matches = matches[len(matches)-5:]
         for match in matches:
+            print(match.get(),name)
             if crawl:
                 yield Request(
                     "http://www.howstat.com/cricket/Statistics"

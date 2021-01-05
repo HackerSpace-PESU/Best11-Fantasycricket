@@ -1,0 +1,80 @@
+body {
+    background-image: url('https://images.unsplash.com/photo-1550128936-adfaf4770903?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80');
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: 100% 100%;
+}
+
+.children{
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-radius: 5px;
+  
+}
+
+.space{
+    width: 100px;
+}
+
+.content{
+    font-size: 20px;
+    background-color:rgb(255,255,255,0.9);
+    padding: 60px;
+    padding-top:10px ;
+    padding-bottom: 10px;
+    margin-left: 40px;
+    margin-right: 40px;
+    border-radius: 8px;
+}
+
+.mainHeader{
+    font-size: 30px;
+    font-weight: 600;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+}
+
+.heading{
+    font-size: 25px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.button {
+    font-weight: 600;
+    font-size: 20px;
+    color:white;
+    background-color: #131314;
+    padding:5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 8px;
+    font-family: Arial;
+    line-height:30px;
+    cursor: pointer;
+}
+
+.button:hover{
+  transition: 0.5s;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}   
+
+.team1{
+    height:25px;
+    width: 25px;
+}
+
+.team2{
+    height:25px;
+    width: 25px;
+}

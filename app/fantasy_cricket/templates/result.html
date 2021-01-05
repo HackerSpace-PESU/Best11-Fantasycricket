@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!--Copyright (C) 2020  Royston E Tauro & Sammith S Bharadwaj & Shreyas Raviprasad
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',path='styles/style1.css') }}"
+    />
+    <style>
+      img {
+        height: 100px;
+        width: 200px;
+      }
+    </style>
+    <link rel="icon" href="../static/images/icon.jpg" />
+    <title>Results Page</title>
+  </head>
+  <body class="container">
+
+    <div class="bgImage"></div>
+
+    <div class="content"> 
+      <h1>Your Recommended Team</h1>
+
+      <div class="whiteCard">
+
+      <div class="line1"> 
+        <div>
+          <img
+            class="img"
+
+            src="{{url_for('static',path='bat.png')}}"
+          />
+          <figcaption>{{ t1 }}{{ c1 }}{{ v1 }}</figcaption>
+        </div>
+        <div>
+          <img
+            class="img"
+            src="{{url_for('static',path='bat.png')}}"
+          />
+          <figcaption>{{ t2 }}{{ c2 }}{{ v2 }}</figcaption>
+        </div>
+        <div>
+          <img
+            class="img"
+            src="{{url_for('static',path='bat.png')}}"
+          />
+          <figcaption>{{ t3 }}{{ c3 }}{{ v3 }}</figcaption>
+        </div>
+        <div>
+          <img
+            class="img"
+            src="{{url_for('static',path='bat.png')}}"
+          />
+          <figcaption>{{ t4 }}{{ c4 }}{{ v4 }}</figcaption>
+        </div>
+        <div>
+          <img
+            class="img"
+            src="{{url_for('static',path='bat.png')}}"
+          />
+          <figcaption>{{ t5 }}{{ c5 }}{{ v5 }}</figcaption>
+        </div>
+      </div>
+
+    <div class="line2">
+      <div>
+        <img
+          class="img"
+          src="{{url_for('static',path='bat.png')}}"
+        />
+        <figcaption>{{ t6 }}{{ c6 }}{{ v6 }}</figcaption>
+      </div>
+      <div>
+        <img
+          class="img"
+          src="{{url_for('static',path='bat.png')}}"
+        />
+        <figcaption>{{ t7 }}{{ c7 }}{{ v7 }}</figcaption>
+      </div>
+      <div>
+        <img
+          class="img"
+          src="{{url_for('static',path='bat.png')}}"
+        />
+        <figcaption>{{ t8 }}{{ c8 }}{{ v8 }}</figcaption>
+      </div>
+      <div>
+        <img
+          class="img"
+          src="{{url_for('static',path='bat.png')}}"
+        />
+        <figcaption>{{ t9 }}{{ c9 }}{{ v9 }}</figcaption>
+      </div>
+      <div>
+        <img
+          class="img"
+          src="{{url_for('static',path='bat.png')}}"
+        />
+        <figcaption>{{ t10 }}{{ c10 }}{{ v10 }}</figcaption>
+      </div>
+      <div>
+        <img
+          class="img"
+          src="{{url_for('static',path='bat.png')}}"
+        />
+        <figcaption>{{ t11 }}{{ c11 }}{{ v11 }}</figcaption>
+      </div>
+    </div>
+
+  </div>
+  <br>
+
+    <form action="/" method="GET">
+      <center>
+        <div>
+          <p><input class="button" type="submit" value="Go to Home Page" /></p>
+        </div>
+      </center>
+    </form>
+  </body>
+</html>
+ 

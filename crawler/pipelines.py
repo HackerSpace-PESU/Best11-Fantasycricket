@@ -24,7 +24,7 @@ class CricketcrawlerPipeline:
             json.dump(self.items, fp,indent =6)
 
     def process_item(self, item, spider):
-        self.name = f'fantasy_cricket/data/{item["file"]}.json'
+        self.name = f'app/fantasy_cricket/data/{item["file"]}.json'
         if item["name"] not in self.items:
             self.items[item["name"]] = {"role": [], "team": item["team"], "scores": {}}
         self.items[item["name"]]["role"].append(item["role"])
