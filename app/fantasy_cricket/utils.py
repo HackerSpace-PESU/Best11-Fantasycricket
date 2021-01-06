@@ -57,9 +57,9 @@ class Matches:
         for match in self.cricket:
 
             if (
-                match["team1"]["name"] in self.supported_teams
-                and match["team2"]["name"] in self.supported_teams
-                # and match["mchstate"] == "preview"
+                    match["team1"]["name"] in self.supported_teams
+                    and match["team2"]["name"] in self.supported_teams
+                    # and match["mchstate"] == "preview"
             ):
                 matches.append(
                     (
@@ -79,14 +79,14 @@ class Matches:
         for match in self.cricket:
 
             if (
-                match["team1"]["name"] == teams[0]
-                and match["team2"]["name"] == teams[1]
+                    match["team1"]["name"] == teams[0]
+                    and match["team2"]["name"] == teams[1]
             ):
                 match_det = (
                     match["team1"]["squad_bench"] + match["team1"]["squad"],
                     match["team2"]["squad_bench"] + match["team2"]["squad"],
                     match["srs"] + match["mnum"],
-                    match["type"],
+                    match["type"]
                 )
                 break
                 # return [match["team1"]["squad_bench"], match["team2"]["squad_bench"]]
@@ -99,8 +99,8 @@ class Matches:
         for match in self.cricket:
 
             if (
-                match["team1"]["name"] == teams[0]
-                and match["team2"]["name"] == teams[1]
+                    match["team1"]["name"] == teams[0]
+                    and match["team2"]["name"] == teams[1]
             ):
                 match_file = (match["srs"] + match["mnum"], match["type"])
                 break
