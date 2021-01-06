@@ -14,9 +14,7 @@ Copyright (C) 2020  Royston E Tauro & Sammith S Bharadwaj & Shreyas Raviprasad
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from collections import Counter
 import json
-import pandas as pd
 import numpy as np
 from sklearn.linear_model import LinearRegression
 
@@ -49,12 +47,12 @@ class Teams:
         :type str
         :rtype: dict( str: float)
         """
-        if role_dict!={}:
+        if role_dict != {}:
             max_score = {
                 "wk": [list(role_dict.keys())[0]],
                 "all": [list(role_dict.keys())[0]],
-                "bat": [key for key in role_dict][:3],
-                "bowl": [key for key in role_dict][:3],
+                "bat": [list(role_dict.keys())[:3]],
+                "bowl": [list(role_dict.keys())[:3]],
             }
 
             names = max_score[role]
@@ -82,7 +80,7 @@ class Teams:
         for i in role_dict:
             if i not in self.player and i not in reduntant:
                 restteam[i] = role_dict[i]
-                
+
         restteam = sorted(restteam.items(), key=lambda x: x[1]["score"], reverse=True)
         restteam = {i[0]: i[1] for i in restteam}
         return restteam
@@ -94,7 +92,12 @@ class Teams:
         :type dict( str : float)
         :rtype: tuple(str,str)
         """
-        self.player = [ i[0] for i in sorted(self.player.items(), key=lambda x: x[1]["score"], reverse=True)]
+        self.player = [
+            i[0]
+            for i in sorted(
+                self.player.items(), key=lambda x: x[1]["score"], reverse=True
+            )
+        ]
         captain, vcaptain = self.player[0], self.player[1]
         return captain, vcaptain
 
@@ -111,8 +114,7 @@ class Teams:
                 )
         """
 
-        file_handler = open(self.path)
-        self.data = json.load(file_handler)
+        self.data = json.load(open(self.path))
         wkteam = batteam = ballteam = allteam = None
         position_map = {
             "wk": {"var": wkteam},
@@ -127,14 +129,14 @@ class Teams:
                     self.team_dict[self.data[player]["team"]] = 0
                 if self.data[player]["role"] == role:
                     role_data[player] = self.data[player]
-            position_map[role]["var"] = get_role_team(role, role_data)
+            position_map[role]["var"] = get_role_team(role_data)
             self.get_max_players(position_map[role]["var"], role)
-        
+
         count = 0
         redundant = []
-        #print(position_map,self.team_dict)
+        # print(position_map,self.team_dict)
         maxi = len(self.player)
-        while count < 11-maxi:
+        while count < 11 - maxi:
             print(count)
             restteam = {}
             for role in position_map:
@@ -156,9 +158,8 @@ class Teams:
                     self.team_dict[list(self.team_dict.keys())[1]] += 1
                 else:
                     redundant.append(new)
-        #print(self.player)
-        captain, vcaptain = self.get_captain()
-        return captain, vcaptain
+        # print(self.player)
+        return self.get_captain
 
 
 class Predict:
@@ -181,10 +182,21 @@ class Predict:
     value = 5
 
     def __init__(self, player, data):
-        scores = data[player]["scores"]
-        scores = sorted(scores.items(), key = lambda x: x[0])
-        scores = [i[1] for i in scores]
+        self.data = data
+        scores = self.get_scores(player)
         self.result = self.predict(scores)
+
+    def get_scores(self, player):
+        """
+        Returns scores in chronological order
+        :param : player : Player name
+        :type : String
+        rtype : list
+        """
+        scores = self.data[player]["scores"]
+        scores = sorted(scores.items(), key=lambda x: x[0])
+        scores = [i[1] for i in scores]
+        return scores
 
     def predict(self, scores):
         """
@@ -210,7 +222,7 @@ class Predict:
         return result
 
 
-def get_role_team(role, data):
+def get_role_team(data):
     """
     Returns the player names and score corresponding to a role
     from the files dataframe

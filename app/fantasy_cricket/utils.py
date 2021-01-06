@@ -72,6 +72,9 @@ class Matches:
         return matches
 
     def get_squad_file_match_type(self, teams):
+        """
+        Gets squad file based on teams
+        """
 
         for match in self.cricket:
 
@@ -79,19 +82,27 @@ class Matches:
                 match["team1"]["name"] == teams[0]
                 and match["team2"]["name"] == teams[1]
             ):
-                return (
+                match_det = (
                     match["team1"]["squad_bench"] + match["team1"]["squad"],
                     match["team2"]["squad_bench"] + match["team2"]["squad"],
-                    match["srs"] + match["mnum"], 
-                    match["type"]
+                    match["srs"] + match["mnum"],
+                    match["type"],
                 )
+                break
                 # return [match["team1"]["squad_bench"], match["team2"]["squad_bench"]]
+        return match_det
 
     def get_file_name_and_type(self, teams):
+        """
+        Gets file name and type
+        """
         for match in self.cricket:
 
             if (
                 match["team1"]["name"] == teams[0]
                 and match["team2"]["name"] == teams[1]
             ):
-                return (match["srs"] + match["mnum"], match["type"])
+                match_file = (match["srs"] + match["mnum"], match["type"])
+                break
+
+        return match_file
