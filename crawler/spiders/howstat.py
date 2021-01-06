@@ -14,17 +14,19 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from dateutil.parser import parse as dateparse
 from scrapy import Request, Spider
 from crawler.fantasy_leagues import Dream11
 from crawler.items import PlayerItem
 
 
 class HowstatSpider(Spider):
+    """
+    Spider which crawls through howstat.com
+    """
     name = "howstat"
     allowed_domains = ["howstat.com"]
 
-    start_urls=["http://www.howstat.com/cricket/Statistics/Players/PlayerListCurrent.asp"]
+    start_urls = ["http://www.howstat.com/cricket/Statistics/Players/PlayerListCurrent.asp"]
     def __init__(self, players1="", players2="", match_type="", *args, **kwargs):
         super(HowstatSpider, self).__init__(*args, **kwargs)
         self.names = {
@@ -32,27 +34,27 @@ class HowstatSpider(Spider):
             "first": {self.team1: [], self.team2: []},
         }
         for player in players1.split(","):
-            p = player.split()
+            player_id = player.split()
             if (
-                    p[0].lower().strip()=="de" 
-                    or p[0].lower().strip() == "du" 
-                    or p[0].lower().strip()=="van"
+                    player_id[0].lower().strip() == "de"
+                    or player_id[0].lower().strip() == "du"
+                    or player_id[0].lower().strip() == "van"
             ):
-                p = [' '.join(p)]
-            if len(p) == 1:
-                self.names["last"][self.team1].append(p[0].lower().strip())
+                player_id = [' '.join(player_id)]
+            if len(player_id) == 1:
+                self.names["last"][self.team1].append(player_id[0].lower().strip())
                 self.names["first"][self.team1].append("")
-            elif len(p) >= 1:
-                self.names["last"][self.team1].append(p[-1].lower().strip())
-                self.names["first"][self.team1].append(p[0].lower().strip())
+            elif len(player_id) >= 1:
+                self.names["last"][self.team1].append(player_id[-1].lower().strip())
+                self.names["first"][self.team1].append(player_id[0].lower().strip())
         for player in players2.split(","):
-            p = player.split()
-            if len(p) == 1:
-                self.names["last"][self.team2].append(p[0].lower().strip())
+            player_id = player.split()
+            if len(player_id) == 1:
+                self.names["last"][self.team2].append(player_id[0].lower().strip())
                 self.names["first"][self.team2].append("")
-            elif len(p) >= 1:
-                self.names["last"][self.team2].append(p[-1].lower().strip())
-                self.names["first"][self.team2].append(p[0].lower().strip())
+            elif len(player_id) >= 1:
+                self.names["last"][self.team2].append(player_id[-1].lower().strip())
+                self.names["first"][self.team2].append(player_id[0].lower().strip())
         assert (
             len(self.names["last"][self.team1])
             == 11
@@ -67,8 +69,10 @@ class HowstatSpider(Spider):
         self.matches = {}
         self.count = 0
 
-    
     def parse(self, response):
+        """
+        Returns a request for the player found in the parsed url
+        """
         comma_map = {
             "India": 1,
             "Australia": 1,
@@ -97,31 +101,31 @@ class HowstatSpider(Spider):
         for team in teams:
             players[team] = []
             for player in teams[team]:
-                p = player.xpath("a/text()").get()
+                player_id = player.xpath("a/text()").get()
                 if comma_map[team]:
-                    p = p.split(",")
+                    player_id = player_id.split(",")
                     try:
-                        i = self.names["last"][team].index(p[0].lower().strip())
+                        i = self.names["last"][team].index(player_id[0].lower().strip())
                         if self.names["first"][team][i] == "":
                             players[team].append(player.xpath("a"))
                         else:
-                            for initial in p[1].split():
+                            for initial in player_id[1].split():
                                 if (
-                                    self.names["first"][team][i][0].lower()
-                                    == initial.lower().strip()
+                                        self.names["first"][team][i][0].lower()
+                                        == initial.lower().strip()
                                 ):
                                     players[team].append(player.xpath("a"))
                                     break
                     except ValueError:
                         pass
                 else:
-                    p = (p.split()[0], p.split()[-1])
+                    player_id = (player_id.split()[0], player_id.split()[-1])
                     try:
-                        i = self.names["last"][team].index(p[1].lower().strip())
+                        i = self.names["last"][team].index(player_id[1].lower().strip())
                         if self.names["first"][team][i] == "":
                             players[team].append(player.xpath("a"))
                         else:
-                            if p[0].lower().strip() in self.names["first"][team]:
+                            if player_id[0].lower().strip() in self.names["first"][team]:
                                 players[team].append(player.xpath("a"))
                     except ValueError:
                         pass
@@ -138,6 +142,9 @@ class HowstatSpider(Spider):
                 )
 
     def parse_last5(self, response, team):
+        """
+        Gets the data of last 5 games for each player
+        """
         name = (
             response.xpath("//td[contains(@class, 'Banner')]/text()")
             .get()
@@ -145,7 +152,7 @@ class HowstatSpider(Spider):
             .split("(")[0]
             .strip()
         )
-        if self.match_type!= "":
+        if self.match_type != "":
             matches = response.xpath(
                 '//table[@class = "TableLined"]/tr[position()>last()-5]/td[2]/a'
             )
@@ -158,7 +165,6 @@ class HowstatSpider(Spider):
             crawl = True
             matches = matches[len(matches)-5:]
         for match in matches:
-            print(match.get(),name)
             if crawl:
                 yield Request(
                     "http://www.howstat.com/cricket/Statistics"
@@ -173,17 +179,15 @@ class HowstatSpider(Spider):
                     dont_filter=True,
                 )
 
-    def parse_scorecard(self, response, name, pid, team,date):
+    def parse_scorecard(self, response, name, pid, team, date):
         """
         parses the Scorecard
         """
-        player_ids = []
         scorelisxpath = (
             "//table/tr/td/table/tr/td/table/tr[td[a[@href[contains(.,'"
             + pid
             + "')]]]]"
         )
-        url = response.request.url
         lis = response.selector.xpath(scorelisxpath)
         batting_dict = {}
         bowling_dict = {}
@@ -209,7 +213,7 @@ class HowstatSpider(Spider):
                     bowling_dict["4-wicket-haul"] += 1
             else:
                 current = score
-                for i in range(0, 4):
+                for _ in range(0, 4):
                     if role == "wk":
                         break
                     current = current.xpath("following-sibling::tr")
@@ -246,9 +250,9 @@ class HowstatSpider(Spider):
                 elif int(score.xpath("td[3]/text()").get().strip()) >= 50:
                     batting_dict["50"] += 1
                 elif (
-                    int(score.xpath("td[3]/text()").get().strip()) == 50
-                    and role != "bowl"
-                ):
+                        int(score.xpath("td[3]/text()").get().strip()) == 50
+                        and role != "bowl"
+                    ):
                     batting_dict["duck"] += 1
         if role == "wk":
             wk_score = score.xpath(

@@ -20,25 +20,36 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 # useful for handling different item types with a single interface
-from itemadapter import ItemAdapter
-from statistics import mode
 import json
+from statistics import mode
+from itemadapter import ItemAdapter
 
 
 class CricketcrawlerPipeline:
+    """
+    Processes output given by the crawler and stores it in a json file
+    """
     def open_spider(self, spider):
+        """
+        Works when spider starts crawling
+        """
         self.items = {}
         self.name = None
 
     def close_spider(self, spider):
-
+        """
+        Works when the spider stops crawling
+        """
         for item in self.items:
             assert len(self.items[item]["role"]) == 5, f"{item}"
             self.items[item]["role"] = mode(self.items[item]["role"])
-        with open(self.name, "w") as fp:
-            json.dump(self.items, fp,indent =6)
+        with open(self.name, "w") as f_p:
+            json.dump(self.items, f_p, indent=6)
 
     def process_item(self, item, spider):
+        """
+        Processes files as the items are yielded
+        """
         self.name = f'app/fantasy_cricket/data/{item["file"]}.json'
         if item["name"] not in self.items:
             self.items[item["name"]] = {"role": [], "team": item["team"], "scores": {}}

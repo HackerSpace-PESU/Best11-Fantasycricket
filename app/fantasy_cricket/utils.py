@@ -59,7 +59,7 @@ class Matches:
             if (
                     match["team1"]["name"] in self.supported_teams
                     and match["team2"]["name"] in self.supported_teams
-                    # and match["mchstate"] == "preview"
+                    and match["mchstate"] == "preview"
             ):
                 matches.append(
                     (
@@ -89,20 +89,4 @@ class Matches:
                     match["type"]
                 )
                 break
-                # return [match["team1"]["squad_bench"], match["team2"]["squad_bench"]]
         return match_det
-
-    def get_file_name_and_type(self, teams):
-        """
-        Gets file name and type
-        """
-        for match in self.cricket:
-
-            if (
-                    match["team1"]["name"] == teams[0]
-                    and match["team2"]["name"] == teams[1]
-            ):
-                match_file = (match["srs"] + match["mnum"], match["type"])
-                break
-
-        return match_file

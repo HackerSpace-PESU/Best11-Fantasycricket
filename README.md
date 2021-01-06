@@ -29,7 +29,7 @@ cd Best11-Fantasycricket
 
 3. Run the model : 
 
-`uvicorn app.main:app --reload`
+`uvicorn app.main:app`
 
 5. `Open http://localhost:8000/`  and voila!! 
 

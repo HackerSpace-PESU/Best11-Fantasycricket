@@ -51,16 +51,16 @@ class Teams:
             max_score = {
                 "wk": [list(role_dict.keys())[0]],
                 "all": [list(role_dict.keys())[0]],
-                "bat": [list(role_dict.keys())[:3]],
-                "bowl": [list(role_dict.keys())[:3]],
+                "bat": list(role_dict.keys())[:3],
+                "bowl": list(role_dict.keys())[:3],
             }
-
+            team1,team2 = self.team_dict.keys()
             names = max_score[role]
             for name in names:
-                if list(self.team_dict.keys())[0] in role_dict[name]["team"]:
-                    self.team_dict[list(self.team_dict.keys())[0]] += 1
-                elif list(self.team_dict.keys())[1] in role_dict[name]["team"]:
-                    self.team_dict[list(self.team_dict.keys())[1]] += 1
+                if team1 in role_dict[name]["team"]:
+                    self.team_dict[team1] += 1
+                elif team2 in role_dict[name]["team"]:
+                    self.team_dict[team2] += 1
                 if name not in self.player:
                     self.player[name] = role_dict[name]
 
@@ -159,7 +159,7 @@ class Teams:
                 else:
                     redundant.append(new)
         # print(self.player)
-        return self.get_captain
+        return self.get_captain()
 
 
 class Predict:

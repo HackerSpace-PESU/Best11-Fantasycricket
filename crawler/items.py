@@ -19,10 +19,20 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
+
+
 import scrapy
 
 
 class PlayerItem(scrapy.Item):
+    """
+    Class scrapes name of the player
+    Role of the player
+    Score he scored in that game
+    Team he is playing for
+    Date of the match
+    File it has been stored in
+    """
     name = scrapy.Field()
     role = scrapy.Field()
     score = scrapy.Field()

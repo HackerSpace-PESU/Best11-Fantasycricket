@@ -102,7 +102,7 @@ async def playing_11_post(request: Request, file, match_type, team1, team2):
 @app.get("/results", response_class=HTMLResponse)
 def result(request: Request, file):
     t_d = Teams("app/fantasy_cricket/data/" + file + ".json")
-    captain, vcaptain = list(t_d.team())
+    captain, vcaptain = t_d.team()
     team_list = t_d.player
     players = []
     for i in team_list:

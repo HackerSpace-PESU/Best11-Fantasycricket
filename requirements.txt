@@ -1,5 +1,4 @@
-sklearn
-fastapi[all]
-pandas
-pycricbuzz
-scrapy
+sklearn==0.0
+fastapi[all]==0.63.0
+pycricbuzz==2.4
+scrapy==2.4
