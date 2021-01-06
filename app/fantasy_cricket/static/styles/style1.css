@@ -1,0 +1,87 @@
+.bgImage {
+ background-image: url("../result1.jpg") ;
+ background-size:cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top:0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: blur(2px);
+}
+
+.content{
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.line1 {  
+  margin-left: 2em;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  grid-gap: 10px;
+  grid-row-gap: 40px;
+  padding: 10px;
+  text-align: center;
+  font-size: large;
+  font-weight:20px;
+}
+
+.line2 {  
+  margin-top: 4em;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  text-align: center;
+  font-size: large;
+  font-weight:40px;
+}
+
+p {
+  color: white; 
+}
+
+figcaption {
+    color: black;
+    text-align: center;
+}
+
+.button {
+    background: linear-gradient(to bottom, #081482, #004e92);
+    color:white;
+    padding:6px 8px;
+    border-radius: 8px;
+    font-family: Arial;
+    line-height:30px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.button:hover{
+  transition: 0.5s;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
+}
+
+.whiteCard{
+  border-radius: 5px;
+  background-color:rgb(255,255,255,0.6);
+  padding: 10px;
+  padding-top:30px ;
+  padding-bottom: 30px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
