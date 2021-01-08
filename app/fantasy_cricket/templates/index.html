@@ -30,10 +30,14 @@
     </title>
     <meta name="description" content="A simple website to help you choose your playing 11 in your fantasy cricket game">
     <!-- Icon that is visible on the tab -->
-    <link rel="icon" href="http://example.com/favicon.png">
+    <link rel="icon" href="../static/icon.png">
     <!-- CDN for fontawesome library  -->
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <style>
+      @font-face {
+        font-family: hackerspace;
+        src: url(../static/fonts/hackerspace.ttf);
+      }
       .button {
         background          : linear-gradient(to bottom, #081482, #004e92);
         border              : none;
@@ -88,6 +92,7 @@
         background          : linear-gradient(to bottom, #000428, #004e92);
         color               : rgb(240, 234, 234);
         margin              : -10px;
+        font-size           : 50px;
       }
       .reportBox{
         background-color:  #131314;
@@ -125,8 +130,36 @@
     .content {
       font-size: 20px;
       font-weight: 500;
+      font-family: hackerspace;
+      letter-spacing: 1px;
       color: rgb(100, 166, 252);
     }
+    @media only screen and (max-width: 600px) {
+      .card{
+        font-size: 40px;
+      }
+      .header{
+        font-size: 20px;
+      }
+      .content{
+          font-size: 15px;
+      }
+      .footerIcon{
+          font-size: 17px;
+      }
+      .reportBox{
+        padding: 5px;
+        padding-top:10px ;
+        padding-bottom: 10px;
+        margin-left: 20px;
+        margin-right: 20px;
+        border-radius: 16px;
+      }
+      .Rheader{
+        font-size: 20px;
+      }
+}
+
     </style>
   </head>
   <body style="background-color: #000000;">
@@ -134,7 +167,7 @@
     <div class="container" style="text-align:centre;">
      
       <div class="jumbotron header">
-        <div style="text-align: center;font-size: 50px; font-weight:100px">
+        <div style="text-align: center;font-weight:100px">
           <div>
             Best Playing 11 Recommendation System
           </div>
@@ -191,7 +224,7 @@
     <br>
     <!-- The Report part for missing matches -->
     <div class="reportBox">
-      <h2 style="text-align:center; color: white">
+      <h2 class="Rheader" style="text-align:center; color: white">
         If there is any match missing that you would like us to add <br> Do raise a issue on Github by clicking on the button below
       </h2>
       <br>

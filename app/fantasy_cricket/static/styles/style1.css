@@ -11,7 +11,7 @@
   height: 100%;
   filter: blur(2px);
 }
-
+ 
 .content{
   position: fixed;
   left: 0;
@@ -30,7 +30,8 @@ h1 {
     margin-bottom: 1em;
 }
 
-.line1 {  
+.line1 { 
+  margin-top: 4em; 
   margin-left: 2em;
   display: grid;
   grid-template-columns: auto auto auto auto auto;
@@ -39,16 +40,15 @@ h1 {
   padding: 10px;
   text-align: center;
   font-size: large;
-  font-weight:20px;
+  font-weight:600;
 }
 
 .line2 {  
-  margin-top: 4em;
   display: grid;
   grid-template-columns: auto auto auto auto auto auto;
   text-align: center;
   font-size: large;
-  font-weight:40px;
+  font-weight:600;  
 }
 
 p {
@@ -84,4 +84,49 @@ figcaption {
   padding-bottom: 30px;
   margin-left: 40px;
   margin-right: 40px;
+}
+
+.fix{
+  display: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .fix{
+    display: inline;
+  }
+  h1 {
+    font-size: 20px;
+  }
+  .button {
+    line-height:20px;
+    font-size: 15px;
+  }
+  figcaption {
+    font-size: 10px; 
+  }
+  .whiteCard{
+    padding: 10px;
+    padding-top:10px ;
+    padding-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .line1 {  
+    margin-top: 1em; 
+    margin-left: 0px;
+    grid-row-gap: 0px;
+    grid-gap:0px;
+    padding: 0px;
+    font-weight:600;
+  }
+  
+  .line2 {  
+    margin-top: 0em;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    text-align: center;
+    font-size: large;
+    font-weight:600;
+  }
 }
