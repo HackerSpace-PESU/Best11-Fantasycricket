@@ -17,6 +17,9 @@
 <html>
 <head>
 	<title>Choose your playing 11</title>
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<!-- Icon that is visible on the tab -->
+    <link rel="icon" href="../static/icon.png">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
 	</script>
 	<link
@@ -53,9 +56,9 @@
 			</div>
 
 			<div class="space"></div>
-
+			<br>
+			
 			<div class="content">
-		
 				<table>
 					<h4 class="heading">
 						{{teams[1]}}
@@ -75,27 +78,14 @@
 			
 
 		</div>
-		
+
+		<br>
+
 		<input type="submit" class="button" id="submitButton" name="Confirm"></input>
 		</form>
 		
-		<div id="grey" style="
-		width: 100%; 
-		position: fixed;
-		height:100%;
-		background-color: rgb(0, 0, 0,0.9);
-		top:0%;
-		left:0%;
-		display: none;
-		">
-			<img src="../static/loading.gif" alt="Loading" 
-			id="loading"
-			style="width: 300px; position: fixed;
-			height:auto;
-			top:30%;
-			left:40%;
-			display: none;
-			">
+		<div id="grey">
+			<img src="../static/loading.gif" alt="Loading" id="loading">
 			<br><br>
 			<center>
 				<h2 style="color:white; font-size:40px">Loading....</h2>
