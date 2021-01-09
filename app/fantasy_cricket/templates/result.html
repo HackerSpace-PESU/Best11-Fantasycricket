@@ -16,15 +16,24 @@
 -->
 <html>
   <head>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <!-- Icon that is visible on the tab -->
+    <link rel="icon" href="../static/icon.png">
     <link
       rel="stylesheet"
       type="text/css"
       href="{{ url_for('static',path='styles/style1.css') }}"
     />
     <style>
-      img {
-        height: 100px;
-        width: 200px;
+      .img {
+        height: 130px;
+        width: auto;
+      }
+      @media(max-width: 1100px) {
+
+        .img{
+          height: 50px;
+        }
       }
     </style>
     <link rel="icon" href="../static/images/icon.jpg" />
@@ -39,15 +48,16 @@
 
       <div class="whiteCard">
 
-      <div class="line1"> 
+      <!-- <div class="line1">
+
         <div>
           <img
             class="img"
-
             src="{{url_for('static',path='bat.png')}}"
           />
           <figcaption>{{ t1 }}{{ c1 }}{{ v1 }}</figcaption>
         </div>
+        <br class="fix">
         <div>
           <img
             class="img"
@@ -62,6 +72,7 @@
           />
           <figcaption>{{ t3 }}{{ c3 }}{{ v3 }}</figcaption>
         </div>
+        <br class="fix">
         <div>
           <img
             class="img"
@@ -69,6 +80,7 @@
           />
           <figcaption>{{ t4 }}{{ c4 }}{{ v4 }}</figcaption>
         </div>
+        <br class="fix">
         <div>
           <img
             class="img"
@@ -76,9 +88,11 @@
           />
           <figcaption>{{ t5 }}{{ c5 }}{{ v5 }}</figcaption>
         </div>
-      </div>
+      </div> -->
+
 
     <div class="line2">
+      <br class="fix">
       <div>
         <img
           class="img"
@@ -86,6 +100,7 @@
         />
         <figcaption>{{ t6 }}{{ c6 }}{{ v6 }}</figcaption>
       </div>
+      <br class="fix">
       <div>
         <img
           class="img"
@@ -93,6 +108,7 @@
         />
         <figcaption>{{ t7 }}{{ c7 }}{{ v7 }}</figcaption>
       </div>
+      <br class="fix">
       <div>
         <img
           class="img"
@@ -100,6 +116,7 @@
         />
         <figcaption>{{ t8 }}{{ c8 }}{{ v8 }}</figcaption>
       </div>
+      <br class="fix">
       <div>
         <img
           class="img"
@@ -107,6 +124,7 @@
         />
         <figcaption>{{ t9 }}{{ c9 }}{{ v9 }}</figcaption>
       </div>
+      <br class="fix">
       <div>
         <img
           class="img"
@@ -114,6 +132,7 @@
         />
         <figcaption>{{ t10 }}{{ c10 }}{{ v10 }}</figcaption>
       </div>
+      <br class="fix">
       <div>
         <img
           class="img"
@@ -122,6 +141,50 @@
         <figcaption>{{ t11 }}{{ c11 }}{{ v11 }}</figcaption>
       </div>
     </div>
+
+
+    <div class="line1">
+      <div>
+        <img
+          class="img"
+          src="{{url_for('static',path='bat.png')}}"
+        />
+        <figcaption>{{ t1 }}{{ c1 }}{{ v1 }}</figcaption>
+      </div>
+      <br class="fix">
+      <div>
+        <img
+          class="img"
+          src="{{url_for('static',path='bat.png')}}"
+        />
+        <figcaption>{{ t2 }}{{ c2 }}{{ v2 }}</figcaption>
+      </div>
+      <div>
+        <img
+          class="img"
+          src="{{url_for('static',path='bat.png')}}"
+        />
+        <figcaption>{{ t3 }}{{ c3 }}{{ v3 }}</figcaption>
+      </div>
+      <br class="fix">
+      <div>
+        <img
+          class="img"
+          src="{{url_for('static',path='bat.png')}}"
+        />
+        <figcaption>{{ t4 }}{{ c4 }}{{ v4 }}</figcaption>
+      </div>
+      <br class="fix">
+      <div>
+        <img
+          class="img"
+          src="{{url_for('static',path='bat.png')}}"
+        />
+        <figcaption>{{ t5 }}{{ c5 }}{{ v5 }}</figcaption>
+      </div>
+    </div>
+
+
 
   </div>
   <br>
