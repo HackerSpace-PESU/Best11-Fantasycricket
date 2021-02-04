@@ -24,13 +24,12 @@
     </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
     </script>
-    <link href="../static/images/icon.jpg" rel="icon">
     <title>
       Fantasy-cricket Prediction
     </title>
     <meta name="description" content="A simple website to help you choose your playing 11 in your fantasy cricket game">
     <!-- Icon that is visible on the tab -->
-    <link rel="icon" href="../static/icon.png">
+    <link rel="icon" href="https://user-images.githubusercontent.com/54945757/106411662-c8ea2b00-646b-11eb-8580-d8ca7a17b1e0.png">
     <!-- CDN for fontawesome library  -->
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <style>
@@ -211,13 +210,13 @@
               <div class="col-sm-4">
                 <div class="card">
                   <h3>
-                    {{match[0]}} vs {{match[1]}}
+                    {{match["team1"]}} vs {{match["team2"]}}
                   </h3>
-                  <img <="" alt="{{match[0]}} flag&gt;" img="" src="{{match[2]}}" style="width: 90px; height: 70px; border-radius: 5px;">
+                  <img <="" alt="{{match['team1']}} flag&gt;" img="" src="{{match['flag_team1']}}" style="width: 90px; height: 70px; border-radius: 5px;">
                   vs
-                  <img <="" img="" src="{{match[3]}}" style="width: 90px; height: 70px; border-radius: 5px;">
+                  <img <="" alt="{{match['team2']}} flag&gt;" img="" src="{{match['flag_team2']}}" style="width: 90px; height: 70px; border-radius: 5px;">
                   <form action="/" method="POST">
-                    <button class="button button1" name="match" type="submit" value="{{match[0]}} vs {{match[1]}}">
+                    <button class="button button1" name="match" type="submit" value="{{match['team1']}} vs {{match['team2']}}">
                       Predict
                     </button>
                   </form>
@@ -270,9 +269,9 @@
       <div id="mail">
         <a
           class="footerIcon"
-          href="mailto:hackathonclubpes@gmail.com"
+          href="mailto:hackerspace@pes.edu"
           target="_blank"
-          ><i id="mail" class="fas fa-at"></i
+          ><i id="mail" class="fas fa-envelope"></i
         ></a>
       </div>
       <div id="discord">

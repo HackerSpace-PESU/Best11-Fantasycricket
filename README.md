@@ -8,7 +8,7 @@ In the past year or so fantasy cricket has been getting a lot of traction and wi
 
 1. [FastAPI](https://fastapi.tiangolo.com/)
 2. [sklearn](https://scikit-learn.org/stable/)
-3. [pycricbuzz](https://github.com/codophobia/pycricbuzz) 
+3. [scrapyrt](https://scrapyrt.readthedocs.io/en/stable/) 
 4. [scrapy](https://docs.scrapy.org/en/latest/)
 
 Install using </br>
@@ -16,7 +16,7 @@ Install using </br>
 pip3 install -r requirements.txt
 ```
 
-## I want to run your project
+## Local Development
 
 To run our project follow these steps
 
@@ -27,9 +27,13 @@ To run our project follow these steps
 cd Best11-Fantasycricket
 ``` 
 
-3. Run the model : 
+3. Open a tab on your terminal and run 
 
 `uvicorn app.main:app`
+
+4. Open another tab on your terminal and run
+
+`scrapyrt`
 
 5. `Open http://localhost:8000/`  and voila!! 
 
@@ -67,9 +71,9 @@ If you have any questions regarding our project , you can contact any of the mai
 
 ### Acknowledgements
 
-1. Special thanks to [scientes](https://github.com/scientes) for setting up the basic webcrawler
+1. Special thanks to [scientes](https://github.com/scientes) for allowing us to use the server to host the website
 
-2. We would like to thank [Howstat](http://www.howstat.com/cricket/home.asp) for their amazing website with daily updates and availabilty to scrape 
+2. We would like to thank [espncricinfo](https://www.espncricinfo.com/) for their amazing website with daily updates and availabilty to scrape 
 
 If you liked our project we would really appreciate you starring this repo.
 

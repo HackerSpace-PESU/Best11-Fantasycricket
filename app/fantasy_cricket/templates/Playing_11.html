@@ -19,7 +19,7 @@
 	<title>Choose your playing 11</title>
 	<meta content="width=device-width, initial-scale=1" name="viewport">
 	<!-- Icon that is visible on the tab -->
-    <link rel="icon" href="../static/icon.png">
+    <link rel="icon" href="https://user-images.githubusercontent.com/54945757/106411662-c8ea2b00-646b-11eb-8580-d8ca7a17b1e0.png">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
 	</script>
 	<link
@@ -33,7 +33,7 @@
 
 		<p class="mainHeader">Select 11 Players From Each Team</p>
 		
-		<form id= "select_players" action="/playing11?team1={{teams[0]}}&team2={{teams[1]}}&file={{file}}&match_type={{match_type}}" method="POST">
+		<form id= "select_players" action="/playing11?team1={{teams[0]}}&team2={{teams[1]}}&match_type={{match_type}}" method="POST">
 				
 			<div class="container">
 
@@ -45,10 +45,10 @@
 					{% for player in squads[0] %}
 						<tr>
 							<td>
-								{{player}}
+								{{player['name']}}
 							</td>
 							<td>
-								<input class="team1" type="checkbox" name="{{player}}"></input>
+								<input class="team1" type="checkbox" name="{{player['player_id']}}"></input>
 							</td>
 						</tr>
 					{% endfor %}
@@ -66,10 +66,10 @@
 					{% for player in squads[1] %}
 						<tr>
 							<td>
-								<td>{{player}}</td>
+								<td>{{player['name']}}</td>
 							</td>
 							<td>
-								<input class="team2" type="checkbox" name="{{player}}"></input>
+								<input class="team2" type="checkbox" name="{{player['id']}}"></input>
 							</td>
 						</tr>
 					{% endfor %}
@@ -85,7 +85,7 @@
 		</form>
 		
 		<div id="grey">
-			<img src="../static/loading.gif" alt="Loading" id="loading">
+			<img src="https://user-images.githubusercontent.com/54945757/106838106-a81b1300-66c1-11eb-93dc-3826b20cf754.gif" alt="Loading" id="loading">
 			<br><br>
 			<center>
 				<h2 style="color:white; font-size:40px">Loading....</h2>

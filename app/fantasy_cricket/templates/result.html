@@ -1,24 +1,9 @@
 <!DOCTYPE html>
-<!--Copyright (C) 2020  Royston E Tauro & Sammith S Bharadwaj & Shreyas Raviprasad
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as published
-    by the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
--->
 <html>
   <head>
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <!-- Icon that is visible on the tab -->
-    <link rel="icon" href="../static/icon.png">
+    <link rel="icon" href="https://user-images.githubusercontent.com/54945757/106411662-c8ea2b00-646b-11eb-8580-d8ca7a17b1e0.png">
     <link
       rel="stylesheet"
       type="text/css"
@@ -36,7 +21,7 @@
         }
       }
     </style>
-    <link rel="icon" href="../static/images/icon.jpg" />
+    <link rel="icon" href="https://user-images.githubusercontent.com/54945757/106411662-c8ea2b00-646b-11eb-8580-d8ca7a17b1e0.png" />
     <title>Results Page</title>
   </head>
   <body class="container">
@@ -48,140 +33,29 @@
 
       <div class="whiteCard">
 
-      <!-- <div class="line1">
-
-        <div>
-          <img
-            class="img"
-            src="{{url_for('static',path='bat.png')}}"
-          />
-          <figcaption>{{ t1 }}{{ c1 }}{{ v1 }}</figcaption>
-        </div>
-        <br class="fix">
-        <div>
-          <img
-            class="img"
-            src="{{url_for('static',path='bat.png')}}"
-          />
-          <figcaption>{{ t2 }}{{ c2 }}{{ v2 }}</figcaption>
-        </div>
-        <div>
-          <img
-            class="img"
-            src="{{url_for('static',path='bat.png')}}"
-          />
-          <figcaption>{{ t3 }}{{ c3 }}{{ v3 }}</figcaption>
-        </div>
-        <br class="fix">
-        <div>
-          <img
-            class="img"
-            src="{{url_for('static',path='bat.png')}}"
-          />
-          <figcaption>{{ t4 }}{{ c4 }}{{ v4 }}</figcaption>
-        </div>
-        <br class="fix">
-        <div>
-          <img
-            class="img"
-            src="{{url_for('static',path='bat.png')}}"
-          />
-          <figcaption>{{ t5 }}{{ c5 }}{{ v5 }}</figcaption>
-        </div>
-      </div> -->
-
-
-    <div class="line2">
+      <div class="line2">
       <br class="fix">
+      {% for player in team[5:] %}
       <div>
         <img
           class="img"
-          src="{{url_for('static',path='bat.png')}}"
+          src="{{player['image']}}"
         />
-        <figcaption>{{ t6 }}{{ c6 }}{{ v6 }}</figcaption>
+        <figcaption>{{ player["name"] }}{{ player["captain"] }}</figcaption>
       </div>
-      <br class="fix">
-      <div>
-        <img
-          class="img"
-          src="{{url_for('static',path='bat.png')}}"
-        />
-        <figcaption>{{ t7 }}{{ c7 }}{{ v7 }}</figcaption>
-      </div>
-      <br class="fix">
-      <div>
-        <img
-          class="img"
-          src="{{url_for('static',path='bat.png')}}"
-        />
-        <figcaption>{{ t8 }}{{ c8 }}{{ v8 }}</figcaption>
-      </div>
-      <br class="fix">
-      <div>
-        <img
-          class="img"
-          src="{{url_for('static',path='bat.png')}}"
-        />
-        <figcaption>{{ t9 }}{{ c9 }}{{ v9 }}</figcaption>
-      </div>
-      <br class="fix">
-      <div>
-        <img
-          class="img"
-          src="{{url_for('static',path='bat.png')}}"
-        />
-        <figcaption>{{ t10 }}{{ c10 }}{{ v10 }}</figcaption>
-      </div>
-      <br class="fix">
-      <div>
-        <img
-          class="img"
-          src="{{url_for('static',path='bat.png')}}"
-        />
-        <figcaption>{{ t11 }}{{ c11 }}{{ v11 }}</figcaption>
-      </div>
+      {% endfor %}
     </div>
-
-
     <div class="line1">
+      {% for player in team[0:5] %}
       <div>
         <img
           class="img"
-          src="{{url_for('static',path='bat.png')}}"
+          src="{{player['image']}}"
         />
-        <figcaption>{{ t1 }}{{ c1 }}{{ v1 }}</figcaption>
+        <figcaption>{{ player["name"] }}{{ player["captain"] }}</figcaption>
       </div>
-      <br class="fix">
-      <div>
-        <img
-          class="img"
-          src="{{url_for('static',path='bat.png')}}"
-        />
-        <figcaption>{{ t2 }}{{ c2 }}{{ v2 }}</figcaption>
-      </div>
-      <div>
-        <img
-          class="img"
-          src="{{url_for('static',path='bat.png')}}"
-        />
-        <figcaption>{{ t3 }}{{ c3 }}{{ v3 }}</figcaption>
-      </div>
-      <br class="fix">
-      <div>
-        <img
-          class="img"
-          src="{{url_for('static',path='bat.png')}}"
-        />
-        <figcaption>{{ t4 }}{{ c4 }}{{ v4 }}</figcaption>
-      </div>
-      <br class="fix">
-      <div>
-        <img
-          class="img"
-          src="{{url_for('static',path='bat.png')}}"
-        />
-        <figcaption>{{ t5 }}{{ c5 }}{{ v5 }}</figcaption>
-      </div>
+
+      {% endfor %}
     </div>
 
 
