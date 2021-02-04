@@ -1,3 +1,6 @@
+"""This module defines all supported fantasy_leagues and their functionality.
+All browsers must inherit from app.fantasy_cricket.Team`.
+"""
 from app.fantasy_cricket.team import Team
 
 

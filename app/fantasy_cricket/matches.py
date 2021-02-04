@@ -1,32 +1,9 @@
 """
-
 The module is defined to get upcoming match data of the next 2 days
-
 """
 
-import json
-import sys
 from typing import List
-
-if sys.version_info >= (3, 8):
-    from typing import TypedDict
-else:
-    from typing_extensions import TypedDict
-from app.fantasy_cricket.ScrapyRTClient import espn_scrapyrt_client, Squad
-
-
-class Match(TypedDict):
-    team1: str
-    team2: str
-    flag_team1: str
-    flag_team2: str
-
-
-class Upcoming(TypedDict):
-
-    team1_squad: Squad
-    team2_squad: Squad
-    match_type: str
+from app.fantasy_cricket.scrapyrt_client import EspnClient
 
 
 class Matches:
@@ -37,9 +14,9 @@ class Matches:
 
     def __init__(self) -> None:
 
-        self.espn = espn_scrapyrt_client()
+        self.espn = EspnClient()
 
-    def get_upcoming_match(self) -> List[Match]:
+    def get_upcoming_match(self):
         """
         Gets current matches dict
         """
@@ -61,16 +38,19 @@ class Matches:
 
         return matches
 
-    def get_squad_match_type(self, teams: List[str]) -> Upcoming:
+    def get_squad_match_type(self, teams: List[str]):
         """
-        Gets squad file based on teams
+        Gets squad and match_class based on teams
         """
 
         for match in self.espn.get_upcoming_dets():
 
             if match["team1"] == teams[0] and match["team2"] == teams[1]:
-                return {
+                match_det = {
                     "team1_squad": match["team1_squad"],
                     "team2_squad": match["team2_squad"],
                     "match_type": match["match_id"],
                 }
+                break
+
+        return match_det

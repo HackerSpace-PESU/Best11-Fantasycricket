@@ -1,37 +1,34 @@
 """
-This module defines the teams class which outputs the team for the match
-and the Predict class which predicts the score based on the role
-Copyright (C) 2020  Royston E Tauro & Sammith S Bharadwaj & Shreyas Raviprasad
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as published
-    by the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+This module defines the teams class which is generic over the classes in fantasy_leagues module
 """
 
-import json
+from typing import List, Optional
 import numpy as np
 from sklearn.linear_model import LinearRegression
-from typing import List
-from app.fantasy_cricket.ScrapyRTClient import espn_scrapyrt_client
-
+from app.fantasy_cricket.scrapyrt_client import EspnClient
 
 class Team:
+    """
+    A generic class built over the league classes in fantasy_leagues.py
+    """
+    name : Optional[str] = None
+
+    batting_dict = {}
+    bowling_dict = {}
+    wk_dict ={}
+
     def __init__(self, team1: str, team2: str) -> None:
 
         self.fantasy_team = {team1: [], team2: []}
         self.team1 = team1
         self.team2 = team2
-        self.espn = espn_scrapyrt_client()
+        self.espn = EspnClient()
 
     def get_fantasy_team(self):
-
-        vice_captain , captain = self.get_captain_vicecaptain()
+        """
+        Get the fantasy team predicted including captains
+        """
+        vice_captain, captain = self.get_captain_vicecaptain()
         for player in self.fantasy_team[self.team1] + self.fantasy_team[self.team2]:
             if player == captain:
                 player["captain"] = "(C)"
@@ -42,10 +39,18 @@ class Team:
         return self.fantasy_team[self.team1] + self.fantasy_team[self.team2]
 
     def get_captain_vicecaptain(self):
-        return sorted(self.fantasy_team[self.team1] + self.fantasy_team[self.team2],key=lambda i: i["score"])[-2:]
+        """
+        Get captains and vice captains only
+        """
+        return sorted(
+            self.fantasy_team[self.team1] + self.fantasy_team[self.team2],
+            key=lambda i: i["score"],
+        )[-2:]
 
     def get_score(self, role: str, match_type: str, score_info) -> float:
-
+        """
+        Function to predict the fantasy league score of each player
+        """
         player_scores = {}
         for score_data in score_info:
             if role == "batsman":
@@ -72,41 +77,39 @@ class Team:
                         "4-wicket-haul",
                         "5-wicket-haul",
                     ]
-                )
-                +sum(
-                    self.bowling_dict[key][int(match_type) - 1] * int(score_data[key])
-                    for key in score_data
-                    if key
-                    not in [
-                        "match_id",
-                        "runs",
-                        "boundaries",
-                        "sixes",
-                        "100",
-                        "50",
-                        "duck",
-                    ]
-                )
+                ) + sum(
+                        self.bowling_dict[key][int(match_type) - 1] * int(score_data[key])
+                        for key in score_data
+                        if key
+                        not in [
+                            "match_id",
+                            "runs",
+                            "boundaries",
+                            "sixes",
+                            "100",
+                            "50",
+                            "duck",
+                        ]
+                    )
             elif role == "wicket-keeper":
                 player_scores[score_data["match_id"]] = sum(
                     self.batting_dict[key][int(match_type) - 1] * int(score_data[key])
                     for key in score_data
                     if key not in ["match_id", "Catch", "Stump"]
-                )
-                +sum(
-                    self.wk_dict[key][int(match_type) - 1] * int(score_data[key])
-                    for key in score_data
-                    if key
-                    not in [
-                        "match_id",
-                        "runs",
-                        "boundaries",
-                        "sixes",
-                        "100",
-                        "50",
-                        "duck",
-                    ]
-                )
+                )+ sum(
+                        self.wk_dict[key][int(match_type) - 1] * int(score_data[key])
+                        for key in score_data
+                        if key
+                        not in [
+                            "match_id",
+                            "runs",
+                            "boundaries",
+                            "sixes",
+                            "100",
+                            "50",
+                            "duck",
+                        ]
+                    )
         scores = [player_scores[k] for k in sorted(player_scores)]
         regr = LinearRegression(fit_intercept=True)
         y_train = np.array(scores).reshape(-1, 1)
@@ -123,7 +126,9 @@ class Team:
         return result
 
     def get_min_team(self, players):
-
+        """
+        Gets the min team as per the fantasy league
+        """
         role_score_map = {
             "batsman": sorted(
                 [player for player in players if player["role"] == "batsman"],
@@ -135,15 +140,17 @@ class Team:
             )[-3:],
             "all-rounder": sorted(
                 [player for player in players if player["role"] == "all-rounder"],
-                key=lambda i: i["score"], reverse = True
+                key=lambda i: i["score"],
+                reverse=True,
             )[0:1],
             "wicket-keeper": sorted(
                 [player for player in players if player["role"] == "wicket-keeper"],
-                key=lambda i: i["score"],reverse = True
+                key=lambda i: i["score"],
+                reverse=True,
             )[:1],
         }
 
-        for role in role_score_map.keys():
+        for role in role_score_map:
             for player in role_score_map[role]:
                 if player["team"] == self.team1:
                     self.fantasy_team[self.team1].append(player)
@@ -151,10 +158,13 @@ class Team:
                     self.fantasy_team[self.team2].append(player)
 
         return self.fantasy_team[self.team1] + self.fantasy_team[self.team2]
+
     def fetch_fantasy_team(
         self, player_team1: List[str], player_team2: List[str], match_type: str
     ):
-
+        """
+        Builds the fantasy Team
+        """
         players = self.espn.get_player_dets(player_team1, self.team1)
         players += self.espn.get_player_dets(player_team2, self.team2)
         remove = []
@@ -174,9 +184,11 @@ class Team:
 
         for player in remove:
             players.remove(player)
-        
-        for player in sorted(players,key=lambda i: i["score"]):
-            if (len(self.fantasy_team[self.team1]) + len(self.fantasy_team[self.team2])) == 11:
+
+        for player in sorted(players, key=lambda i: i["score"]):
+            if (
+                len(self.fantasy_team[self.team1]) + len(self.fantasy_team[self.team2])
+            ) == 11:
                 break
             if player["team"] == self.team1:
                 if len(self.fantasy_team[self.team1]) != 7:

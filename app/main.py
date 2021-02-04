@@ -16,6 +16,7 @@ Copyright (C) 2020  Royston E Tauro & Sammith S Bharadwaj & Shreyas Raviprasad
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from typing import List
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, RedirectResponse, FileResponse
 from fastapi import FastAPI, Form, Request, status, Query
@@ -23,7 +24,6 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.encoders import jsonable_encoder
 from app.fantasy_cricket.fantasy_leagues import Dream11
 from app.fantasy_cricket.matches import Matches
-from typing import List
 
 # pylint: disable=missing-function-docstring
 # pylint: disable=global-variable-undefined
@@ -83,20 +83,14 @@ async def playing_11_post(
     match_type: str = Query(...),
 ):
 
-    playing_11 = list(jsonable_encoder(await request.form()).keys())
-    playing_11.remove("Confirm")
+    play_11 = list(jsonable_encoder(await request.form()).keys())
+    play_11.remove("Confirm")
     url = (
-        "/results/?match_type="
-        + match_type
-        + "&team1="
-        + team1
-        + "&team2="
-        + team2
-        + "&"
+        "/results/?match_type=" + match_type + "&team=" + team1 + "&team=" + team2 + "&"
     )
-    for player in playing_11[0:11]:
+    for player in play_11[0:11]:
         url += "player_team1=" + player + "&"
-    for player in playing_11[11:]:
+    for player in play_11[11:]:
         url += "player_team2=" + player + "&"
     return RedirectResponse(url=url[:-1], status_code=status.HTTP_302_FOUND)
 
@@ -104,13 +98,12 @@ async def playing_11_post(
 @app.get("/results", response_class=HTMLResponse)
 def result(
     request: Request,
-    team1: str,
-    team2: str,
+    team: List[str] = Query(...),
     match_type: str = Query(...),
     player_team1: List[str] = Query(...),
     player_team2: List[str] = Query(...),
 ):
-    t_d = Dream11(team1, team2)
+    t_d = Dream11(team[0], team[1])
     t_d.fetch_fantasy_team(player_team1, player_team2, match_type)
     team = t_d.get_fantasy_team()
     return templates.TemplateResponse(
@@ -120,6 +113,7 @@ def result(
             "team": team,
         },
     )
+
 
 @app.get("/robots.txt")
 def robots():
