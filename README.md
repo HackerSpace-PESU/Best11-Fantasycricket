@@ -53,6 +53,8 @@ cd Best11-Fantasycricket
 
 ## How do I contribute to this project????
 
+:warning:  Warning! Existing contributors and/or future contributors , re-fork the repo as the commit-history has been rewritten to reduce size of the repo while cloning which makes cloning much faster than before!.
+
 Refer to the [Contributing.md](https://github.com/HackerSpace-PESU/Best11-Fantasycricket/blob/master/.github/CONTRIBUTING.md) file of our repository 
 </br></br>
 If you have any suggestions for our project , do raise a issue and we will look into it and if we think it helps our project we will keep it open until its implemented by us or by anyone else 
