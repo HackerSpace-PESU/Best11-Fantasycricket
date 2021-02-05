@@ -27,28 +27,57 @@ To run our project follow these steps
 cd Best11-Fantasycricket
 ``` 
 
-3. Open a tab on your terminal and run 
+3.  
+	**Linux and MACOS**
+	
+	1. Type `nano /etc/hosts` on your terminal or open `/etc/hosts` on your prefered editor 
+
+	**Windows**
+	1. Open `C:\windows\system32\drivers\etc\hosts` in your prefered editor
+
+	
+	2. And add the below line to the the file and save
+
+	`127.0.0.1 espncricinfo`
+
+	**OR**
+
+	1. Open `app/fantasy_cricket/scrapyrt_client.py` in your prefered editor
+
+	2. Change line `16` to
+		
+		```python
+			self.url = "http://localhost:9080/crawl.json"
+		```
+
+4. Open a tab on your terminal and run 
 
 `uvicorn app.main:app`
 
-4. Open another tab on your terminal and run
+5. Open another tab on your terminal and run
 
 `scrapyrt`
 
-5. `Open http://localhost:8000/`  and voila!! 
+
+6. Open `http://localhost:8000/`  and voila!! 
+
+**Note:**
+Visit `http://localhost:9080/crawl.json` with the correct queries to see the crawler api 
 
 ### Docker
 
 1. Follow the steps:
-	```bash
-	docker build -t best11fantasycricket:latest "." 
-	```
 
 	```bash
-	docker-compose up
+		docker build -t espncricinfo:latest "." -f docker/espncricinfo/Dockerfile
+		docker build -t best11:latest "." -f docker/11tastic/Dockerfile
+		docker-compose -f docker/docker-compose.yaml up
 	```
 
-2. Visit `http://localhost:8080/`
+2. Visit `http://localhost:8080/` to see the website in action
+
+**Note**
+     Visit `http://localhost:9080/crawl.json` with the correct queries to see the crawler api 
 
 
 ## How do I contribute to this project????

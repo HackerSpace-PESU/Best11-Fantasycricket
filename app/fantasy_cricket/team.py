@@ -7,15 +7,17 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from app.fantasy_cricket.scrapyrt_client import EspnClient
 
+
 class Team:
     """
     A generic class built over the league classes in fantasy_leagues.py
     """
-    name : Optional[str] = None
+
+    name: Optional[str] = None
 
     batting_dict = {}
     bowling_dict = {}
-    wk_dict ={}
+    wk_dict = {}
 
     def __init__(self, team1: str, team2: str) -> None:
 
@@ -78,38 +80,38 @@ class Team:
                         "5-wicket-haul",
                     ]
                 ) + sum(
-                        self.bowling_dict[key][int(match_type) - 1] * int(score_data[key])
-                        for key in score_data
-                        if key
-                        not in [
-                            "match_id",
-                            "runs",
-                            "boundaries",
-                            "sixes",
-                            "100",
-                            "50",
-                            "duck",
-                        ]
-                    )
+                    self.bowling_dict[key][int(match_type) - 1] * int(score_data[key])
+                    for key in score_data
+                    if key
+                    not in [
+                        "match_id",
+                        "runs",
+                        "boundaries",
+                        "sixes",
+                        "100",
+                        "50",
+                        "duck",
+                    ]
+                )
             elif role == "wicket-keeper":
                 player_scores[score_data["match_id"]] = sum(
                     self.batting_dict[key][int(match_type) - 1] * int(score_data[key])
                     for key in score_data
                     if key not in ["match_id", "Catch", "Stump"]
-                )+ sum(
-                        self.wk_dict[key][int(match_type) - 1] * int(score_data[key])
-                        for key in score_data
-                        if key
-                        not in [
-                            "match_id",
-                            "runs",
-                            "boundaries",
-                            "sixes",
-                            "100",
-                            "50",
-                            "duck",
-                        ]
-                    )
+                ) + sum(
+                    self.wk_dict[key][int(match_type) - 1] * int(score_data[key])
+                    for key in score_data
+                    if key
+                    not in [
+                        "match_id",
+                        "runs",
+                        "boundaries",
+                        "sixes",
+                        "100",
+                        "50",
+                        "duck",
+                    ]
+                )
         scores = [player_scores[k] for k in sorted(player_scores)]
         regr = LinearRegression(fit_intercept=True)
         y_train = np.array(scores).reshape(-1, 1)

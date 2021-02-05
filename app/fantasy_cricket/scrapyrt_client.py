@@ -13,7 +13,7 @@ class EspnClient:
 
     def __init__(self) -> None:
 
-        self.url = "http://localhost:9080/crawl.json"
+        self.url = "http://espncricinfo:9080/crawl.json"
 
     def get_upcoming_dets(self):
         """
@@ -89,9 +89,13 @@ class EspnClient:
                 for key, val in match_det[i].items()
                 if key not in role_filter_dict[role]
             }
-            if role in ["batsman" , "all-rounder" , "wicket-keeper"]:
+            if role in ["batsman", "all-rounder", "wicket-keeper"]:
                 match_det[i]["100"] = match_det[i]["50"] = match_det[i]["duck"] = 0
-                if match_det[i]["runs"] >= 100:
+                if not match_det[i]["runs"]:
+                    match_det[i]["runs"] = match_det[i]["boundaries"] = match_det[i][
+                        "sixes"
+                    ] = 0
+                elif match_det[i]["runs"] >= 100:
                     match_det[i]["100"] = 1
                 elif match_det[i]["runs"] >= 50:
                     match_det[i]["50"] = 1
@@ -99,7 +103,9 @@ class EspnClient:
                     match_det[i]["duck"] = 1
             if role in ["bowler", "all-rounder"]:
                 match_det[i]["4-wicket-haul"] = match_det[i]["5-wicket-haul"] = 0
-                if match_det[i]["wicket"] >= 5:
+                if not match_det[i]["wicket"]:
+                    match_det[i]["wicket"] = match_det[i]["Maiden"] = 0 
+                elif match_det[i]["wicket"] >= 5:
                     match_det[i]["5-wicket-haul"] = 1
                 elif match_det[i]["wicket"] >= 4:
                     match_det[i]["4-wicket-haul"] = 1
