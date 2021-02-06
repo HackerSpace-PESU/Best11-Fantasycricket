@@ -7,6 +7,8 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+import os
+
 BOT_NAME = "espncricinfo"
 
 SPIDER_MODULES = ["espncricinfo.spiders"]
@@ -45,6 +47,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 # Enable or disable downloader middlewares
+if os.getenv("TEST"):
+	SPIDER_MIDDLEWARES = {
+    	'scrapy_autounit.AutounitMiddleware': 950
+	}
+	AUTOUNIT_ENABLED = True
+
+
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 # DOWNLOADER_MIDDLEWARES = {
 #    'espncricinfo.middlewares.EspncricinfoDownloaderMiddleware': 543,

@@ -1,0 +1,53 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@1.3.2
+  
+jobs:
+  build-and-test:
+    executor: python/default
+    environment:
+      TEST: True
+    steps:
+      - checkout
+      - run:
+          command: |
+            python -m pip install --upgrade pip
+            pip install pylint
+            pip install -r requirements.txt
+            pip install scrapy-autounit scrapy
+      - run:
+          command : |
+            scrapy crawl espn-live
+            scrapy crawl espn-players
+      - run:
+          command: python3 -m unittest discover autounit/tests/
+          name: Crawler Test with autounit
+      - run:
+          command: |
+            pylint app -E
+            pylint app --exit-zero
+          name: Lint with pylint
+      - run:
+          name: Install Docker client
+          command: |
+            set -x
+            VER="17.03.0-ce"
+            curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
+            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+            sudo mv /tmp/docker/* /usr/bin
+      - run:
+          name: Install Docker Compose
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.25.3/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compo
+      - setup_remote_docker:
+          version: 19.03.14
+      - run:
+          name: Test with pytest
+          command: sudo docker-compose -f docker/docker-compose-test.yaml up --build --exit-code-from test
+workflows:
+  main:
+    jobs:
+      - build-and-test

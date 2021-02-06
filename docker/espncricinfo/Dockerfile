@@ -9,4 +9,3 @@ COPY ./scrapy.cfg /crawler/scrapy.cfg
 
 EXPOSE 9080
 CMD ["scrapyrt", "-i", "0.0.0.0"]
-

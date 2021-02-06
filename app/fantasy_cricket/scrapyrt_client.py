@@ -104,7 +104,7 @@ class EspnClient:
             if role in ["bowler", "all-rounder"]:
                 match_det[i]["4-wicket-haul"] = match_det[i]["5-wicket-haul"] = 0
                 if not match_det[i]["wicket"]:
-                    match_det[i]["wicket"] = match_det[i]["Maiden"] = 0 
+                    match_det[i]["wicket"] = match_det[i]["Maiden"] = 0
                 elif match_det[i]["wicket"] >= 5:
                     match_det[i]["5-wicket-haul"] = 1
                 elif match_det[i]["wicket"] >= 4:
