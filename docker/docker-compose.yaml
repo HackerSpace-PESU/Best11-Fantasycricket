@@ -1,0 +1,22 @@
+version: '3.3'  
+services:
+  espncricinfo:
+    image: espncricinfo:latest
+    ports:
+      - "9080:9080"
+    environment:
+      - LOG_LEVEL=DEBUG
+  app:
+    image: best11:latest
+    depends_on:
+      - espncricinfo
+    ports:
+      - "8080:80"
+    environment:
+      - MAX_WORKERS=1
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 100M
+    

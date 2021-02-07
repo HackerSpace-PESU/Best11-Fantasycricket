@@ -2,5 +2,5 @@
 
 User-agent: *
 Allow: /
-Disallow: /playing11
-Disallow: /results
+Allow: /playing11
+Allow: /results

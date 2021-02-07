@@ -1,0 +1,46 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@1.3.2
+  
+jobs:
+  build-and-test:
+    executor: python/default
+    environment:
+      TEST: True
+    steps:
+      - checkout
+      - run:
+          command: |
+            python -m pip install --upgrade pip
+            pip install pylint pytest
+            pip install -r requirements.txt
+            pip install scrapy-autounit
+      - run:
+          command : |
+            scrapy crawl espn-live
+            scrapy crawl espn-players
+      - run:
+          command: |
+            python3 -m unittest discover autounit/tests/
+            sudo rm -rf autounit
+          name: Crawler Test with autounit
+      - run:
+          command: |
+           pylint app -E
+           pylint app --exit-zero
+         name: Lint with pylint
+      - run:
+          name: api server
+          command: |
+            scrapyrt
+          background: True
+      - run:
+          name: Test with pytest
+          command: |
+            sudo echo '127.0.0.1       espncricinfo' | sudo cat - /etc/hosts > temp && sudo mv temp /etc/hosts   
+            pytest
+workflows:
+  main:
+    jobs:
+      - build-and-test

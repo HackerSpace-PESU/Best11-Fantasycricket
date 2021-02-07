@@ -8,7 +8,7 @@ In the past year or so fantasy cricket has been getting a lot of traction and wi
 
 1. [FastAPI](https://fastapi.tiangolo.com/)
 2. [sklearn](https://scikit-learn.org/stable/)
-3. [pycricbuzz](https://github.com/codophobia/pycricbuzz) 
+3. [scrapyrt](https://scrapyrt.readthedocs.io/en/stable/) 
 4. [scrapy](https://docs.scrapy.org/en/latest/)
 
 Install using </br>
@@ -16,7 +16,7 @@ Install using </br>
 pip3 install -r requirements.txt
 ```
 
-## I want to run your project
+## Local Development
 
 To run our project follow these steps
 
@@ -27,24 +27,57 @@ To run our project follow these steps
 cd Best11-Fantasycricket
 ``` 
 
-3. Run the model : 
+3.  
+	**Linux and MACOS**
+	
+	1. Type `nano /etc/hosts` on your terminal or open `/etc/hosts` on your prefered editor 
+
+	**Windows**
+	1. Open `C:\windows\system32\drivers\etc\hosts` in your prefered editor
+
+	
+	2. And add the below line to the the file and save
+
+	`127.0.0.1 espncricinfo`
+
+	**OR**
+
+	1. Open `app/fantasy_cricket/scrapyrt_client.py` in your prefered editor
+
+	2. Change line `16` to
+		
+		```python
+			self.url = "http://localhost:9080/crawl.json"
+		```
+
+4. Open a tab on your terminal and run 
 
 `uvicorn app.main:app`
 
-5. `Open http://localhost:8000/`  and voila!! 
+5. Open another tab on your terminal and run
+
+`scrapyrt`
+
+
+6. Open `http://localhost:8000/`  and voila!! 
+
+**Note:**
+Visit `http://localhost:9080/crawl.json` with the correct queries to see the crawler api 
 
 ### Docker
 
 1. Follow the steps:
-	```bash
-	docker build -t best11fantasycricket:latest "." 
-	```
 
 	```bash
-	docker-compose up
+		docker build -t espncricinfo:latest "." -f docker/espncricinfo/Dockerfile
+		docker build -t best11:latest "." -f docker/11tastic/Dockerfile
+		docker-compose -f docker/docker-compose.yaml up
 	```
 
-2. Visit `http://localhost:8080/`
+2. Visit `http://localhost:8080/` to see the website in action
+
+**Note**
+     Visit `http://localhost:9080/crawl.json` with the correct queries to see the crawler api 
 
 
 ## How do I contribute to this project????
@@ -69,9 +102,9 @@ If you have any questions regarding our project , you can contact any of the mai
 
 ### Acknowledgements
 
-1. Special thanks to [scientes](https://github.com/scientes) for setting up the basic webcrawler
+1. Special thanks to [scientes](https://github.com/scientes) for allowing us to use the server to host the website
 
-2. We would like to thank [Howstat](http://www.howstat.com/cricket/home.asp) for their amazing website with daily updates and availabilty to scrape 
+2. We would like to thank [espncricinfo](https://www.espncricinfo.com/) for their amazing website with daily updates and availabilty to scrape 
 
 If you liked our project we would really appreciate you starring this repo.
 
