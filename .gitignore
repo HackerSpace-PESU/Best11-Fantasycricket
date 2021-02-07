@@ -67,6 +67,7 @@ instance/
 
 # Scrapy stuff:
 .scrapy
+autounit
 
 # Sphinx documentation
 docs/_build/

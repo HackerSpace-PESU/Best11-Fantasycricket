@@ -1,0 +1,17 @@
+version: '3.3'  
+services:
+  espncricinfo:
+    build:
+      context: ..
+      dockerfile: docker/espncricinfo/Dockerfile
+    ports:
+      - "9080:9080"
+    environment:
+      - LOG_LEVEL=DEBUG
+  test:
+    build:
+      context: ..
+      dockerfile: docker/test/Dockerfile
+    depends_on:
+      - espncricinfo
+    
